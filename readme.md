@@ -1,1 +1,3 @@
-XDN'T
+# Info
+
+This game will be legendary.
