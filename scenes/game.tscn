@@ -5,5 +5,5 @@
 [node name="Game" type="Node2D"]
 
 [node name="Environment" parent="." instance=ExtResource("2_p43xb")]
-position = Vector2(576, 322)
+position = Vector2(576, 250)
 scale = Vector2(0.22, 0.22)
