@@ -1,12 +1,33 @@
 extends CanvasLayer
 
-func _on_water_pressed() -> void:
-	print("water")
+@onready var action_nodes = {
+	PS.PlayerEffects.RAIN : $Actions/Rain/Sprite2D,
+	PS.PlayerEffects.DRAUGHT : $Actions/Draught/Sprite2D,
+	PS.PlayerEffects.MAJORITY : $Actions/Majority/Sprite2D
+}
 
+func _ready() -> void:
+	update_hud()
+
+func _on_rain_pressed() -> void:
+	reset_hud()
+	PS.update_state(PS.PlayerEffects.RAIN)
+	update_hud()
 
 func _on_draught_pressed() -> void:
-	print("draught")
+	reset_hud()
+	PS.update_state(PS.PlayerEffects.DRAUGHT)
+	update_hud()
 
 
 func _on_majority_pressed() -> void:
-	print("majority")
+	reset_hud()
+	PS.update_state(PS.PlayerEffects.MAJORITY)
+	update_hud()
+	
+
+func update_hud():
+	action_nodes[PS.selected_effect].modulate = Color(1, 0, 0)
+	
+func reset_hud():
+	action_nodes[PS.selected_effect].modulate = Color(1, 1, 1)
