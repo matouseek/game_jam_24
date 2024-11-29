@@ -1,3 +1,7 @@
-[gd_scene format=3 uid="uid://bdpxo72buidr2"]
+[gd_scene load_steps=2 format=3 uid="uid://bdpxo72buidr2"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://dkjsnl86vvjy6" path="res://scenes/hud.tscn" id="1_kwcfv"]
+
+[node name="Game" type="Node2D"]
+
+[node name="HUD" parent="." instance=ExtResource("1_kwcfv")]
