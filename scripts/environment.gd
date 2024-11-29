@@ -16,5 +16,3 @@ func _ready() -> void:
 		for j in range(ENV_SIZE):
 			row.append(TileTypes.MEADOW)
 		terrain.append(row)
-	
-	print(terrain)

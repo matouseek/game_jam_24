@@ -1,11 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdpxo72buidr2"]
+[gd_scene load_steps=2 format=3 uid="uid://bdpxo72buidr2"]
 
-[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="1_kwcfv"]
 [ext_resource type="PackedScene" uid="uid://dud4pgwi261oh" path="res://scenes/environment.tscn" id="2_p43xb"]
 
 [node name="Game" type="Node2D"]
-
-[node name="HUD" parent="." instance=ExtResource("1_kwcfv")]
 
 [node name="Environment" parent="." instance=ExtResource("2_p43xb")]
 position = Vector2(576, 322)
