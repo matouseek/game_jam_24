@@ -6,6 +6,7 @@
 
 [node name="AudioSettings" type="CanvasLayer"]
 process_mode = 3
+visible = false
 script = ExtResource("1_64tt8")
 
 [node name="SFX" type="HSlider" parent="."]
