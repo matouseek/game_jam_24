@@ -1,5 +1,8 @@
 extends CanvasLayer
 var MAX_SHARE = 0.5
+
+signal do_will
+
 @onready var action_nodes = {
 	PS.PlayerEffects.RAIN : $Actions/Rain/Sprite2D,
 	PS.PlayerEffects.DRAUGHT : $Actions/Draught/Sprite2D,
@@ -61,3 +64,7 @@ func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_i
 	reset_hud()
 	PS.update_state(index)
 	update_hud()
+
+
+func _on_will_be_done_pressed() -> void:
+	do_will.emit()

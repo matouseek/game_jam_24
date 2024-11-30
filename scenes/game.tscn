@@ -1,10 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdpxo72buidr2"]
+[gd_scene load_steps=3 format=3 uid="uid://bdpxo72buidr2"]
 
-[ext_resource type="PackedScene" uid="uid://dud4pgwi261oh" path="res://scenes/environment.tscn" id="2_p43xb"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_bggsq"]
+[ext_resource type="PackedScene" uid="uid://csaayek0wci1c" path="res://scenes/environment.tscn" id="2_p43xb"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_bggsq")
 
 [node name="Environment" parent="." instance=ExtResource("2_p43xb")]
 visible = true
 position = Vector2(576, 250)
 scale = Vector2(0.22, 0.22)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
