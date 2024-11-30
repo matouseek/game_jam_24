@@ -20,7 +20,7 @@ func _on_will_done() -> void:
 	
 	print("Process player selection")
 	process_used_effects()
-	env.set_map()
+	env.render_map()
 
 
 	env.calc_distribution()
@@ -34,7 +34,7 @@ func _on_will_done() -> void:
 	
 	print("Add fuck ups for next round")
 	add_fuck_ups()
-	env.set_map()
+	env.render_map()
 	# now wait for player to make selection and then press will be done
 	
 	PS.reset_player_actions_amount()
@@ -72,24 +72,24 @@ func process_effect(effect: PlacedEffect) -> void:
 			process_majority(effect)
 
 func process_rain(rain_effect: PlacedEffect) -> void:
-	var tile: G.TileTypes = env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y]
+	var tile: G.TileTypes = env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type
 	match tile:
 		G.TileTypes.DESERT:
-			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y] = G.TileTypes.MEADOW
+			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type = G.TileTypes.MEADOW
 		G.TileTypes.MEADOW:
-			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y] = G.TileTypes.WATER
+			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type = G.TileTypes.WATER
 		G.TileTypes.WATER:
 			print("Rained on water")
 	
 func process_draught(draught_effect: PlacedEffect) -> void:
-	var tile: G.TileTypes = env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y]
+	var tile: G.TileTypes = env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type
 	match tile:
 		G.TileTypes.DESERT:
 			print("Draught on desert")
 		G.TileTypes.MEADOW:
-			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y] = G.TileTypes.DESERT
+			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type = G.TileTypes.DESERT
 		G.TileTypes.WATER:
-			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y] = G.TileTypes.MEADOW
+			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type = G.TileTypes.MEADOW
 	
 func process_majority(majority_effect: PlacedEffect) -> void:
 	var amounts: Array[int] = []
@@ -102,7 +102,7 @@ func process_majority(majority_effect: PlacedEffect) -> void:
 			var current_tile : Vector2i = start_tile + Vector2i(i,j)
 			if not env.is_valid_map_pos(current_tile):
 				continue
-			var tile: G.TileTypes = env.terrain[current_tile.x][current_tile.y]
+			var tile: G.TileTypes = env.terrain[current_tile.x][current_tile.y].type
 			match tile:
 				G.TileTypes.DESERT:
 					amounts[G.TileTypes.DESERT] += 1
@@ -121,4 +121,4 @@ func process_majority(majority_effect: PlacedEffect) -> void:
 			var current_tile : Vector2i = start_tile + Vector2i(i,j)
 			if not env.is_valid_map_pos(current_tile):
 				continue
-			env.terrain[current_tile.x][current_tile.y] = resulting_tile
+			env.terrain[current_tile.x][current_tile.y].type = resulting_tile

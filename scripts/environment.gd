@@ -8,19 +8,20 @@ var used_effects : Array[PlacedEffect] = []
 var last_selected = [Vector2i(-1000,-1000)]
 
 var offsets = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
-		Vector2i(-1,  0),               Vector2i(1,  0),
-		Vector2i(-1,  1), Vector2i(0,  1), Vector2i(1,  1)]
+			   Vector2i(-1,  0),                  Vector2i(1,  0),
+			   Vector2i(-1,  1), Vector2i(0,  1), Vector2i(1,  1)]
 
 var terrain: Array = []
 
 func _ready() -> void:
 	for i in range(ENV_SIZE):
-		var row: Array = []
+		var row: Array[WorldTile] = []
 		for j in range(ENV_SIZE):
-			row.append(G.TileTypes.MEADOW)
+			var default_tile : WorldTile = WorldTile.new(G.get_rand_tile_type(),WorldTile.Tier.LOW)
+			row.append(default_tile)
 		terrain.append(row)
 	initialize_randomly()
-	set_map()
+	render_map()
 	calc_distribution()
 	
 func _input(event):
@@ -44,7 +45,7 @@ func calc_distribution():
 	var vals = [0.0,0.0,0.0]
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			vals[terrain[i][j]] += 1
+			vals[terrain[i][j].type] += 1
 	var all = ENV_SIZE*ENV_SIZE
 	var vals_percent = []
 	for i in range(len(vals)):
@@ -98,15 +99,15 @@ func clear_effects_visuals() -> void:
 func initialize_randomly() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			terrain[i][j] = randi_range(0,2)
+			terrain[i][j] = WorldTile.new(G.get_rand_tile_type(),WorldTile.Tier.LOW)
 #			if (j== ENV_SIZE-1 and i == ENV_SIZE-1): terrain[i][j] = -1
 #			elif (j == ENV_SIZE-1 or i == ENV_SIZE-1): terrain[i][j] = 2
 #			else : terrain[i][j] = randi_range(0,1)
 
-func set_map() -> void:
+func render_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			$TileMapLayer.set_cell(Vector2i(i,j),terrain[i][j],Vector2i(0,0))
+			$TileMapLayer.set_cell(Vector2i(i,j),terrain[i][j].type,Vector2i(0,0))
 
 func reset_effects() -> void:
 	used_effects = []
