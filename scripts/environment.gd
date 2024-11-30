@@ -39,7 +39,7 @@ func initialize_randomly() -> void:
 func set_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			print("Setting cell to",terrain[i][j])
+			#print("Setting cell to",terrain[i][j])
 			$TileMapLayer.set_cell(Vector2i(i,j),get_tile_id(terrain[i][j]),Vector2i(0,0))
 
 func get_tile_id(type : TileTypes) -> int:

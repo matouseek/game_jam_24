@@ -1,10 +1,18 @@
 extends CanvasLayer
-
+var MAX_SHARE = 0.5
 @onready var action_nodes = {
 	PS.PlayerEffects.RAIN : $Actions/Rain/Sprite2D,
 	PS.PlayerEffects.DRAUGHT : $Actions/Draught/Sprite2D,
 	PS.PlayerEffects.MAJORITY : $Actions/Majority/Sprite2D
 }
+
+@onready var goals_nodes = {
+	G.TileTypes.WATER : $Goals/Water/Sprite2D,
+	G.TileTypes.MEADOW :  $Goals/Meadow/Sprite2D,
+	G.TileTypes.DESERT :  $Goals/Desert/Sprite2D
+}
+
+
 
 func _ready() -> void:
 	update_hud()
@@ -31,3 +39,9 @@ func update_hud():
 	
 func reset_hud():
 	action_nodes[PS.selected_effect].modulate = Color(1, 1, 1)
+
+func set_goal(type: G.TileTypes, value:float):
+	var sprite = goals_nodes[type]
+	print(sprite.position)
+	sprite.position.x = 44 + int(190*(value/MAX_SHARE))
+	
