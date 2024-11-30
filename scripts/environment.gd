@@ -23,8 +23,6 @@ func _ready() -> void:
 	set_map()
 	calc_distribution()
 	
-	
-	
 func _input(event):
 	if event is InputEventMouse:
 		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
@@ -37,7 +35,7 @@ func _input(event):
 	if Input.is_action_pressed("ui_accept"): # test print used effects
 		print(used_effects)
 		pass
-		#erase_all_effects()
+		#clear_effects_visuals()
 		
 	if Input.is_action_just_pressed("ui_up"): # remove effect
 		used_effects.pop_back()
@@ -72,7 +70,7 @@ func handle_highlights(pos: Vector2i) -> void:
 			highligh_neighbors(pos)
 
 func render_placed_effects(placed_effects : Array[PlacedEffect]) -> void:
-	erase_all_effects()
+	clear_effects_visuals()
 	for effect in placed_effects:
 		$Used.set_cell(effect.source_coord,effect.type,Vector2i(0,0))
 		if effect.type == PS.PlayerEffects.MAJORITY: # handle majority effect rendering
@@ -90,7 +88,7 @@ func highligh_neighbors(pos : Vector2i) -> void:
 			last_selected.append(newpos)
 			$Highlight.set_cell(newpos,PS.selected_effect,Vector2i(0,0))
 
-func erase_all_effects() -> void:
+func clear_effects_visuals() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
 			$Used.set_cell(Vector2i(i,j),-1,Vector2i(0,0))
@@ -107,3 +105,6 @@ func set_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
 			$TileMapLayer.set_cell(Vector2i(i,j),terrain[i][j],Vector2i(0,0))
+			
+func reset_effects() -> void:
+	used_effects = []
