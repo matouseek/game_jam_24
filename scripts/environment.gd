@@ -2,6 +2,8 @@ extends Node2D
 
 const ENV_SIZE: int = 12
 
+var used_effects : Array[PlacedEffect] = []
+
 var last_selected = [Vector2i(-1000,-1000)]
 
 var offsets = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
@@ -11,6 +13,7 @@ var offsets = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
 var terrain: Array = []
 
 func _ready() -> void:
+	
 	for i in range(ENV_SIZE):
 		var row: Array = []
 		for j in range(ENV_SIZE):
@@ -28,9 +31,18 @@ func _input(event):
 		if (is_valid_click_pos(pos)):
 			if event.is_action_pressed("mouse_click"):
 				confirm_tile_selection()
+				render_placed_effects(used_effects)
 			handle_highlights(pos)
-	if Input.is_action_pressed("ui_accept"):
-		erase_all_effects()
+			
+	if Input.is_action_pressed("ui_accept"): # test print used effects
+		print(used_effects)
+		pass
+		#erase_all_effects()
+		
+	if Input.is_action_just_pressed("ui_up"): # remove effect
+		used_effects.pop_back()
+		render_placed_effects(used_effects)
+
 
 func calc_distribution():
 	var vals = [0.0,0.0,0.0]
@@ -47,8 +59,7 @@ func is_valid_click_pos(pos : Vector2i) -> bool:
 	return pos.x >= 0 and pos.x < ENV_SIZE and pos.y >= 0 and pos.y< ENV_SIZE
 
 func confirm_tile_selection() -> void:
-	for lpos in last_selected: # confirm selection
-		$Used.set_cell(lpos,PS.selected_effect,Vector2i(0,0))
+	used_effects.append(PlacedEffect.new(last_selected[0],PS.selected_effect))
 
 func handle_highlights(pos: Vector2i) -> void:
 	if (last_selected[0] != pos): # check if cursor moved to new location
@@ -59,6 +70,18 @@ func handle_highlights(pos: Vector2i) -> void:
 		$Highlight.set_cell(pos,PS.selected_effect,Vector2i(0,0))
 		if (PS.PlayerEffects.MAJORITY == PS.selected_effect):
 			highligh_neighbors(pos)
+
+func render_placed_effects(placed_effects : Array[PlacedEffect]) -> void:
+	erase_all_effects()
+	for effect in placed_effects:
+		$Used.set_cell(effect.source_coord,effect.type,Vector2i(0,0))
+		if effect.type == PS.PlayerEffects.MAJORITY: # handle majority effect rendering
+			for offset in offsets:
+				var newpos = effect.source_coord+offset
+				if (newpos.x >= 0 and newpos.x < ENV_SIZE and newpos.y >= 0 and newpos.y<ENV_SIZE):
+					last_selected.append(newpos)
+					$Used.set_cell(newpos,effect.type,Vector2i(0,0))
+	pass
 
 func highligh_neighbors(pos : Vector2i) -> void:
 	for offset in offsets:
