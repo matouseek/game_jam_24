@@ -1,32 +1,29 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dk6oc062mypbo"]
 
-[ext_resource type="Texture2D" uid="uid://imqdgdln38fy" path="res://assets/placeholders/tileset_desert_placeholder.png" id="1_erul4"]
+[ext_resource type="Texture2D" uid="uid://dj2wgur2f32hm" path="res://assets/placeholders/tileset_selector_placeholder_1.png" id="1_74pam"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dvha6"]
-texture = ExtResource("1_erul4")
-margins = Vector2i(0, 106)
-texture_region_size = Vector2i(256, 150)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_62ykk"]
+texture = ExtResource("1_74pam")
+texture_region_size = Vector2i(1024, 591)
 0:0/0 = 0
-0:0/0/modulate = Color(0, 0, 0.815686, 0.803922)
+0:0/0/modulate = Color(0.0431373, 0.0588235, 1, 0.596078)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1wwml"]
-texture = ExtResource("1_erul4")
-margins = Vector2i(0, 106)
-texture_region_size = Vector2i(256, 150)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dsj0v"]
+texture = ExtResource("1_74pam")
+texture_region_size = Vector2i(1024, 591)
 0:0/0 = 0
-0:0/0/modulate = Color(1, 0, 0, 0.560784)
+0:0/0/modulate = Color(0.65098, 0, 0.0117647, 0.596078)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c4u76"]
-texture = ExtResource("1_erul4")
-margins = Vector2i(0, 106)
-texture_region_size = Vector2i(256, 150)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gfbuj"]
+texture = ExtResource("1_74pam")
+texture_region_size = Vector2i(1024, 591)
 0:0/0 = 0
-0:0/0/modulate = Color(0, 1, 0, 0.627451)
+0:0/0/modulate = Color(0.304046, 0.200183, 0.0123319, 0.596078)
 
 [resource]
 tile_shape = 1
 tile_layout = 5
-tile_size = Vector2i(256, 150)
-sources/2 = SubResource("TileSetAtlasSource_c4u76")
-sources/0 = SubResource("TileSetAtlasSource_dvha6")
-sources/1 = SubResource("TileSetAtlasSource_1wwml")
+tile_size = Vector2i(1024, 591)
+sources/0 = SubResource("TileSetAtlasSource_62ykk")
+sources/1 = SubResource("TileSetAtlasSource_dsj0v")
+sources/2 = SubResource("TileSetAtlasSource_gfbuj")

@@ -5,37 +5,100 @@ extends Node
 
 const MAX_ROUNDS : int = 10
 var round_num : int = 0
+const ZOOM_COEF = 1.25
+const CAM_SPEED = 2200
+var limit_camera = true
+const ZOOM_FACTOR_MAX = 1.75
+const ZOOM_FACTOR_MIN = 0.2
+var zoom_factor = 0.25
+var sfx = 0
+var music = 0
+@onready var camera = $Camera2D
+const TRANS_TIME = 4
+
 
 func _ready() -> void:
+	$CameraUnlock.start()
 	HUD.do_will.connect(_on_will_done)
+	camera.zoom = Vector2(zoom_factor,zoom_factor)
+	var tween = get_tree().create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(camera, "position", Vector2(500,3000),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(camera, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
+	HUD.visible = true
+	$Environment.visible = true
+	AS.play_music("res://assets/Sounds/game_placeholder.mp3")
+
+func _input(event: InputEvent) -> void:
+	if (!limit_camera):
+		if (event.is_action_pressed("zoom_in")):
+			zoom_factor = min(zoom_factor*ZOOM_COEF,ZOOM_FACTOR_MAX)
+			camera.zoom = Vector2(zoom_factor,zoom_factor)
+		if (event.is_action_pressed("zoom_out")):
+			zoom_factor = max(zoom_factor/ZOOM_COEF,ZOOM_FACTOR_MIN)
+			camera.zoom = Vector2(zoom_factor,zoom_factor)
+
+func _process(delta: float) -> void:
+	if (!limit_camera):
+		var dir = Vector2(Input.get_action_strength("right")-Input.get_action_strength("left"),
+		Input.get_action_strength("down")-Input.get_action_strength("up"))
+		dir = dir.normalized()
+		var update = camera.position + (CAM_SPEED/zoom_factor)*delta*dir
+		if (update.x <= camera.limit_left):
+			print("left")
+			update.x = camera.limit_left
+		elif (update.x >= camera.limit_right):
+			print("right")
+			update.x = camera.limit_right
+		if (update.y <= camera.limit_top):
+			print("top")
+			update.y = camera.limit_top
+		elif (update.y >= camera.limit_bottom):
+			print("down")
+			update.y = camera.limit_bottom
+		if (dir != Vector2.ZERO):
+			print(camera.position)
+		camera.position = update
+		
 	
 func _on_will_done() -> void:
 	
+	var terrain_copy: Array = env.get_terrain_copy()
+	
 	PS.is_player_turn = false
+	HUD.set_will_be_done_visibility(false)
+
+	print("Process player selection")
+	process_used_effects()
+	
+	if not env.used_effects.is_empty():
+		env.tween_tilemap(terrain_copy, env.terrain)
+		await get_tree().create_timer(2.0).timeout
+	
+	terrain_copy = env.get_terrain_copy()
 	
 	print("Process fuck ups")
 	process_fuck_ups()
 	
-	await get_tree().create_timer(1.0).timeout
-	
-	print("Process player selection")
-	process_used_effects()
-	env.set_map()
-
+	if not env.fuck_up_effects.is_empty():
+		env.tween_tilemap(terrain_copy, env.terrain)
+		await get_tree().create_timer(2.0).timeout
 
 	env.calc_distribution()
 	update_round_count()
 	
-	await get_tree().create_timer(1.0).timeout
+	env.clear_effects_visuals()
 	
 	print("Clear board")
-	env.clear_effects_visuals()
 	env.reset_effects()
 	
 	print("Add fuck ups for next round")
 	add_fuck_ups()
-	env.set_map()
 	# now wait for player to make selection and then press will be done
+	
+	HUD.set_will_be_done_visibility(true)
+	PS.reset_player_actions_amount()
+	PS.is_player_turn = true
 
 func update_round_count() -> void:
 	round_num += 1
@@ -69,24 +132,24 @@ func process_effect(effect: PlacedEffect) -> void:
 			process_majority(effect)
 
 func process_rain(rain_effect: PlacedEffect) -> void:
-	var tile: G.TileTypes = env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y]
+	var tile: G.TileTypes = env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type
 	match tile:
 		G.TileTypes.DESERT:
-			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y] = G.TileTypes.MEADOW
+			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type = G.TileTypes.MEADOW
 		G.TileTypes.MEADOW:
-			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y] = G.TileTypes.WATER
+			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type = G.TileTypes.WATER
 		G.TileTypes.WATER:
 			print("Rained on water")
 	
 func process_draught(draught_effect: PlacedEffect) -> void:
-	var tile: G.TileTypes = env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y]
+	var tile: G.TileTypes = env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type
 	match tile:
 		G.TileTypes.DESERT:
 			print("Draught on desert")
 		G.TileTypes.MEADOW:
-			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y] = G.TileTypes.DESERT
+			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type = G.TileTypes.DESERT
 		G.TileTypes.WATER:
-			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y] = G.TileTypes.MEADOW
+			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type = G.TileTypes.MEADOW
 	
 func process_majority(majority_effect: PlacedEffect) -> void:
 	var amounts: Array[int] = []
@@ -99,7 +162,7 @@ func process_majority(majority_effect: PlacedEffect) -> void:
 			var current_tile : Vector2i = start_tile + Vector2i(i,j)
 			if not env.is_valid_map_pos(current_tile):
 				continue
-			var tile: G.TileTypes = env.terrain[current_tile.x][current_tile.y]
+			var tile: G.TileTypes = env.terrain[current_tile.x][current_tile.y].type
 			match tile:
 				G.TileTypes.DESERT:
 					amounts[G.TileTypes.DESERT] += 1
@@ -118,4 +181,12 @@ func process_majority(majority_effect: PlacedEffect) -> void:
 			var current_tile : Vector2i = start_tile + Vector2i(i,j)
 			if not env.is_valid_map_pos(current_tile):
 				continue
-			env.terrain[current_tile.x][current_tile.y] = resulting_tile
+			env.terrain[current_tile.x][current_tile.y].type = resulting_tile
+
+
+func _on_camera_unlock_timeout() -> void:
+	camera.limit_bottom = 8000
+	camera.limit_top = -3000
+	camera.limit_left = -7000
+	camera.limit_right = 8500
+	limit_camera = false
