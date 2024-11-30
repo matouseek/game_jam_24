@@ -54,7 +54,7 @@ func set_goal(type: G.TileTypes, value:float):
 	var sprite = goals_nodes[type]
 	print(sprite.position)
 	sprite.position.x = 44 + int(190*(value/MAX_SHARE))
-	
+
 func update_progress(vals):
 	for i in range(len(vals)):
 		print(vals[i]*100)
@@ -68,3 +68,6 @@ func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_i
 
 func _on_will_be_done_pressed() -> void:
 	do_will.emit()
+
+func update_round_label(val : int) -> void:
+	$RoundLabel.text = "Round: " + str(val)

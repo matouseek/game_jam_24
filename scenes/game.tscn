@@ -7,7 +7,6 @@
 script = ExtResource("1_bggsq")
 
 [node name="Environment" parent="." instance=ExtResource("2_p43xb")]
-visible = true
 position = Vector2(576, 250)
 scale = Vector2(0.22, 0.22)
 
