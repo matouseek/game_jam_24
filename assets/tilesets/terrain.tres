@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://bbcni0uvl4mie" path="res://assets/Tiles/tileset_forest_tier1.png" id="2_glgqf"]
 [ext_resource type="Texture2D" uid="uid://nthmhx8ql2jo" path="res://assets/Tiles/tileset_forest_tier2.png" id="3_j5dp5"]
 [ext_resource type="Texture2D" uid="uid://cd383yw2oen4u" path="res://assets/Tiles/tileset_forest_tier3.png" id="4_5lkjs"]
-[ext_resource type="Texture2D" uid="uid://bkspud515m8lo" path="res://assets/Tiles/tileset_desert_tier1.png" id="5_av2oq"]
-[ext_resource type="Texture2D" uid="uid://u055j3ql836h" path="res://assets/Tiles/tileset_desert_tier2.png" id="6_ht6hf"]
-[ext_resource type="Texture2D" uid="uid://b7b22ia1ni1la" path="res://assets/Tiles/tileset_desert_tier3.png" id="7_6qp57"]
+[ext_resource type="Texture2D" uid="uid://bdawg5jsh7602" path="res://assets/Tiles/tileset_desert_tier1.png" id="5_av2oq"]
+[ext_resource type="Texture2D" uid="uid://cjqvfksps6urn" path="res://assets/Tiles/tileset_desert_tier2.png" id="6_ht6hf"]
+[ext_resource type="Texture2D" uid="uid://t534fewtn41p" path="res://assets/Tiles/tileset_desert_tier3.png" id="7_6qp57"]
 [ext_resource type="Texture2D" uid="uid://chxmq882cdfpr" path="res://assets/Tiles/tileset_water_tier2.png" id="8_76r66"]
 [ext_resource type="Texture2D" uid="uid://cg38ouwok55ft" path="res://assets/Tiles/tileset_water_tier3.png" id="9_aci8t"]
 
@@ -34,17 +34,17 @@ texture_region_size = Vector2i(1024, 886)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 60)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2d1xh"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y2t8f"]
 texture = ExtResource("5_av2oq")
 texture_region_size = Vector2i(1024, 591)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bmqxv"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oaobg"]
 texture = ExtResource("6_ht6hf")
 texture_region_size = Vector2i(1024, 591)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4kkt3"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_81v6s"]
 texture = ExtResource("7_6qp57")
 texture_region_size = Vector2i(1024, 591)
 0:0/0 = 0
@@ -69,6 +69,6 @@ sources/13 = SubResource("TileSetAtlasSource_uwagf")
 sources/16 = SubResource("TileSetAtlasSource_gjna8")
 sources/3 = SubResource("TileSetAtlasSource_u50kk")
 sources/6 = SubResource("TileSetAtlasSource_kxmn5")
-sources/20 = SubResource("TileSetAtlasSource_2d1xh")
-sources/23 = SubResource("TileSetAtlasSource_bmqxv")
-sources/26 = SubResource("TileSetAtlasSource_4kkt3")
+sources/20 = SubResource("TileSetAtlasSource_y2t8f")
+sources/23 = SubResource("TileSetAtlasSource_oaobg")
+sources/26 = SubResource("TileSetAtlasSource_81v6s")
