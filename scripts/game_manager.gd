@@ -36,6 +36,9 @@ func _on_will_done() -> void:
 	add_fuck_ups()
 	env.set_map()
 	# now wait for player to make selection and then press will be done
+	
+	PS.reset_player_actions_amount()
+	PS.is_player_turn = true
 
 func update_round_count() -> void:
 	round_num += 1

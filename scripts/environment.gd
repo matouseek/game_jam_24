@@ -14,7 +14,6 @@ var offsets = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
 var terrain: Array = []
 
 func _ready() -> void:
-	
 	for i in range(ENV_SIZE):
 		var row: Array = []
 		for j in range(ENV_SIZE):
@@ -25,15 +24,20 @@ func _ready() -> void:
 	calc_distribution()
 	
 func _input(event):
+	if not PS.is_player_turn: return
 	if event is InputEventMouse:
 		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
 		if (is_valid_map_pos(pos)):
-			if event.is_action_pressed("mouse_click"):
+			if event.is_action_pressed("mouse_click") and PS.remaining_actions != 0:
+				PS.remaining_actions -= 1
+				PS.update_player_action_amount(PS.remaining_actions)
 				confirm_tile_selection()
 				render_all_effects()
 			handle_highlights(pos)
 		else: # if player points out of map region
 			clear_all_highlights()
+	elif Input.is_action_just_pressed("undo"):
+		reset_last_used_effect()
 
 
 func calc_distribution():
@@ -112,3 +116,10 @@ func get_random_map_coord() -> Vector2i:
 	var pos_x : int = randi_range(0,ENV_SIZE-1)
 	var pos_y : int = randi_range(0,ENV_SIZE-1)
 	return Vector2i(pos_x,pos_y)
+
+func reset_last_used_effect() -> void:
+	if used_effects.is_empty(): return
+	used_effects.remove_at(used_effects.size() - 1)
+	PS.remaining_actions += 1
+	PS.update_player_action_amount(PS.remaining_actions)
+	render_all_effects()

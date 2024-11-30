@@ -17,8 +17,8 @@ signal do_will
 
 
 func _ready() -> void:
-	#update_hud()
 	$ItemList.select(0)
+	HUD.update_remaining_actions()
 
 func set_goal(type: G.TileTypes, value:float):
 	var sprite = goals_nodes[type]
@@ -38,3 +38,6 @@ func _on_will_be_done_pressed() -> void:
 
 func update_round_label(val : int) -> void:
 	$RoundLabel.text = "Round: " + str(val)
+	
+func update_remaining_actions() -> void:
+	$RemainingActionsLabel.text = "Remaining: " + str(PS.remaining_actions)
