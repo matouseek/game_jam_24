@@ -198,6 +198,13 @@ offset_bottom = 634.0
 theme_override_font_sizes/font_size = 40
 text = "My Will Be Done!"
 
+[node name="RoundLabel" type="Label" parent="."]
+offset_top = 230.0
+offset_right = 147.0
+offset_bottom = 285.0
+theme_override_font_sizes/font_size = 40
+text = "Round: 0"
+
 [connection signal="pressed" from="Actions/Rain/Rain" to="." method="_on_rain_pressed"]
 [connection signal="pressed" from="Actions/Draught/Draught" to="." method="_on_draught_pressed"]
 [connection signal="pressed" from="Actions/Majority/Majority" to="." method="_on_majority_pressed"]
