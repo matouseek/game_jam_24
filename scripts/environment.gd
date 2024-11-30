@@ -35,8 +35,6 @@ func _input(event):
 				for lpos in last_pos:
 					$TileMapLayer.set_cell(lpos,2,Vector2i(0,0))
 					terrain[lpos.x][lpos.y] = 2
-					print(pos)
-					print(terrain)
 			if (last_pos != null):
 				for lpos in last_pos:
 					$Highlight.set_cell(lpos,-1,Vector2i(0,0))
