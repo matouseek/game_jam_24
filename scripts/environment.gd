@@ -26,8 +26,19 @@ func _input(event):
 	
 	if event is InputEventMouseButton:
 		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
-		print("Position on map",pos)
-		#$TileMapLayer.set_cell(pos,4,Vector2i(0,0))
+		$TileMapLayer.set_cell(pos,4,Vector2i(0,0))
+		terrain[pos.x][pos.y] = 0
+		var vals = [0.0,0.0,0.0]
+		for i in range(ENV_SIZE):
+			for j in range(ENV_SIZE):
+				vals[terrain[i][j]] += 1
+		var all = ENV_SIZE*ENV_SIZE
+		var vals_percent = []
+		for i in range(len(vals)):
+			vals_percent.append(vals[i]/all)
+		print(vals_percent)
+		HUD.update_progress(vals_percent)
+		
 		
 
 func initialize_randomly() -> void:
@@ -39,7 +50,6 @@ func initialize_randomly() -> void:
 func set_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			#print("Setting cell to",terrain[i][j])
 			$TileMapLayer.set_cell(Vector2i(i,j),get_tile_id(terrain[i][j]),Vector2i(0,0))
 
 func get_tile_id(type : TileTypes) -> int:

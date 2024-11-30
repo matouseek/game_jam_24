@@ -12,6 +12,12 @@ var MAX_SHARE = 0.5
 	G.TileTypes.DESERT :  $Goals/Desert/Sprite2D
 }
 
+@onready var progress_nodes = {
+	G.TileTypes.WATER : $Goals/Water/ProgressBar,
+	G.TileTypes.MEADOW :  $Goals/Meadow/ProgressBar,
+	G.TileTypes.DESERT :  $Goals/Desert/ProgressBar
+}
+
 
 
 func _ready() -> void:
@@ -45,3 +51,7 @@ func set_goal(type: G.TileTypes, value:float):
 	print(sprite.position)
 	sprite.position.x = 44 + int(190*(value/MAX_SHARE))
 	
+func update_progress(vals):
+	for i in range(len(vals)):
+		print(vals[i]*100)
+		progress_nodes[i].value = vals[i]*100

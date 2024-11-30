@@ -16,3 +16,4 @@ func _ready() -> void:
 		sum += val
 	for type in TileTypes.values():
 		HUD.set_goal(type,vals[type]/sum)
+	
