@@ -3,6 +3,10 @@ extends Node2D
 const ENV_SIZE: int = 12
 var last_pos = [Vector2i(-1000,-1000)]
 
+var offsets = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
+		Vector2i(-1,  0),               Vector2i(1,  0),
+		Vector2i(-1,  1), Vector2i(0,  1), Vector2i(1,  1)]
+
 enum TileTypes {
 	DESERT,
 	MEADOW,
@@ -36,7 +40,8 @@ func _input(event):
 		last_pos = [pos]
 		$Highlight.set_cell(pos,0,Vector2i(0,0))
 		if (PS.PlayerEffects.MAJORITY == PS.selected_effect):
-			for newpos in $Highlight.get_surrounding_cells(pos):
+			for offset in offsets:
+				var newpos = pos+offset
 				if (newpos.x >= 0 and newpos.x < ENV_SIZE and newpos.y >= 0 and newpos.y<ENV_SIZE):
 					last_pos.append(newpos)
 					$Highlight.set_cell(newpos,0,Vector2i(0,0))
