@@ -17,12 +17,12 @@ func _ready() -> void:
 	for i in range(ENV_SIZE):
 		var row: Array[WorldTile] = []
 		for j in range(ENV_SIZE):
-			var default_tile : WorldTile = WorldTile.new(G.get_rand_tile_type(),WorldTile.Tier.LOW)
+			var default_tile : WorldTile = WorldTile.new(G.get_rand_tile_type(),G.TileTier.MEDIUM)
 			row.append(default_tile)
 		terrain.append(row)
 	initialize_randomly()
 	render_map()
-	calc_distribution()
+	G.set_goals_distribution(calc_distribution())
 	
 func _input(event):
 	if not PS.is_player_turn: return
@@ -39,18 +39,27 @@ func _input(event):
 			clear_all_highlights()
 	elif Input.is_action_just_pressed("undo"):
 		reset_last_used_effect()
+	if Input.is_action_just_pressed("ui_accept"):
+		update_tiers()
+		test_print_board()
 
 
-func calc_distribution():
-	var vals = [0.0,0.0,0.0]
+
+func calc_distribution() -> Array[float]:
+	var tier_boost_coeff : int = 2
+	update_tiers()
+	var tile_counts_weighted = [0.0,0.0,0.0]
+	var total_count : int = 0
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			vals[terrain[i][j].type] += 1
-	var all = ENV_SIZE*ENV_SIZE
-	var vals_percent = []
-	for i in range(len(vals)):
-		vals_percent.append(vals[i]/all)
-	HUD.update_progress(vals_percent)
+			var count_to_add : int = pow(terrain[i][j].tier + 1,tier_boost_coeff)
+			tile_counts_weighted[terrain[i][j].type] += count_to_add
+			total_count += count_to_add
+	var tile_percents : Array[float]= [0.0,0.0,0.0]
+	for i in range(len(tile_counts_weighted)):
+		tile_percents[i] = tile_counts_weighted[i]/total_count
+	G.update_progress(tile_percents)
+	return tile_percents
 
 func is_valid_map_pos(pos : Vector2i) -> bool:
 	return pos.x >= 0 and pos.x < ENV_SIZE and pos.y >= 0 and pos.y< ENV_SIZE
@@ -99,7 +108,7 @@ func clear_effects_visuals() -> void:
 func initialize_randomly() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			terrain[i][j] = WorldTile.new(G.get_rand_tile_type(),WorldTile.Tier.LOW)
+			terrain[i][j] = WorldTile.new(G.get_rand_tile_type(),G.TileTier.MEDIUM)
 #			if (j== ENV_SIZE-1 and i == ENV_SIZE-1): terrain[i][j] = -1
 #			elif (j == ENV_SIZE-1 or i == ENV_SIZE-1): terrain[i][j] = 2
 #			else : terrain[i][j] = randi_range(0,1)
@@ -198,3 +207,35 @@ func tween_in_tile(coord: Vector2i) -> void:
 	tween.tween_callback($SpriteToTween.queue_free)
 	tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(terrain[coord.x][coord.y].type).bind(coord))
 	sprite.name = "TweeningSprite"
+
+func test_print_board():
+	for i in range(ENV_SIZE):
+		var string : String = ""
+		for j in range(ENV_SIZE):
+			string += terrain[i][j].get_str()
+		print(string)
+
+func update_tiers() -> void:
+	for i in range(ENV_SIZE):
+		for j in range(ENV_SIZE):
+			update_tile_tier(Vector2i(i,j))
+
+func update_tile_tier(coord : Vector2i) -> void:
+	var neigh_coords : Array[Vector2i] = $TileMapLayer.get_surrounding_cells(coord)
+	var cur_type : G.TileTypes = terrain[coord.x][coord.y].type
+	var friends_count : int = 0
+	
+	# detect neighboring tiles with same type
+	for neigh in neigh_coords:
+		if not is_valid_map_pos(neigh):
+			continue
+		if terrain[neigh.x][neigh.y].type == cur_type:
+			friends_count += 1
+	
+	# determine tier based on amount of neighbors with same type
+	if friends_count < 2:
+		terrain[coord.x][coord.y].tier = G.TileTier.LOW
+	elif friends_count < 4:
+		terrain[coord.x][coord.y].tier = G.TileTier.MEDIUM
+	else:
+		terrain[coord.x][coord.y].tier = G.TileTier.HIGH

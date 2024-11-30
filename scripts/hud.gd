@@ -14,21 +14,18 @@ signal do_will
 	G.TileTypes.DESERT :  $Goals/Desert/ProgressBar
 }
 
-
-
 func _ready() -> void:
 	$ItemList.select(0)
 	HUD.update_remaining_actions()
 
-func set_goal(type: G.TileTypes, value:float):
+func set_goal_hud(type: G.TileTypes, value:float):
 	var sprite = goals_nodes[type]
-	print(sprite.position)
 	sprite.position.x = 44 + int(190*(value/MAX_SHARE))
 
-func update_progress(vals):
+func update_progress_hud(vals):
 	for i in range(len(vals)):
-		print(vals[i]*100)
 		progress_nodes[i].value = vals[i]*100
+		
 
 func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	PS.update_state(index)
