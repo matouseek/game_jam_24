@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://2bcciget8brv"]
+[gd_scene load_steps=16 format=3 uid="uid://2bcciget8brv"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_n2wg5"]
 [ext_resource type="Texture2D" uid="uid://b6us8wnskq8ce" path="res://assets/placeholders/action_rain_placeholder.png" id="2_dhwe4"]
@@ -21,6 +21,13 @@ bg_color = Color(0.976471, 0.121569, 0.0235294, 0.529412)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lj0vq"]
 bg_color = Color(0.92549, 0.439216, 0.141176, 0.65098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_setow"]
+bg_color = Color(0.847855, 0.56438, 0.219492, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_n2wg5")
@@ -200,6 +207,17 @@ offset_bottom = 583.0
 layout_mode = 2
 text = "Fire"
 icon = ExtResource("9_v6t22")
+
+[node name="Button2" type="Button" parent="Container"]
+layout_mode = 2
+text = "Rain"
+icon = ExtResource("8_ov0ut")
+
+[node name="Button3" type="Button" parent="Container"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_setow")
+text = "Majority"
+icon = ExtResource("10_0ka61")
 
 [connection signal="pressed" from="Actions/Rain/Rain" to="." method="_on_rain_pressed"]
 [connection signal="pressed" from="Actions/Draught/Draught" to="." method="_on_draught_pressed"]
