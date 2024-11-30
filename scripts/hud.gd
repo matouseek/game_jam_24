@@ -31,3 +31,7 @@ func update_hud():
 	
 func reset_hud():
 	action_nodes[PS.selected_effect].modulate = Color(1, 1, 1)
+
+
+func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+	print(index)

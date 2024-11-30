@@ -160,6 +160,21 @@ texture = ExtResource("5_0yjri")
 region_enabled = true
 region_rect = Rect2(23.9042, 26.6709, 209.595, 208.901)
 
+[node name="ItemList" type="ItemList" parent="."]
+offset_left = 143.0
+offset_top = 302.0
+offset_right = 1133.0
+offset_bottom = 669.0
+item_count = 3
+max_columns = 3
+item_0/text = "Rain"
+item_0/icon = ExtResource("2_dhwe4")
+item_1/text = "Draught"
+item_1/icon = ExtResource("3_hnhey")
+item_2/text = "Majority"
+item_2/icon = ExtResource("5_0yjri")
+
 [connection signal="pressed" from="Actions/Rain/Rain" to="." method="_on_rain_pressed"]
 [connection signal="pressed" from="Actions/Draught/Draught" to="." method="_on_draught_pressed"]
 [connection signal="pressed" from="Actions/Majority/Majority" to="." method="_on_majority_pressed"]
+[connection signal="item_clicked" from="ItemList" to="." method="_on_item_list_item_clicked"]
