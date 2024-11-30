@@ -124,10 +124,10 @@ func render_map() -> void:
 			$TileMapLayer.set_cell(Vector2i(i,j),get_tile_source_id(terrain[i][j]),Vector2i(0,0))
 	
 	for i in range(ENV_SIZE):
-		$TileMapLayer.set_cell(Vector2i(i,ENV_SIZE),terrain[i][11].type,Vector2i(0,0))
+		$TileMapLayer.set_cell(Vector2i(i,ENV_SIZE),get_tile_source_id(terrain[i][11]),Vector2i(0,0))
 	for i in range(ENV_SIZE):
-		$TileMapLayer.set_cell(Vector2i(ENV_SIZE,i),terrain[11][i].type,Vector2i(0,0))
-	$TileMapLayer.set_cell(Vector2i(ENV_SIZE,ENV_SIZE),terrain[11][11].type,Vector2i(0,0))
+		$TileMapLayer.set_cell(Vector2i(ENV_SIZE,i),get_tile_source_id(terrain[11][i]),Vector2i(0,0))
+	$TileMapLayer.set_cell(Vector2i(ENV_SIZE,ENV_SIZE),get_tile_source_id(terrain[11][11]),Vector2i(0,0))
 
 func reset_effects() -> void:
 	used_effects = []
@@ -153,7 +153,7 @@ func tween_out_tile(coord: Vector2i) -> void:
 	sprite.texture = texture
 	sprite.position = tilemaplayer.map_to_local(coord)
 	if texture.get_height() > 600:
-		sprite.position.y -= 100
+		sprite.position.y -= 60
 	sprite.scale = Vector2(1, 1)
 	sprite.name = "SpriteToTween"
 	add_child(sprite, true)
@@ -163,6 +163,56 @@ func tween_out_tile(coord: Vector2i) -> void:
 	var tween: Tween = create_tween()
 	tween.parallel().tween_property($SpriteToTween, "scale", Vector2(0,0), 0.5).set_trans(Tween.TRANS_SPRING)
 	tween.parallel().tween_property($SpriteToTween, "modulate:a", 0, 0.5).set_ease(Tween.EASE_IN_OUT)
+	
+	if coord.x == ENV_SIZE - 1 and coord.y == ENV_SIZE - 1:
+		$TileMapLayer.set_cell(Vector2i(ENV_SIZE, ENV_SIZE), -1, Vector2i(0,0))
+		
+		var wall_sprite: Sprite2D = Sprite2D.new()
+		wall_sprite.texture = texture.duplicate()
+		wall_sprite.position = tilemaplayer.map_to_local(Vector2i(ENV_SIZE, ENV_SIZE))
+		if wall_sprite.texture.get_height() > 600:
+			wall_sprite.position.y -= 60
+		wall_sprite.scale = Vector2(1, 1)
+		wall_sprite.name = "WallSpriteToTween"
+		add_child(wall_sprite, true)
+		
+		tween.parallel().tween_property($WallSpriteToTween, "scale", Vector2(0,0), 0.5).set_trans(Tween.TRANS_SPRING)
+		tween.parallel().tween_property($WallSpriteToTween, "modulate:a", 0, 0.5).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_callback($WallSpriteToTween.queue_free)
+		wall_sprite.name = "TweeningSprite"
+	if coord.x == ENV_SIZE - 1:
+		$TileMapLayer.set_cell(Vector2i(ENV_SIZE, coord.y), -1, Vector2i(0,0))
+		
+		var wall_sprite: Sprite2D = Sprite2D.new()
+		wall_sprite.texture = texture.duplicate()
+		wall_sprite.position = tilemaplayer.map_to_local(Vector2i(ENV_SIZE, coord.y))
+		if wall_sprite.texture.get_height() > 600:
+			wall_sprite.position.y -= 60
+		wall_sprite.scale = Vector2(1, 1)
+		wall_sprite.name = "WallSpriteToTween"
+		add_child(wall_sprite, true)
+		
+		tween.parallel().tween_property($WallSpriteToTween, "scale", Vector2(0,0), 0.5).set_trans(Tween.TRANS_SPRING)
+		tween.parallel().tween_property($WallSpriteToTween, "modulate:a", 0, 0.5).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_callback($WallSpriteToTween.queue_free)
+		wall_sprite.name = "TweeningSprite"
+	if coord.y == ENV_SIZE - 1:
+		$TileMapLayer.set_cell(Vector2i(coord.x, ENV_SIZE), -1, Vector2i(0,0))
+		
+		var wall_sprite: Sprite2D = Sprite2D.new()
+		wall_sprite.texture = texture.duplicate()
+		wall_sprite.position = tilemaplayer.map_to_local(Vector2i(coord.x, ENV_SIZE))
+		if wall_sprite.texture.get_height() > 600:
+			wall_sprite.position.y -= 60
+		wall_sprite.scale = Vector2(1, 1)
+		wall_sprite.name = "WallSpriteToTween"
+		add_child(wall_sprite, true)
+		
+		tween.parallel().tween_property($WallSpriteToTween, "scale", Vector2(0,0), 0.5).set_trans(Tween.TRANS_SPRING)
+		tween.parallel().tween_property($WallSpriteToTween, "modulate:a", 0, 0.5).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_callback($WallSpriteToTween.queue_free)
+		wall_sprite.name = "TweeningSprite"
+	
 	tween.tween_callback($SpriteToTween.queue_free)
 	tween.tween_callback(tween_in_tile.bind(coord))
 	sprite.name = "TweeningSprite"
@@ -207,7 +257,7 @@ func tween_in_tile(coord: Vector2i) -> void:
 	sprite.texture = texture
 	sprite.position = tilemaplayer.map_to_local(coord)
 	if texture.get_height() > 600:
-		sprite.position.y -= 100
+		sprite.position.y -= 60
 	sprite.scale = Vector2(0, 0)
 	sprite.name = "SpriteToTween"
 	sprite.modulate.a = 0
@@ -216,6 +266,57 @@ func tween_in_tile(coord: Vector2i) -> void:
 	var tween: Tween = create_tween()
 	tween.parallel().tween_property($SpriteToTween, "scale", Vector2(1,1), 0.5).set_trans(Tween.TRANS_SPRING)
 	tween.parallel().tween_property($SpriteToTween, "modulate:a", 1, 0.5).set_ease(Tween.EASE_IN_OUT)
+	
+	if coord.x == ENV_SIZE - 1 and coord.y == ENV_SIZE - 1:
+		var wall_sprite: Sprite2D = Sprite2D.new()
+		wall_sprite.texture = texture.duplicate()
+		wall_sprite.position = tilemaplayer.map_to_local(Vector2i(ENV_SIZE, ENV_SIZE))
+		if wall_sprite.texture.get_height() > 600:
+			wall_sprite.position.y -= 60
+		wall_sprite.scale = Vector2(0, 0)
+		wall_sprite.modulate.a = 0
+		wall_sprite.name = "WallSpriteToTween"
+		add_child(wall_sprite, true)
+		
+		tween.parallel().tween_property($WallSpriteToTween, "scale", Vector2(1,1), 0.5).set_trans(Tween.TRANS_SPRING)
+		tween.parallel().tween_property($WallSpriteToTween, "modulate:a", 1, 0.5).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_callback($WallSpriteToTween.queue_free)
+		tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(get_tile_source_id(terrain[coord.x][coord.y])).bind(Vector2i(ENV_SIZE, ENV_SIZE)))
+		wall_sprite.name = "TweeningSprite"
+	if coord.x == ENV_SIZE - 1:
+		var wall_sprite: Sprite2D = Sprite2D.new()
+		wall_sprite.texture = texture.duplicate()
+		wall_sprite.position = tilemaplayer.map_to_local(Vector2i(ENV_SIZE, coord.y))
+		if wall_sprite.texture.get_height() > 600:
+			wall_sprite.position.y -= 60
+		wall_sprite.scale = Vector2(0, 0)
+		wall_sprite.modulate.a = 0
+		wall_sprite.name = "WallSpriteToTween"
+		add_child(wall_sprite, true)
+		
+		tween.parallel().tween_property($WallSpriteToTween, "scale", Vector2(1,1), 0.5).set_trans(Tween.TRANS_SPRING)
+		tween.parallel().tween_property($WallSpriteToTween, "modulate:a", 1, 0.5).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_callback($WallSpriteToTween.queue_free)
+		tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(get_tile_source_id(terrain[coord.x][coord.y])).bind(Vector2i(ENV_SIZE, coord.y)))
+		wall_sprite.name = "TweeningSprite"
+	if coord.y == ENV_SIZE - 1:
+		var wall_sprite: Sprite2D = Sprite2D.new()
+		wall_sprite.texture = texture.duplicate()
+		wall_sprite.position = tilemaplayer.map_to_local(Vector2i(coord.x, ENV_SIZE))
+		if wall_sprite.texture.get_height() > 600:
+			wall_sprite.position.y -= 60
+		wall_sprite.scale = Vector2(0, 0)
+		wall_sprite.modulate.a = 0
+		wall_sprite.name = "WallSpriteToTween"
+		add_child(wall_sprite, true)
+		
+		tween.parallel().tween_property($WallSpriteToTween, "scale", Vector2(1,1), 0.5).set_trans(Tween.TRANS_SPRING)
+		tween.parallel().tween_property($WallSpriteToTween, "modulate:a", 1, 0.5).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_callback($WallSpriteToTween.queue_free)
+		tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(get_tile_source_id(terrain[coord.x][coord.y])).bind(Vector2i(coord.x, ENV_SIZE)))
+		wall_sprite.name = "TweeningSprite"
+	
+	
 	tween.tween_callback($SpriteToTween.queue_free)
 	tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(get_tile_source_id(terrain[coord.x][coord.y])).bind(coord))
 	sprite.name = "TweeningSprite"
