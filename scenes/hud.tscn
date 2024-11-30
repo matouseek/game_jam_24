@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://2bcciget8brv"]
+[gd_scene load_steps=15 format=3 uid="uid://bcypndlr0v5lj"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_n2wg5"]
 [ext_resource type="Texture2D" uid="uid://b6us8wnskq8ce" path="res://assets/placeholders/action_rain_placeholder.png" id="2_dhwe4"]
@@ -190,7 +190,23 @@ item_1/icon = ExtResource("9_v6t22")
 item_2/text = "Majority"
 item_2/icon = ExtResource("10_0ka61")
 
+[node name="WillBeDone" type="Button" parent="."]
+offset_left = 816.0
+offset_top = 571.0
+offset_right = 1137.0
+offset_bottom = 634.0
+theme_override_font_sizes/font_size = 40
+text = "My Will Be Done!"
+
+[node name="RoundLabel" type="Label" parent="."]
+offset_top = 230.0
+offset_right = 147.0
+offset_bottom = 285.0
+theme_override_font_sizes/font_size = 40
+text = "Round: 0"
+
 [connection signal="pressed" from="Actions/Rain/Rain" to="." method="_on_rain_pressed"]
 [connection signal="pressed" from="Actions/Draught/Draught" to="." method="_on_draught_pressed"]
 [connection signal="pressed" from="Actions/Majority/Majority" to="." method="_on_majority_pressed"]
 [connection signal="item_clicked" from="ItemList" to="." method="_on_item_list_item_clicked"]
+[connection signal="pressed" from="WillBeDone" to="." method="_on_will_be_done_pressed"]

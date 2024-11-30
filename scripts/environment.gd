@@ -2,6 +2,7 @@ extends Node2D
 
 const ENV_SIZE: int = 12
 
+var fuck_up_effects : Array[PlacedEffect] = []
 var used_effects : Array[PlacedEffect] = []
 
 var last_selected = [Vector2i(-1000,-1000)]
@@ -23,25 +24,16 @@ func _ready() -> void:
 	set_map()
 	calc_distribution()
 	
-	
-	
 func _input(event):
 	if event is InputEventMouse:
 		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
-		if (is_valid_click_pos(pos)):
+		if (is_valid_map_pos(pos)):
 			if event.is_action_pressed("mouse_click"):
 				confirm_tile_selection()
-				render_placed_effects(used_effects)
+				render_all_effects()
 			handle_highlights(pos)
-			
-	if Input.is_action_pressed("ui_accept"): # test print used effects
-		print(used_effects)
-		pass
-		#erase_all_effects()
-		
-	if Input.is_action_just_pressed("ui_up"): # remove effect
-		used_effects.pop_back()
-		render_placed_effects(used_effects)
+		else: # if player points out of map region
+			clear_all_highlights()
 
 
 func calc_distribution():
@@ -55,11 +47,16 @@ func calc_distribution():
 		vals_percent.append(vals[i]/all)
 	HUD.update_progress(vals_percent)
 
-func is_valid_click_pos(pos : Vector2i) -> bool:
+func is_valid_map_pos(pos : Vector2i) -> bool:
 	return pos.x >= 0 and pos.x < ENV_SIZE and pos.y >= 0 and pos.y< ENV_SIZE
 
 func confirm_tile_selection() -> void:
 	used_effects.append(PlacedEffect.new(last_selected[0],PS.selected_effect))
+
+func clear_all_highlights() -> void: # used when cursor out of map region
+	for i in range(ENV_SIZE):
+		for j in range(ENV_SIZE):
+			$Highlight.set_cell(Vector2i(i,j),-1,Vector2i(0,0))
 
 func handle_highlights(pos: Vector2i) -> void:
 	if (last_selected[0] != pos): # check if cursor moved to new location
@@ -71,9 +68,9 @@ func handle_highlights(pos: Vector2i) -> void:
 		if (PS.PlayerEffects.MAJORITY == PS.selected_effect):
 			highligh_neighbors(pos)
 
-func render_placed_effects(placed_effects : Array[PlacedEffect]) -> void:
-	erase_all_effects()
-	for effect in placed_effects:
+func render_all_effects() -> void:
+	clear_effects_visuals()
+	for effect in used_effects + fuck_up_effects:
 		$Used.set_cell(effect.source_coord,effect.type,Vector2i(0,0))
 		if effect.type == PS.PlayerEffects.MAJORITY: # handle majority effect rendering
 			for offset in offsets:
@@ -81,7 +78,6 @@ func render_placed_effects(placed_effects : Array[PlacedEffect]) -> void:
 				if (newpos.x >= 0 and newpos.x < ENV_SIZE and newpos.y >= 0 and newpos.y<ENV_SIZE):
 					last_selected.append(newpos)
 					$Used.set_cell(newpos,effect.type,Vector2i(0,0))
-	pass
 
 func highligh_neighbors(pos : Vector2i) -> void:
 	for offset in offsets:
@@ -90,7 +86,7 @@ func highligh_neighbors(pos : Vector2i) -> void:
 			last_selected.append(newpos)
 			$Highlight.set_cell(newpos,PS.selected_effect,Vector2i(0,0))
 
-func erase_all_effects() -> void:
+func clear_effects_visuals() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
 			$Used.set_cell(Vector2i(i,j),-1,Vector2i(0,0))
@@ -107,3 +103,12 @@ func set_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
 			$TileMapLayer.set_cell(Vector2i(i,j),terrain[i][j],Vector2i(0,0))
+
+func reset_effects() -> void:
+	used_effects = []
+	fuck_up_effects = []
+
+func get_random_map_coord() -> Vector2i:
+	var pos_x : int = randi_range(0,ENV_SIZE-1)
+	var pos_y : int = randi_range(0,ENV_SIZE-1)
+	return Vector2i(pos_x,pos_y)
