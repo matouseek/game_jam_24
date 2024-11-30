@@ -37,3 +37,8 @@ func _on_back_pressed() -> void:
 		HUD.visible = !HUD.visible
 		get_tree().paused = !get_tree().paused
 		
+
+
+func _on_main_menu_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu.tscn")
+	visible = false

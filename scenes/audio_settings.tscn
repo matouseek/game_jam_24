@@ -74,18 +74,25 @@ stream = ExtResource("3_7t5fu")
 
 [node name="Back" type="Button" parent="."]
 anchors_preset = -1
-anchor_left = 0.586979
-anchor_top = 0.15
-anchor_right = 0.591146
-anchor_bottom = 0.157407
-offset_left = 289.0
-offset_top = -104.0
-offset_right = 419.0
-offset_bottom = -35.0
+anchor_left = 0.86875
+anchor_top = 0.00740741
+anchor_right = 0.940625
+anchor_bottom = 0.0787037
 theme_override_font_sizes/font_size = 50
 text = "BACK"
+metadata/_edit_use_anchors_ = true
+
+[node name="MainMenu" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.828125
+anchor_top = 0.12037
+anchor_right = 0.986979
+anchor_bottom = 0.191667
+theme_override_font_sizes/font_size = 50
+text = "MAIN MENU"
 metadata/_edit_use_anchors_ = true
 
 [connection signal="value_changed" from="SFX" to="." method="_on_sfx_value_changed"]
 [connection signal="value_changed" from="Music" to="." method="_on_music_value_changed"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
