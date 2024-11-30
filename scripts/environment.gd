@@ -127,30 +127,74 @@ func reset_last_used_effect() -> void:
 
 func tween_out_tile(coord: Vector2i) -> void:
 	var tilemaplayer: TileMapLayer = $TileMapLayer
-	var texture: Texture = get_cell_texture(tilemaplayer, coord)
+	var texture: Texture2D = get_cell_texture(tilemaplayer, coord)
 	
 	var sprite: Sprite2D = Sprite2D.new()
 	sprite.texture = texture
 	sprite.position = tilemaplayer.map_to_local(coord)
+	if texture.get_height() > 600:
+		sprite.position.y -= 100
 	sprite.scale = Vector2(1, 1)
-	sprite.modulate = Color(1,0,0)
 	sprite.name = "SpriteToTween"
 	add_child(sprite, true)
+	
+	$TileMapLayer.set_cell(coord, -1, Vector2i(0,0))
 
 	var tween: Tween = create_tween()
-	tween.tween_property($SpriteToTween, "scale", Vector2(0,0), 1).set_trans(Tween.TRANS_SPRING)
+	tween.parallel().tween_property($SpriteToTween, "scale", Vector2(0,0), 0.5).set_trans(Tween.TRANS_SPRING)
+	tween.parallel().tween_property($SpriteToTween, "modulate:a", 0, 0.5).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback($SpriteToTween.queue_free)
+	tween.tween_callback(tween_in_tile.bind(coord))
 	sprite.name = "TweeningSprite"
 	
 func get_cell_texture(tilemaplayer: TileMapLayer, coord: Vector2i) -> Texture:
 	var cell_id: int = tilemaplayer.get_cell_source_id(coord)
 	var source: TileSetAtlasSource = tilemaplayer.tile_set.get_source(cell_id) as TileSetAtlasSource
 	
-	var atlas_coord = tilemaplayer.get_cell_atlas_coords(coord)
-	
-	var rect = source.get_tile_texture_region(atlas_coord)
 	var img: Image = source.texture.get_image()
-	var tile_image = img.get_region(rect)
 	
-	return ImageTexture.create_from_image(tile_image)
-		
+	return ImageTexture.create_from_image(img)
+
+func tween_tilemap(old_terrain: Array, new_terrain: Array) -> void:
+	for i in range(ENV_SIZE):
+		for j in range(ENV_SIZE):
+			var old_type: G.TileTypes = old_terrain[i][j].type
+			var new_type: G.TileTypes = new_terrain[i][j].type
+			if old_type == new_type: continue
+			tween_out_tile(Vector2i(i, j))
+			
+	
+func get_terrain_copy() -> Array:
+	var ar: Array = []
+	for i in range(ENV_SIZE):
+		var row: Array[WorldTile] = []
+		for j in range(ENV_SIZE):
+			row.append(WorldTile.new(terrain[i][j].type, terrain[i][j].tier))
+		ar.append(row)
+	return ar	
+
+func tween_in_tile(coord: Vector2i) -> void:
+	var tilemaplayer: TileMapLayer = $TileMapLayer
+	
+	var source: TileSetAtlasSource = tilemaplayer.tile_set.get_source(terrain[coord.x][coord.y].type) as TileSetAtlasSource
+	
+	var img: Image = source.texture.get_image()
+	
+	var texture: Texture = ImageTexture.create_from_image(img)
+	
+	var sprite: Sprite2D = Sprite2D.new()
+	sprite.texture = texture
+	sprite.position = tilemaplayer.map_to_local(coord)
+	if texture.get_height() > 600:
+		sprite.position.y -= 100
+	sprite.scale = Vector2(0, 0)
+	sprite.name = "SpriteToTween"
+	sprite.modulate.a = 0
+	add_child(sprite, true)
+
+	var tween: Tween = create_tween()
+	tween.parallel().tween_property($SpriteToTween, "scale", Vector2(1,1), 0.5).set_trans(Tween.TRANS_SPRING)
+	tween.parallel().tween_property($SpriteToTween, "modulate:a", 1, 0.5).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_callback($SpriteToTween.queue_free)
+	tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(terrain[coord.x][coord.y].type).bind(coord))
+	sprite.name = "TweeningSprite"

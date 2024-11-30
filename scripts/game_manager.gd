@@ -36,26 +36,37 @@ func _process(delta: float) -> void:
 	
 func _on_will_done() -> void:
 	
+	var terrain_copy: Array = env.get_terrain_copy()
+	
 	PS.is_player_turn = false
 	HUD.set_will_be_done_visibility(false)
+
+	print("Process player selection")
+	process_used_effects()
+	
+	if not env.used_effects.is_empty():
+		env.tween_tilemap(terrain_copy, env.terrain)
+		await get_tree().create_timer(2.0).timeout
+	
+	terrain_copy = env.get_terrain_copy()
 	
 	print("Process fuck ups")
 	process_fuck_ups()
 	
-	print("Process player selection")
-	process_used_effects()
-	env.render_map()
+	if not env.fuck_up_effects.is_empty():
+		env.tween_tilemap(terrain_copy, env.terrain)
+		await get_tree().create_timer(2.0).timeout
 
 	env.calc_distribution()
 	update_round_count()
 	
-	print("Clear board")
 	env.clear_effects_visuals()
+	
+	print("Clear board")
 	env.reset_effects()
 	
 	print("Add fuck ups for next round")
 	add_fuck_ups()
-	env.render_map()
 	# now wait for player to make selection and then press will be done
 	
 	HUD.set_will_be_done_visibility(true)
@@ -97,7 +108,6 @@ func process_rain(rain_effect: PlacedEffect) -> void:
 	var tile: G.TileTypes = env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type
 	match tile:
 		G.TileTypes.DESERT:
-			env.tween_out_tile(rain_effect.source_coord)
 			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type = G.TileTypes.MEADOW
 		G.TileTypes.MEADOW:
 			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type = G.TileTypes.WATER
