@@ -28,29 +28,29 @@ func _ready() -> void:
 	
 func _input(event):
 	# Mouse in viewport coordinates.
-	var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
-	if event.is_action_pressed("mouse_click"):
-		print("Position on map",pos)
-		$TileMapLayer.set_cell(pos,4,Vector2i(0,0))
-	print("pos ",pos)
-	if (pos.x >= 0 and pos.x < ENV_SIZE and pos.y >= 0 and pos.y<ENV_SIZE and last_pos[0]!=pos):
-		if (last_pos != null):
-			for lpos in last_pos:
-				$Highlight.set_cell(lpos,-1,Vector2i(0,0))
-		last_pos = [pos]
-		$Highlight.set_cell(pos,0,Vector2i(0,0))
-		if (PS.PlayerEffects.MAJORITY == PS.selected_effect):
-			for offset in offsets:
-				var newpos = pos+offset
-				if (newpos.x >= 0 and newpos.x < ENV_SIZE and newpos.y >= 0 and newpos.y<ENV_SIZE):
-					last_pos.append(newpos)
-					$Highlight.set_cell(newpos,0,Vector2i(0,0))
+	if (event is InputEventMouse):
+		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
+		if (pos.x >= 0 and pos.x < ENV_SIZE and pos.y >= 0 and pos.y<ENV_SIZE):
+			if event.is_action_pressed("mouse_click"):
+				for lpos in last_pos:
+					$TileMapLayer.set_cell(lpos,2,Vector2i(0,0))
+			if (last_pos != null):
+				for lpos in last_pos:
+					$Highlight.set_cell(lpos,-1,Vector2i(0,0))
+			last_pos = [pos]
+			$Highlight.set_cell(pos,0,Vector2i(0,0))
+			if (PS.PlayerEffects.MAJORITY == PS.selected_effect):
+				for offset in offsets:
+					var newpos = pos+offset
+					if (newpos.x >= 0 and newpos.x < ENV_SIZE and newpos.y >= 0 and newpos.y<ENV_SIZE):
+						last_pos.append(newpos)
+						$Highlight.set_cell(newpos,0,Vector2i(0,0))
 	
 
 func initialize_randomly() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			terrain[i][j] = randi_range(0,2)
+			terrain[i][j] = randi_range(0,1)
 	pass
 
 func set_map() -> void:
