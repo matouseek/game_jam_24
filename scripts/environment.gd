@@ -117,6 +117,12 @@ func render_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
 			$TileMapLayer.set_cell(Vector2i(i,j),terrain[i][j].type,Vector2i(0,0))
+	
+	for i in range(ENV_SIZE):
+		$TileMapLayer.set_cell(Vector2i(i,ENV_SIZE),terrain[i][11].type,Vector2i(0,0))
+	for i in range(ENV_SIZE):
+		$TileMapLayer.set_cell(Vector2i(ENV_SIZE,i),terrain[11][i].type,Vector2i(0,0))
+	$TileMapLayer.set_cell(Vector2i(ENV_SIZE,ENV_SIZE),terrain[11][11].type,Vector2i(0,0))
 
 func reset_effects() -> void:
 	used_effects = []
