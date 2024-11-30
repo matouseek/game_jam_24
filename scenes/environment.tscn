@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://csaayek0wci1c"]
+
+[ext_resource type="Script" path="res://scripts/environment.gd" id="1_1iak0"]
+[ext_resource type="TileSet" uid="uid://b0333eyi3skxo" path="res://assets/placeholders/tilesets/terrain.tres" id="1_7n8vy"]
+[ext_resource type="TileSet" uid="uid://dk6oc062mypbo" path="res://assets/placeholders/tilesets/highlight.tres" id="3_6bgy2"]
+
+[node name="Environment" type="Node2D"]
+script = ExtResource("1_1iak0")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+tile_set = ExtResource("1_7n8vy")
+
+[node name="Highlight" type="TileMapLayer" parent="."]
+tile_set = ExtResource("3_6bgy2")
+
+[node name="Used" type="TileMapLayer" parent="."]
+tile_set = ExtResource("3_6bgy2")

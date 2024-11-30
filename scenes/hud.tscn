@@ -1,0 +1,157 @@
+[gd_scene load_steps=13 format=3 uid="uid://bcypndlr0v5lj"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_n2wg5"]
+[ext_resource type="Texture2D" uid="uid://cy750ojup4k4t" path="res://assets/icon.svg" id="2_mag1m"]
+[ext_resource type="Texture2D" uid="uid://jbidh6p24g5a" path="res://assets/placeholders/goal_water_placeholder.png" id="3_k47o0"]
+[ext_resource type="Texture2D" uid="uid://brbln01sk5lc4" path="res://assets/placeholders/meadow_desert_placeholder.png" id="4_posue"]
+[ext_resource type="Texture2D" uid="uid://tah1o0oxqomc" path="res://assets/placeholders/goal_desert_placeholder.png" id="5_0yjri"]
+[ext_resource type="StyleBox" uid="uid://c5vsl1uje50w1" path="res://assets/empty_stylebox.tres" id="6_1iuva"]
+[ext_resource type="StyleBox" uid="uid://5g0t4mivu43k" path="res://assets/IL_style/hovered.tres" id="6_besod"]
+[ext_resource type="StyleBox" uid="uid://coyx1uab0hiss" path="res://assets/IL_style/selected.tres" id="7_lqxro"]
+[ext_resource type="Texture2D" uid="uid://bh18oota23lif" path="res://assets/placeholders/resized/action_rain_placeholder.png" id="8_ov0ut"]
+[ext_resource type="Texture2D" uid="uid://bwda5gdkoyy52" path="res://assets/placeholders/resized/action_fire_placeholder.png" id="9_v6t22"]
+[ext_resource type="Texture2D" uid="uid://dmkimr63xyotg" path="res://assets/placeholders/resized/goal_desert_placeholder.png" id="10_0ka61"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fhote"]
+bg_color = Color(0, 0, 0, 0.243137)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_n2wg5")
+
+[node name="Actions" type="Node2D" parent="."]
+position = Vector2(997, 8)
+
+[node name="Label" type="Label" parent="Actions"]
+offset_right = 142.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 40
+text = "Actions"
+metadata/_edit_use_anchors_ = true
+
+[node name="Goals" type="Node2D" parent="."]
+position = Vector2(0, 1)
+
+[node name="Label" type="Label" parent="Goals"]
+offset_right = 107.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 40
+text = "Goals
+"
+
+[node name="Water" type="Node2D" parent="Goals"]
+position = Vector2(0, 55)
+
+[node name="ProgressBar" type="ProgressBar" parent="Goals/Water"]
+offset_left = 40.0
+offset_right = 240.0
+offset_bottom = 30.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fhote")
+max_value = 50.0
+value = 50.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Goals/Water"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(167, 15)
+scale = Vector2(0.084375, 0.253906)
+texture = ExtResource("2_mag1m")
+
+[node name="Icon" type="Sprite2D" parent="Goals/Water"]
+position = Vector2(22, 15)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("3_k47o0")
+region_enabled = true
+region_rect = Rect2(58, 16.9959, 141, 218.576)
+
+[node name="Meadow" type="Node2D" parent="Goals"]
+position = Vector2(0, 110)
+
+[node name="ProgressBar" type="ProgressBar" parent="Goals/Meadow"]
+offset_left = 40.0
+offset_right = 240.0
+offset_bottom = 30.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fhote")
+max_value = 50.0
+value = 50.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Goals/Meadow"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(167, 15)
+scale = Vector2(0.084375, 0.253906)
+texture = ExtResource("2_mag1m")
+
+[node name="Icon" type="Sprite2D" parent="Goals/Meadow"]
+position = Vector2(22, 15)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("4_posue")
+region_enabled = true
+region_rect = Rect2(44.5761, 28.9869, 159.605, 200.132)
+
+[node name="Desert" type="Node2D" parent="Goals"]
+position = Vector2(0, 165)
+
+[node name="ProgressBar" type="ProgressBar" parent="Goals/Desert"]
+offset_left = 40.0
+offset_right = 240.0
+offset_bottom = 30.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fhote")
+max_value = 50.0
+value = 50.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Goals/Desert"]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(167, 15)
+scale = Vector2(0.084375, 0.253906)
+texture = ExtResource("2_mag1m")
+
+[node name="Icon" type="Sprite2D" parent="Goals/Desert"]
+position = Vector2(22, 15)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("5_0yjri")
+region_enabled = true
+region_rect = Rect2(23.9042, 26.6709, 209.595, 208.901)
+
+[node name="ItemList" type="ItemList" parent="."]
+offset_left = 1005.0
+offset_top = 88.0
+offset_right = 1129.0
+offset_bottom = 372.0
+theme_override_colors/guide_color = Color(0, 0, 0, 0)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/icon_margin = 5
+theme_override_constants/v_separation = 20
+theme_override_styles/focus = ExtResource("6_1iuva")
+theme_override_styles/panel = ExtResource("6_1iuva")
+theme_override_styles/hovered = ExtResource("6_besod")
+theme_override_styles/selected = ExtResource("7_lqxro")
+theme_override_styles/selected_focus = ExtResource("7_lqxro")
+item_count = 3
+item_0/text = "Rain"
+item_0/icon = ExtResource("8_ov0ut")
+item_1/text = "Draught"
+item_1/icon = ExtResource("9_v6t22")
+item_2/text = "Majority"
+item_2/icon = ExtResource("10_0ka61")
+
+[node name="WillBeDone" type="Button" parent="."]
+offset_left = 816.0
+offset_top = 571.0
+offset_right = 1137.0
+offset_bottom = 634.0
+theme_override_font_sizes/font_size = 40
+text = "My Will Be Done!"
+
+[node name="RoundLabel" type="Label" parent="."]
+offset_top = 230.0
+offset_right = 147.0
+offset_bottom = 285.0
+theme_override_font_sizes/font_size = 40
+text = "Round: 0"
+
+[connection signal="item_clicked" from="ItemList" to="." method="_on_item_list_item_clicked"]
+[connection signal="pressed" from="WillBeDone" to="." method="_on_will_be_done_pressed"]
