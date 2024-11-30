@@ -37,21 +37,17 @@ func _process(delta: float) -> void:
 func _on_will_done() -> void:
 	
 	PS.is_player_turn = false
+	HUD.set_will_be_done_visibility(false)
 	
 	print("Process fuck ups")
 	process_fuck_ups()
-	
-	await get_tree().create_timer(1.0).timeout
 	
 	print("Process player selection")
 	process_used_effects()
 	env.render_map()
 
-
 	env.calc_distribution()
 	update_round_count()
-	
-	await get_tree().create_timer(1.0).timeout
 	
 	print("Clear board")
 	env.clear_effects_visuals()
@@ -62,6 +58,7 @@ func _on_will_done() -> void:
 	env.render_map()
 	# now wait for player to make selection and then press will be done
 	
+	HUD.set_will_be_done_visibility(true)
 	PS.reset_player_actions_amount()
 	PS.is_player_turn = true
 
@@ -100,6 +97,7 @@ func process_rain(rain_effect: PlacedEffect) -> void:
 	var tile: G.TileTypes = env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type
 	match tile:
 		G.TileTypes.DESERT:
+			env.tween_out_tile(rain_effect.source_coord)
 			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type = G.TileTypes.MEADOW
 		G.TileTypes.MEADOW:
 			env.terrain[rain_effect.source_coord.x][rain_effect.source_coord.y].type = G.TileTypes.WATER

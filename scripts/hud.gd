@@ -41,3 +41,6 @@ func update_round_label(val : int) -> void:
 	
 func update_remaining_actions() -> void:
 	$RemainingActionsLabel.text = "Remaining: " + str(PS.remaining_actions)
+
+func set_will_be_done_visibility(visibility: bool) -> void:
+	$WillBeDone.visible = visibility

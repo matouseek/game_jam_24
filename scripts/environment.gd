@@ -124,3 +124,33 @@ func reset_last_used_effect() -> void:
 	PS.remaining_actions += 1
 	PS.update_player_action_amount(PS.remaining_actions)
 	render_all_effects()
+
+func tween_out_tile(coord: Vector2i) -> void:
+	var tilemaplayer: TileMapLayer = $TileMapLayer
+	var texture: Texture = get_cell_texture(tilemaplayer, coord)
+	
+	var sprite: Sprite2D = Sprite2D.new()
+	sprite.texture = texture
+	sprite.position = tilemaplayer.map_to_local(coord)
+	sprite.scale = Vector2(1, 1)
+	sprite.modulate = Color(1,0,0)
+	sprite.name = "SpriteToTween"
+	add_child(sprite, true)
+
+	var tween: Tween = create_tween()
+	tween.tween_property($SpriteToTween, "scale", Vector2(0,0), 1).set_trans(Tween.TRANS_SPRING)
+	tween.tween_callback($SpriteToTween.queue_free)
+	sprite.name = "TweeningSprite"
+	
+func get_cell_texture(tilemaplayer: TileMapLayer, coord: Vector2i) -> Texture:
+	var cell_id: int = tilemaplayer.get_cell_source_id(coord)
+	var source: TileSetAtlasSource = tilemaplayer.tile_set.get_source(cell_id) as TileSetAtlasSource
+	
+	var atlas_coord = tilemaplayer.get_cell_atlas_coords(coord)
+	
+	var rect = source.get_tile_texture_region(atlas_coord)
+	var img: Image = source.texture.get_image()
+	var tile_image = img.get_region(rect)
+	
+	return ImageTexture.create_from_image(tile_image)
+		
