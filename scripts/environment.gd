@@ -24,10 +24,10 @@ func _ready() -> void:
 func _input(event):
 	# Mouse in viewport coordinates.
 	
-	if event is InputEventMouseButton:
+	if event.is_action_pressed("mouse_click"):
 		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
 		print("Position on map",pos)
-		#$TileMapLayer.set_cell(pos,4,Vector2i(0,0))
+		$TileMapLayer.set_cell(pos,4,Vector2i(0,0))
 		
 
 func initialize_randomly() -> void:
