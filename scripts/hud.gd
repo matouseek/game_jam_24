@@ -8,6 +8,7 @@ extends CanvasLayer
 
 func _ready() -> void:
 	update_hud()
+	$ItemList.select(0)
 
 func _on_rain_pressed() -> void:
 	reset_hud()

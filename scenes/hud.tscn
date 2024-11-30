@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://2bcciget8brv"]
+[gd_scene load_steps=15 format=3 uid="uid://2bcciget8brv"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_n2wg5"]
 [ext_resource type="Texture2D" uid="uid://b6us8wnskq8ce" path="res://assets/placeholders/action_rain_placeholder.png" id="2_dhwe4"]
@@ -13,6 +13,14 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fhote"]
 bg_color = Color(0, 0, 0, 0.243137)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sllrl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4wexa"]
+bg_color = Color(0.976471, 0.121569, 0.0235294, 0.529412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lj0vq"]
+bg_color = Color(0.92549, 0.439216, 0.141176, 0.65098)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_n2wg5")
@@ -168,8 +176,10 @@ offset_left = 980.0
 offset_top = 225.0
 offset_right = 1148.0
 offset_bottom = 396.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sllrl")
+theme_override_styles/hovered = SubResource("StyleBoxFlat_4wexa")
+theme_override_styles/selected = SubResource("StyleBoxFlat_lj0vq")
 item_count = 3
-max_columns = 3
 item_0/text = "Rain"
 item_0/icon = ExtResource("8_ov0ut")
 item_1/text = "Draught"
