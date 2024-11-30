@@ -75,7 +75,7 @@ func handle_highlights(pos: Vector2i) -> void:
 
 func render_all_effects() -> void:
 	clear_effects_visuals()
-	for effect in used_effects + fuck_up_effects:
+	for effect in fuck_up_effects + used_effects:
 		$Used.set_cell(effect.source_coord,effect.type,Vector2i(0,0))
 		if effect.type == PS.PlayerEffects.MAJORITY: # handle majority effect rendering
 			for offset in offsets:

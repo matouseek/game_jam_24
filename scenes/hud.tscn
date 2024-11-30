@@ -10,7 +10,7 @@
 [ext_resource type="StyleBox" uid="uid://coyx1uab0hiss" path="res://assets/IL_style/selected.tres" id="7_lqxro"]
 [ext_resource type="Texture2D" uid="uid://bh18oota23lif" path="res://assets/placeholders/resized/action_rain_placeholder.png" id="8_ov0ut"]
 [ext_resource type="Texture2D" uid="uid://bwda5gdkoyy52" path="res://assets/placeholders/resized/action_fire_placeholder.png" id="9_v6t22"]
-[ext_resource type="Texture2D" uid="uid://dmkimr63xyotg" path="res://assets/placeholders/resized/goal_desert_placeholder.png" id="10_0ka61"]
+[ext_resource type="Texture2D" uid="uid://copy48h82sbij" path="res://assets/placeholders/action_majority_placeholder_2.png" id="11_et0tm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fhote"]
 bg_color = Color(0, 0, 0, 0.243137)
@@ -19,7 +19,7 @@ bg_color = Color(0, 0, 0, 0.243137)
 script = ExtResource("1_n2wg5")
 
 [node name="Actions" type="Node2D" parent="."]
-position = Vector2(997, 8)
+position = Vector2(1761, 16)
 
 [node name="Label" type="Label" parent="Actions"]
 offset_right = 142.0
@@ -117,10 +117,10 @@ region_enabled = true
 region_rect = Rect2(23.9042, 26.6709, 209.595, 208.901)
 
 [node name="ItemList" type="ItemList" parent="."]
-offset_left = 1005.0
-offset_top = 88.0
-offset_right = 1129.0
-offset_bottom = 372.0
+offset_left = 1769.0
+offset_top = 96.0
+offset_right = 1893.0
+offset_bottom = 380.0
 theme_override_colors/guide_color = Color(0, 0, 0, 0)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_margin = 5
@@ -136,13 +136,13 @@ item_0/icon = ExtResource("8_ov0ut")
 item_1/text = "Draught"
 item_1/icon = ExtResource("9_v6t22")
 item_2/text = "Majority"
-item_2/icon = ExtResource("10_0ka61")
+item_2/icon = ExtResource("11_et0tm")
 
 [node name="WillBeDone" type="Button" parent="."]
-offset_left = 816.0
-offset_top = 571.0
-offset_right = 1137.0
-offset_bottom = 634.0
+offset_left = 1572.0
+offset_top = 998.0
+offset_right = 1904.0
+offset_bottom = 1061.0
 theme_override_font_sizes/font_size = 40
 text = "My Will Be Done!"
 
