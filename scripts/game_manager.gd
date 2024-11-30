@@ -10,26 +10,27 @@ const CAM_SPEED = 2200
 
 const ZOOM_FACTOR_MAX = 4
 const ZOOM_FACTOR_MIN = 0.125
-
 var zoom_factor = 0.25
+var sfx = 0
+var music = 0
 @onready var camera = $Environment/Camera2D
 
 func _ready() -> void:
 	HUD.do_will.connect(_on_will_done)
 	camera.zoom = Vector2(zoom_factor,zoom_factor)
 	var tween = get_tree().create_tween()
-	tween.tween_property($ColorRect, "color:a", 0,1)
+	tween.tween_property($ColorRect, "color:a", 0,2)
 	tween.tween_callback(anihilation)
+	HUD.visible = true
+	$Environment.visible = true
 
 func anihilation():
 	$ColorRect.visible = false
-	HUD.visible = true
 
 func _input(event: InputEvent) -> void:
 	if (event.is_action_pressed("zoom_in")):
 		zoom_factor = min(zoom_factor*ZOOM_COEF,ZOOM_FACTOR_MAX)
 		camera.zoom = Vector2(zoom_factor,zoom_factor)
-		
 	if (event.is_action_pressed("zoom_out")):
 		zoom_factor = max(zoom_factor/ZOOM_COEF,ZOOM_FACTOR_MIN)
 		camera.zoom = Vector2(zoom_factor,zoom_factor)

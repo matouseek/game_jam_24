@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://cro6l6tjjo5d"]
+
+[ext_resource type="Script" path="res://scripts/audio_settings.gd" id="1_64tt8"]
+
+[node name="AudioSettings" type="CanvasLayer"]
+process_mode = 3
+visible = false
+script = ExtResource("1_64tt8")
+
+[node name="SFX" type="HSlider" parent="."]
+anchors_preset = -1
+anchor_left = 0.0833333
+anchor_top = 0.185185
+anchor_right = 0.25
+anchor_bottom = 0.203704
+offset_left = 41.0
+offset_right = 41.0
+grow_vertical = 2
+min_value = -80.0
+max_value = 24.0
+step = 0.1
+metadata/_edit_use_anchors_ = true
+
+[node name="Music" type="HSlider" parent="."]
+anchors_preset = -1
+anchor_left = 0.0833333
+anchor_top = 0.0925926
+anchor_right = 0.25
+anchor_bottom = 0.111111
+offset_left = 41.0
+offset_right = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = -80.0
+max_value = 24.0
+step = 0.1
+metadata/_edit_use_anchors_ = true
+
+[node name="SFXLabel" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.0223958
+anchor_top = 0.087037
+anchor_right = 0.0666667
+anchor_bottom = 0.150926
+offset_right = -45.0
+offset_bottom = -46.0
+theme_override_font_sizes/font_size = 50
+text = "SFX"
+metadata/_edit_use_anchors_ = true
+
+[node name="MusicLabel" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.00260417
+anchor_top = 0.155556
+anchor_right = 0.0848958
+anchor_bottom = 0.219444
+theme_override_font_sizes/font_size = 50
+text = "MUSIC"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="value_changed" from="SFX" to="." method="_on_sfx_value_changed"]
+[connection signal="value_changed" from="Music" to="." method="_on_music_value_changed"]
