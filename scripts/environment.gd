@@ -46,7 +46,6 @@ func initialize_randomly() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
 			terrain[i][j] = randi_range(0,2)
-	pass
 
 func set_map() -> void:
 	for i in range(ENV_SIZE):
