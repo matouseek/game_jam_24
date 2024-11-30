@@ -12,7 +12,6 @@ func _input(event: InputEvent) -> void:
 		visible = !visible
 		HUD.visible = !HUD.visible
 		get_tree().paused = !get_tree().paused
-		$SFXPlayer.play()
 
 
 func _on_sfx_value_changed(value: float) -> void:
@@ -27,3 +26,14 @@ func play_music(name):
 	$MusicPlayer.stream = load(name) as AudioStream
 	$MusicPlayer.stream.loop = true
 	$MusicPlayer.play()
+
+
+func _on_back_pressed() -> void:
+	if (get_tree().current_scene.name == 'Menu'):
+		get_tree().current_scene.visible = true
+		visible = false
+	else:
+		visible = !visible
+		HUD.visible = !HUD.visible
+		get_tree().paused = !get_tree().paused
+		
