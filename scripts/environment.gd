@@ -172,9 +172,10 @@ func get_cell_texture(tilemaplayer: TileMapLayer, coord: Vector2i) -> Texture:
 func tween_tilemap(old_terrain: Array, new_terrain: Array) -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			var old_type: G.TileTypes = old_terrain[i][j].type
-			var new_type: G.TileTypes = new_terrain[i][j].type
-			if old_type == new_type: continue
+			var old_tile : WorldTile = old_terrain[i][j]
+			var new_tile : WorldTile = new_terrain[i][j]
+			if old_tile.type == new_tile.type and old_tile.tier == new_tile.tier: 
+				continue
 			tween_out_tile(Vector2i(i, j))
 			
 	
@@ -238,12 +239,24 @@ func update_tile_tier(coord : Vector2i) -> void:
 			friends_count += 1
 	
 	# determine tier based on amount of neighbors with same type
-	if friends_count < 2:
-		terrain[coord.x][coord.y].tier = G.TileTier.LOW
-	elif friends_count < 4:
-		terrain[coord.x][coord.y].tier = G.TileTier.MEDIUM
+	terrain[coord.x][coord.y].tier = calculate_tier(friends_count,terrain[coord.x][coord.y])
+
+
+func calculate_tier(friends_count : int, tile : WorldTile) -> G.TileTier:
+	if tile.type == G.TileTypes.WATER:
+		if friends_count < 1:
+			return G.TileTier.LOW
+		elif friends_count < 4:
+			return G.TileTier.MEDIUM
+		else:
+			return G.TileTier.HIGH
 	else:
-		terrain[coord.x][coord.y].tier = G.TileTier.HIGH
+		if friends_count < 2:
+			return G.TileTier.LOW
+		elif friends_count < 4:
+			return G.TileTier.MEDIUM
+		else:
+			return G.TileTier.HIGH	
 
 func get_tile_source_id(tile : WorldTile) -> int:
 	return tile.type * type_modulo + tile.tier * tier_modulo
