@@ -13,35 +13,53 @@ const ZOOM_FACTOR_MIN = 0.125
 var zoom_factor = 0.25
 var sfx = 0
 var music = 0
-@onready var camera = $Environment/Camera2D
-const TRANS_TIME = 1
+@onready var camera = $Camera2D
+const TRANS_TIME = 4
 
 
 func _ready() -> void:
+	$CameraUnlock.start()
 	HUD.do_will.connect(_on_will_done)
 	camera.zoom = Vector2(zoom_factor,zoom_factor)
 	var tween = get_tree().create_tween()
 	tween.set_parallel(true)
-	tween.tween_property($Environment/Camera2D, "position", Vector2(500,3000),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property($Environment/Camera2D, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(camera, "position", Vector2(500,3000),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(camera, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
 	HUD.visible = true
 	$Environment.visible = true
 	AS.play_music("res://assets/Sounds/game_placeholder.mp3")
 
 func _input(event: InputEvent) -> void:
-	if (event.is_action_pressed("zoom_in")):
-		zoom_factor = min(zoom_factor*ZOOM_COEF,ZOOM_FACTOR_MAX)
-		camera.zoom = Vector2(zoom_factor,zoom_factor)
-	if (event.is_action_pressed("zoom_out")):
-		zoom_factor = max(zoom_factor/ZOOM_COEF,ZOOM_FACTOR_MIN)
-		camera.zoom = Vector2(zoom_factor,zoom_factor)
+	if (!limit_camera):
+		if (event.is_action_pressed("zoom_in")):
+			zoom_factor = min(zoom_factor*ZOOM_COEF,ZOOM_FACTOR_MAX)
+			camera.zoom = Vector2(zoom_factor,zoom_factor)
+		if (event.is_action_pressed("zoom_out")):
+			zoom_factor = max(zoom_factor/ZOOM_COEF,ZOOM_FACTOR_MIN)
+			camera.zoom = Vector2(zoom_factor,zoom_factor)
 
 func _process(delta: float) -> void:
-	var dir = Vector2(Input.get_action_strength("right")-Input.get_action_strength("left"),
-	Input.get_action_strength("down")-Input.get_action_strength("up"))
-	dir = dir.normalized()
-	camera.position += (CAM_SPEED/zoom_factor)*delta*dir
-	
+	if (!limit_camera):
+		var dir = Vector2(Input.get_action_strength("right")-Input.get_action_strength("left"),
+		Input.get_action_strength("down")-Input.get_action_strength("up"))
+		dir = dir.normalized()
+		var update = camera.position + (CAM_SPEED/zoom_factor)*delta*dir
+		if (update.x <= camera.limit_left):
+			print("left")
+			update.x = camera.limit_left
+		elif (update.x >= camera.limit_right):
+			print("right")
+			update.x = camera.limit_right
+		if (update.y <= camera.limit_top):
+			print("top")
+			update.y = camera.limit_top
+		elif (update.y >= camera.limit_bottom):
+			print("down")
+			update.y = camera.limit_bottom
+		if (dir != Vector2.ZERO):
+			print(camera.position)
+		camera.position = update
+		
 	
 func _on_will_done() -> void:
 	
@@ -164,4 +182,11 @@ func process_majority(majority_effect: PlacedEffect) -> void:
 			if not env.is_valid_map_pos(current_tile):
 				continue
 			env.terrain[current_tile.x][current_tile.y].type = resulting_tile
-	
+
+
+func _on_camera_unlock_timeout() -> void:
+	camera.limit_bottom = 8000
+	camera.limit_top = -3000
+	camera.limit_left = -7000
+	camera.limit_right = 8500
+	limit_camera = false
