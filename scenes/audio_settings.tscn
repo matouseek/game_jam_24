@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cro6l6tjjo5d"]
+[gd_scene load_steps=4 format=3 uid="uid://cro6l6tjjo5d"]
 
 [ext_resource type="Script" path="res://scripts/audio_settings.gd" id="1_64tt8"]
+[ext_resource type="AudioStream" uid="uid://b8jw5s8f3h80g" path="res://assets/Sounds/Amogus.wav" id="2_nkpeu"]
+[ext_resource type="AudioStream" uid="uid://dacj4woglaavf" path="res://assets/Sounds/menu.mp3" id="3_7t5fu"]
 
 [node name="AudioSettings" type="CanvasLayer"]
 process_mode = 3
@@ -36,7 +38,7 @@ max_value = 24.0
 step = 0.1
 metadata/_edit_use_anchors_ = true
 
-[node name="SFXLabel" type="Label" parent="."]
+[node name="MusicL" type="Label" parent="."]
 anchors_preset = -1
 anchor_left = 0.0223958
 anchor_top = 0.087037
@@ -45,18 +47,24 @@ anchor_bottom = 0.150926
 offset_right = -45.0
 offset_bottom = -46.0
 theme_override_font_sizes/font_size = 50
-text = "SFX"
+text = "MUSIC"
 metadata/_edit_use_anchors_ = true
 
-[node name="MusicLabel" type="Label" parent="."]
+[node name="SFXL" type="Label" parent="."]
 anchors_preset = -1
 anchor_left = 0.00260417
 anchor_top = 0.155556
 anchor_right = 0.0848958
 anchor_bottom = 0.219444
 theme_override_font_sizes/font_size = 50
-text = "MUSIC"
+text = "SFX"
 metadata/_edit_use_anchors_ = true
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_nkpeu")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7t5fu")
 
 [connection signal="value_changed" from="SFX" to="." method="_on_sfx_value_changed"]
 [connection signal="value_changed" from="Music" to="." method="_on_music_value_changed"]

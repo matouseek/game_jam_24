@@ -1,5 +1,8 @@
 extends Node2D
-	
+
+func _ready() -> void:
+	AS.play_music("res://assets/Sounds/menu.mp3")
+
 func _on_button_pressed() -> void:
 	$Trans.visible = true
 	var tween = get_tree().create_tween()
