@@ -6,7 +6,6 @@
 
 [node name="AudioSettings" type="CanvasLayer"]
 process_mode = 3
-visible = false
 script = ExtResource("1_64tt8")
 
 [node name="SFX" type="HSlider" parent="."]
@@ -44,8 +43,10 @@ anchor_left = 0.0223958
 anchor_top = 0.087037
 anchor_right = 0.0666667
 anchor_bottom = 0.150926
-offset_right = -45.0
-offset_bottom = -46.0
+offset_left = -26.9999
+offset_top = -21.0
+offset_right = 45.9999
+offset_bottom = -21.0001
 theme_override_font_sizes/font_size = 50
 text = "MUSIC"
 metadata/_edit_use_anchors_ = true
@@ -54,8 +55,12 @@ metadata/_edit_use_anchors_ = true
 anchors_preset = -1
 anchor_left = 0.00260417
 anchor_top = 0.155556
-anchor_right = 0.0848958
+anchor_right = 0.05625
 anchor_bottom = 0.219444
+offset_left = 32.0
+offset_top = -4.00047
+offset_right = 32.0001
+offset_bottom = -3.99953
 theme_override_font_sizes/font_size = 50
 text = "SFX"
 metadata/_edit_use_anchors_ = true
