@@ -22,6 +22,7 @@ var MAX_SHARE = 0.5
 
 func _ready() -> void:
 	update_hud()
+	$ItemList.select(0)
 
 func _on_rain_pressed() -> void:
 	reset_hud()
@@ -55,3 +56,8 @@ func update_progress(vals):
 	for i in range(len(vals)):
 		print(vals[i]*100)
 		progress_nodes[i].value = vals[i]*100
+
+func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
+	reset_hud()
+	PS.update_state(index)
+	update_hud()
