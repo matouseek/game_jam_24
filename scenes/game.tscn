@@ -8,10 +8,9 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1_bggsq")
 
 [node name="Environment" parent="." instance=ExtResource("2_p43xb")]
-position = Vector2(1814, 460)
-scale = Vector2(0.2, 0.2)
 
 [node name="Camera2D" type="Camera2D" parent="Environment"]
+position = Vector2(500, 3700)
 scale = Vector2(5, 5)
 
 [node name="Timer" type="Timer" parent="."]
