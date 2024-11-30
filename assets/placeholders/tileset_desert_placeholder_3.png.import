@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d36frdwsrnigt"
-path="res://.godot/imported/tileset_water_placeholder_2.png-838f2186c953ffbdbf89f92d0a996438.ctex"
+uid="uid://dwrlh7keyw5w0"
+path="res://.godot/imported/tileset_desert_placeholder_3.png-3cac9312e816928fffa391855b556e4b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/placeholders/tileset_water_placeholder_2.png"
-dest_files=["res://.godot/imported/tileset_water_placeholder_2.png-838f2186c953ffbdbf89f92d0a996438.ctex"]
+source_file="res://assets/placeholders/tileset_desert_placeholder_3.png"
+dest_files=["res://.godot/imported/tileset_desert_placeholder_3.png-3cac9312e816928fffa391855b556e4b.ctex"]
 
 [params]
 

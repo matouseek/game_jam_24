@@ -4,11 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://dud4pgwi261oh" path="res://scenes/environment.tscn" id="2_p43xb"]
 
 [node name="Game" type="Node2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_bggsq")
 
 [node name="Environment" parent="." instance=ExtResource("2_p43xb")]
-position = Vector2(576, 250)
-scale = Vector2(0.22, 0.22)
+position = Vector2(1814, 460)
+scale = Vector2(0.2, 0.2)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0

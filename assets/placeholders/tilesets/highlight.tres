@@ -7,7 +7,7 @@ texture = ExtResource("1_erul4")
 margins = Vector2i(0, 106)
 texture_region_size = Vector2i(256, 150)
 0:0/0 = 0
-0:0/0/modulate = Color(0, 0, 0.815686, 0.803922)
+0:0/0/modulate = Color(0.235294, 0.231373, 1, 0.596078)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1wwml"]
 texture = ExtResource("1_erul4")
@@ -26,7 +26,7 @@ texture_region_size = Vector2i(256, 150)
 [resource]
 tile_shape = 1
 tile_layout = 5
-tile_size = Vector2i(256, 150)
+tile_size = Vector2i(1024, 591)
 sources/2 = SubResource("TileSetAtlasSource_c4u76")
 sources/0 = SubResource("TileSetAtlasSource_dvha6")
 sources/1 = SubResource("TileSetAtlasSource_1wwml")
