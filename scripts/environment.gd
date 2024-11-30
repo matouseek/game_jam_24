@@ -8,19 +8,13 @@ var offsets = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
 		Vector2i(-1,  0),               Vector2i(1,  0),
 		Vector2i(-1,  1), Vector2i(0,  1), Vector2i(1,  1)]
 
-enum TileTypes {
-	WATER,
-	MEADOW,
-	DESERT
-}
-
 var terrain: Array = []
 
 func _ready() -> void:
 	for i in range(ENV_SIZE):
 		var row: Array = []
 		for j in range(ENV_SIZE):
-			row.append(TileTypes.MEADOW)
+			row.append(G.TileTypes.MEADOW)
 		terrain.append(row)
 	initialize_randomly()
 	set_map()
