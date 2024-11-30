@@ -1,9 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://2bcciget8brv"]
+[gd_scene load_steps=13 format=3 uid="uid://2bcciget8brv"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_n2wg5"]
-[ext_resource type="Texture2D" uid="uid://b6us8wnskq8ce" path="res://assets/placeholders/action_rain_placeholder.png" id="2_dhwe4"]
 [ext_resource type="Texture2D" uid="uid://cy750ojup4k4t" path="res://assets/icon.svg" id="2_mag1m"]
-[ext_resource type="Texture2D" uid="uid://dmpw2ic2w4ual" path="res://assets/placeholders/action_fire_placeholder.png" id="3_hnhey"]
 [ext_resource type="Texture2D" uid="uid://jbidh6p24g5a" path="res://assets/placeholders/goal_water_placeholder.png" id="3_k47o0"]
 [ext_resource type="Texture2D" uid="uid://brbln01sk5lc4" path="res://assets/placeholders/meadow_desert_placeholder.png" id="4_posue"]
 [ext_resource type="Texture2D" uid="uid://tah1o0oxqomc" path="res://assets/placeholders/goal_desert_placeholder.png" id="5_0yjri"]
@@ -14,20 +12,20 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fhote"]
 bg_color = Color(0, 0, 0, 0.243137)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sllrl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_httnh"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4wexa"]
 bg_color = Color(0.976471, 0.121569, 0.0235294, 0.529412)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lj0vq"]
-bg_color = Color(0.92549, 0.439216, 0.141176, 0.65098)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_setow"]
-bg_color = Color(0.847855, 0.56438, 0.219492, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+shadow_color = Color(0.270222, 0.270222, 0.270222, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lj0vq"]
+bg_color = Color(0.92549, 0.439216, 0.141176, 0.65098)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_n2wg5")
@@ -41,57 +39,6 @@ offset_bottom = 55.0
 theme_override_font_sizes/font_size = 40
 text = "Actions"
 metadata/_edit_use_anchors_ = true
-
-[node name="Rain" type="Node2D" parent="Actions"]
-position = Vector2(40, 55)
-
-[node name="Rain" type="Button" parent="Actions/Rain"]
-offset_right = 55.0
-offset_bottom = 31.0
-text = "Rain
-"
-metadata/_edit_use_anchors_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Actions/Rain"]
-position = Vector2(-30, 15)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("2_dhwe4")
-region_enabled = true
-region_rect = Rect2(37.5, 32.25, 187, 205.5)
-
-[node name="Draught" type="Node2D" parent="Actions"]
-position = Vector2(40, 110)
-
-[node name="Draught" type="Button" parent="Actions/Draught"]
-offset_right = 72.0
-offset_bottom = 31.0
-text = "Draught
-"
-metadata/_edit_use_anchors_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Actions/Draught"]
-position = Vector2(-30, 15)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("3_hnhey")
-region_enabled = true
-region_rect = Rect2(37.5, 32.25, 187, 205.5)
-
-[node name="Majority" type="Node2D" parent="Actions"]
-position = Vector2(40, 165)
-
-[node name="Majority" type="Button" parent="Actions/Majority"]
-offset_right = 73.0
-offset_bottom = 31.0
-text = "Majority
-"
-metadata/_edit_use_anchors_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Actions/Majority"]
-position = Vector2(-30, 15)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("5_0yjri")
-region_enabled = true
-region_rect = Rect2(37.5, 32.25, 187, 205.5)
 
 [node name="Goals" type="Node2D" parent="."]
 position = Vector2(0, 1)
@@ -186,7 +133,9 @@ offset_left = 980.0
 offset_top = 225.0
 offset_right = 1148.0
 offset_bottom = 396.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_sllrl")
+theme_override_colors/guide_color = Color(0, 0, 0, 0)
+theme_override_constants/v_separation = 20
+theme_override_styles/panel = SubResource("StyleBoxFlat_httnh")
 theme_override_styles/hovered = SubResource("StyleBoxFlat_4wexa")
 theme_override_styles/selected = SubResource("StyleBoxFlat_lj0vq")
 item_count = 3
@@ -197,29 +146,4 @@ item_1/icon = ExtResource("9_v6t22")
 item_2/text = "Majority"
 item_2/icon = ExtResource("10_0ka61")
 
-[node name="Container" type="GridContainer" parent="."]
-offset_left = 980.0
-offset_top = 431.0
-offset_right = 1108.0
-offset_bottom = 583.0
-
-[node name="Button" type="Button" parent="Container"]
-layout_mode = 2
-text = "Fire"
-icon = ExtResource("9_v6t22")
-
-[node name="Button2" type="Button" parent="Container"]
-layout_mode = 2
-text = "Rain"
-icon = ExtResource("8_ov0ut")
-
-[node name="Button3" type="Button" parent="Container"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_setow")
-text = "Majority"
-icon = ExtResource("10_0ka61")
-
-[connection signal="pressed" from="Actions/Rain/Rain" to="." method="_on_rain_pressed"]
-[connection signal="pressed" from="Actions/Draught/Draught" to="." method="_on_draught_pressed"]
-[connection signal="pressed" from="Actions/Majority/Majority" to="." method="_on_majority_pressed"]
 [connection signal="item_clicked" from="ItemList" to="." method="_on_item_list_item_clicked"]
