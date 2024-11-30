@@ -1,7 +1,7 @@
 extends Node2D
 
 const ENV_SIZE: int = 12
-var last_pos = null
+var last_pos = [Vector2i(-1000,-1000)]
 
 enum TileTypes {
 	DESERT,
@@ -28,12 +28,19 @@ func _input(event):
 	if event.is_action_pressed("mouse_click"):
 		print("Position on map",pos)
 		$TileMapLayer.set_cell(pos,4,Vector2i(0,0))
-	if (pos.x >= 0 and pos.x < ENV_SIZE and pos.y >= 0 and pos.y<ENV_SIZE and last_pos!=pos):
+	print("pos ",pos)
+	if (pos.x >= 0 and pos.x < ENV_SIZE and pos.y >= 0 and pos.y<ENV_SIZE and last_pos[0]!=pos):
 		if (last_pos != null):
-			$Highlight.set_cell(last_pos,-1,Vector2i(0,0))
-		last_pos = pos
+			for lpos in last_pos:
+				$Highlight.set_cell(lpos,-1,Vector2i(0,0))
+		last_pos = [pos]
 		$Highlight.set_cell(pos,0,Vector2i(0,0))
-		
+		if (PS.PlayerEffects.MAJORITY == PS.selected_effect):
+			for newpos in $Highlight.get_surrounding_cells(pos):
+				if (newpos.x >= 0 and newpos.x < ENV_SIZE and newpos.y >= 0 and newpos.y<ENV_SIZE):
+					last_pos.append(newpos)
+					$Highlight.set_cell(newpos,0,Vector2i(0,0))
+	
 
 func initialize_randomly() -> void:
 	for i in range(ENV_SIZE):
