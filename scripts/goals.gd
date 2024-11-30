@@ -10,14 +10,13 @@ var goals = {}
 
 func _ready() -> void:
 	var sum = 0
-	var val = randf_range(0.25,0.45)
-	goals[TileTypes.DESERT] = val
-	HUD.set_goal(TileTypes.DESERT,val)
-	sum+=val
-	val = randf_range(0.25,0.45)
-	goals[TileTypes.MEADOW] = val
-	HUD.set_goal(TileTypes.MEADOW,val)
-	sum+= val
-	goals[TileTypes.WATER] = 1-sum
-	HUD.set_goal(TileTypes.WATER,1-sum)
+	var val = 0
+	for type in TileTypes.values():
+		val = randf_range(0.25,0.45)
+		goals[type] = val
+		HUD.set_goal(type,val)
+		sum+=val
+	val =  1-(sum-val)
+	goals[TileTypes.WATER] = val
+	HUD.set_goal(TileTypes.WATER,val)
 	print(goals)
