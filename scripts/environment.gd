@@ -2,6 +2,10 @@ extends Node2D
 
 const ENV_SIZE: int = 12
 
+
+var type_modulo : int = 10
+var tier_modulo : int = 3
+
 var fuck_up_effects : Array[PlacedEffect] = []
 var used_effects : Array[PlacedEffect] = []
 
@@ -112,11 +116,12 @@ func initialize_randomly() -> void:
 #			if (j== ENV_SIZE-1 and i == ENV_SIZE-1): terrain[i][j] = -1
 #			elif (j == ENV_SIZE-1 or i == ENV_SIZE-1): terrain[i][j] = 2
 #			else : terrain[i][j] = randi_range(0,1)
-
+	update_tiers()
+	
 func render_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			$TileMapLayer.set_cell(Vector2i(i,j),terrain[i][j].type,Vector2i(0,0))
+			$TileMapLayer.set_cell(Vector2i(i,j),get_tile_source_id(terrain[i][j]),Vector2i(0,0))
 
 func reset_effects() -> void:
 	used_effects = []
@@ -185,7 +190,7 @@ func get_terrain_copy() -> Array:
 func tween_in_tile(coord: Vector2i) -> void:
 	var tilemaplayer: TileMapLayer = $TileMapLayer
 	
-	var source: TileSetAtlasSource = tilemaplayer.tile_set.get_source(terrain[coord.x][coord.y].type) as TileSetAtlasSource
+	var source: TileSetAtlasSource = tilemaplayer.tile_set.get_source(get_tile_source_id(terrain[coord.x][coord.y])) as TileSetAtlasSource
 	
 	var img: Image = source.texture.get_image()
 	
@@ -205,7 +210,7 @@ func tween_in_tile(coord: Vector2i) -> void:
 	tween.parallel().tween_property($SpriteToTween, "scale", Vector2(1,1), 0.5).set_trans(Tween.TRANS_SPRING)
 	tween.parallel().tween_property($SpriteToTween, "modulate:a", 1, 0.5).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback($SpriteToTween.queue_free)
-	tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(terrain[coord.x][coord.y].type).bind(coord))
+	tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(get_tile_source_id(terrain[coord.x][coord.y])).bind(coord))
 	sprite.name = "TweeningSprite"
 
 func test_print_board():
@@ -239,3 +244,6 @@ func update_tile_tier(coord : Vector2i) -> void:
 		terrain[coord.x][coord.y].tier = G.TileTier.MEDIUM
 	else:
 		terrain[coord.x][coord.y].tier = G.TileTier.HIGH
+
+func get_tile_source_id(tile : WorldTile) -> int:
+	return tile.type * type_modulo + tile.tier * tier_modulo

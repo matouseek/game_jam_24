@@ -83,7 +83,10 @@ func _on_will_done() -> void:
 	if not env.fuck_up_effects.is_empty():
 		env.tween_tilemap(terrain_copy, env.terrain)
 		await get_tree().create_timer(2.0).timeout
-
+	
+	env.update_tiers()
+	env.render_map()
+	
 	env.calc_distribution()
 	update_round_count()
 	
