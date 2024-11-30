@@ -17,6 +17,13 @@ var zoom_factor = 0.25
 func _ready() -> void:
 	HUD.do_will.connect(_on_will_done)
 	camera.zoom = Vector2(zoom_factor,zoom_factor)
+	var tween = get_tree().create_tween()
+	tween.tween_property($ColorRect, "color:a", 0,1)
+	tween.tween_callback(anihilation)
+
+func anihilation():
+	$ColorRect.visible = false
+	HUD.visible = true
 
 func _input(event: InputEvent) -> void:
 	if (event.is_action_pressed("zoom_in")):

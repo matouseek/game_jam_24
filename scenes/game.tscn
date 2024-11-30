@@ -7,11 +7,19 @@
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_bggsq")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -7178.0
+offset_top = -674.0
+offset_right = 8186.0
+offset_bottom = 8022.0
+color = Color(0, 0, 0, 1)
+
 [node name="Environment" parent="." instance=ExtResource("2_p43xb")]
 
 [node name="Camera2D" type="Camera2D" parent="Environment"]
 position = Vector2(500, 3700)
 scale = Vector2(5, 5)
+zoom = Vector2(0.25, 0.25)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
