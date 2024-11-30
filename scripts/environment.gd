@@ -53,7 +53,7 @@ func initialize_randomly() -> void:
 		for j in range(ENV_SIZE):
 			if (j == ENV_SIZE-1 or i == ENV_SIZE-1): terrain[i][j] = 2
 			if (j== ENV_SIZE-1 and i == ENV_SIZE-1): terrain[i][j] = -1
-			else: terrain[i][j] = randi_range(0,1)
+			if (j != ENV_SIZE-1 and i != ENV_SIZE-1) : terrain[i][j] = randi_range(0,1)
 
 func set_map() -> void:
 	for i in range(ENV_SIZE):

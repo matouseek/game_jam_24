@@ -20,7 +20,6 @@ texture_region_size = Vector2i(256, 150)
 texture = ExtResource("3_c00y8")
 margins = Vector2i(0, 106)
 texture_region_size = Vector2i(256, 150)
-0:6/0 = 0
 0:0/0 = 0
 
 [resource]
