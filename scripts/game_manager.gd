@@ -47,7 +47,7 @@ func _on_will_done() -> void:
 	process_used_effects()
 	env.render_map()
 
-
+	
 	env.calc_distribution()
 	update_round_count()
 	
@@ -147,3 +147,4 @@ func process_majority(majority_effect: PlacedEffect) -> void:
 			if not env.is_valid_map_pos(current_tile):
 				continue
 			env.terrain[current_tile.x][current_tile.y].type = resulting_tile
+	
