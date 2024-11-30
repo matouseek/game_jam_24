@@ -2,6 +2,10 @@ extends Node2D
 
 const ENV_SIZE: int = 12
 
+
+var type_modulo : int = 10
+var tier_modulo : int = 3
+
 var fuck_up_effects : Array[PlacedEffect] = []
 var used_effects : Array[PlacedEffect] = []
 
@@ -112,11 +116,12 @@ func initialize_randomly() -> void:
 #			if (j== ENV_SIZE-1 and i == ENV_SIZE-1): terrain[i][j] = -1
 #			elif (j == ENV_SIZE-1 or i == ENV_SIZE-1): terrain[i][j] = 2
 #			else : terrain[i][j] = randi_range(0,1)
-
+	update_tiers()
+	
 func render_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			$TileMapLayer.set_cell(Vector2i(i,j),terrain[i][j].type,Vector2i(0,0))
+			$TileMapLayer.set_cell(Vector2i(i,j),get_tile_source_id(terrain[i][j]),Vector2i(0,0))
 	
 	for i in range(ENV_SIZE):
 		$TileMapLayer.set_cell(Vector2i(i,ENV_SIZE),terrain[i][11].type,Vector2i(0,0))
@@ -173,9 +178,10 @@ func get_cell_texture(tilemaplayer: TileMapLayer, coord: Vector2i) -> Texture:
 func tween_tilemap(old_terrain: Array, new_terrain: Array) -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			var old_type: G.TileTypes = old_terrain[i][j].type
-			var new_type: G.TileTypes = new_terrain[i][j].type
-			if old_type == new_type: continue
+			var old_tile : WorldTile = old_terrain[i][j]
+			var new_tile : WorldTile = new_terrain[i][j]
+			if old_tile.type == new_tile.type and old_tile.tier == new_tile.tier: 
+				continue
 			tween_out_tile(Vector2i(i, j))
 			
 	
@@ -191,7 +197,7 @@ func get_terrain_copy() -> Array:
 func tween_in_tile(coord: Vector2i) -> void:
 	var tilemaplayer: TileMapLayer = $TileMapLayer
 	
-	var source: TileSetAtlasSource = tilemaplayer.tile_set.get_source(terrain[coord.x][coord.y].type) as TileSetAtlasSource
+	var source: TileSetAtlasSource = tilemaplayer.tile_set.get_source(get_tile_source_id(terrain[coord.x][coord.y])) as TileSetAtlasSource
 	
 	var img: Image = source.texture.get_image()
 	
@@ -211,7 +217,7 @@ func tween_in_tile(coord: Vector2i) -> void:
 	tween.parallel().tween_property($SpriteToTween, "scale", Vector2(1,1), 0.5).set_trans(Tween.TRANS_SPRING)
 	tween.parallel().tween_property($SpriteToTween, "modulate:a", 1, 0.5).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback($SpriteToTween.queue_free)
-	tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(terrain[coord.x][coord.y].type).bind(coord))
+	tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(get_tile_source_id(terrain[coord.x][coord.y])).bind(coord))
 	sprite.name = "TweeningSprite"
 
 func test_print_board():
@@ -239,9 +245,24 @@ func update_tile_tier(coord : Vector2i) -> void:
 			friends_count += 1
 	
 	# determine tier based on amount of neighbors with same type
-	if friends_count < 2:
-		terrain[coord.x][coord.y].tier = G.TileTier.LOW
-	elif friends_count < 4:
-		terrain[coord.x][coord.y].tier = G.TileTier.MEDIUM
+	terrain[coord.x][coord.y].tier = calculate_tier(friends_count,terrain[coord.x][coord.y])
+
+
+func calculate_tier(friends_count : int, tile : WorldTile) -> G.TileTier:
+	if tile.type == G.TileTypes.WATER:
+		if friends_count < 1:
+			return G.TileTier.LOW
+		elif friends_count < 4:
+			return G.TileTier.MEDIUM
+		else:
+			return G.TileTier.HIGH
 	else:
-		terrain[coord.x][coord.y].tier = G.TileTier.HIGH
+		if friends_count < 2:
+			return G.TileTier.LOW
+		elif friends_count < 4:
+			return G.TileTier.MEDIUM
+		else:
+			return G.TileTier.HIGH	
+
+func get_tile_source_id(tile : WorldTile) -> int:
+	return tile.type * type_modulo + tile.tier * tier_modulo

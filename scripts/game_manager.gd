@@ -70,6 +70,7 @@ func _on_will_done() -> void:
 
 	print("Process player selection")
 	process_used_effects()
+	env.update_tiers()
 	
 	if not env.used_effects.is_empty():
 		env.tween_tilemap(terrain_copy, env.terrain)
@@ -79,11 +80,15 @@ func _on_will_done() -> void:
 	
 	print("Process fuck ups")
 	process_fuck_ups()
+	env.update_tiers()
 	
 	if not env.fuck_up_effects.is_empty():
 		env.tween_tilemap(terrain_copy, env.terrain)
 		await get_tree().create_timer(2.0).timeout
-
+	
+	env.update_tiers()
+	env.render_map()
+	
 	env.calc_distribution()
 	update_round_count()
 	
