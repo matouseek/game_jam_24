@@ -7,22 +7,31 @@ const MAX_ROUNDS : int = 10
 var round_num : int = 0
 const ZOOM_COEF = 1.25
 const CAM_SPEED = 2200
-
-const ZOOM_FACTOR_MAX = 4
+var limit_camera = true
+const ZOOM_FACTOR_MAX = 1.75
 const ZOOM_FACTOR_MIN = 0.125
-
 var zoom_factor = 0.25
+var sfx = 0
+var music = 0
 @onready var camera = $Environment/Camera2D
+const TRANS_TIME = 1
+
 
 func _ready() -> void:
 	HUD.do_will.connect(_on_will_done)
 	camera.zoom = Vector2(zoom_factor,zoom_factor)
+	var tween = get_tree().create_tween()
+	tween.set_parallel(true)
+	tween.tween_property($Environment/Camera2D, "position", Vector2(500,3000),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property($Environment/Camera2D, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
+	HUD.visible = true
+	$Environment.visible = true
+	AS.play_music("res://assets/Sounds/game_placeholder.mp3")
 
 func _input(event: InputEvent) -> void:
 	if (event.is_action_pressed("zoom_in")):
 		zoom_factor = min(zoom_factor*ZOOM_COEF,ZOOM_FACTOR_MAX)
 		camera.zoom = Vector2(zoom_factor,zoom_factor)
-		
 	if (event.is_action_pressed("zoom_out")):
 		zoom_factor = max(zoom_factor/ZOOM_COEF,ZOOM_FACTOR_MIN)
 		camera.zoom = Vector2(zoom_factor,zoom_factor)
