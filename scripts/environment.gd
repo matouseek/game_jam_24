@@ -3,9 +3,9 @@ extends Node2D
 const ENV_SIZE: int = 12
 
 enum TileTypes {
-	DESERT,
+	WATER,
 	MEADOW,
-	WATER
+	DESERT
 }
 
 var terrain: Array = []
@@ -18,28 +18,29 @@ func _ready() -> void:
 		terrain.append(row)
 	initialize_randomly()
 	set_map()
+	calc_distribution()
 	
 	
 	
 func _input(event):
-	# Mouse in viewport coordinates.
-	
 	if event is InputEventMouseButton:
 		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
-		$TileMapLayer.set_cell(pos,4,Vector2i(0,0))
+		$TileMapLayer.set_cell(pos,0,Vector2i(0,0))
 		terrain[pos.x][pos.y] = 0
-		var vals = [0.0,0.0,0.0]
-		for i in range(ENV_SIZE):
-			for j in range(ENV_SIZE):
-				vals[terrain[i][j]] += 1
-		var all = ENV_SIZE*ENV_SIZE
-		var vals_percent = []
-		for i in range(len(vals)):
-			vals_percent.append(vals[i]/all)
-		print(vals_percent)
-		HUD.update_progress(vals_percent)
+		calc_distribution()
 		
 		
+
+func calc_distribution():
+	var vals = [0.0,0.0,0.0]
+	for i in range(ENV_SIZE):
+		for j in range(ENV_SIZE):
+			vals[terrain[i][j]] += 1
+	var all = ENV_SIZE*ENV_SIZE
+	var vals_percent = []
+	for i in range(len(vals)):
+		vals_percent.append(vals[i]/all)
+	HUD.update_progress(vals_percent)
 
 func initialize_randomly() -> void:
 	for i in range(ENV_SIZE):
@@ -50,14 +51,4 @@ func initialize_randomly() -> void:
 func set_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			$TileMapLayer.set_cell(Vector2i(i,j),get_tile_id(terrain[i][j]),Vector2i(0,0))
-
-func get_tile_id(type : TileTypes) -> int:
-	if type == TileTypes.DESERT:
-		return 3
-	elif type == TileTypes.MEADOW:
-		return 4
-	elif type == TileTypes.WATER:
-		return 5
-	else:
-		return -1
+			$TileMapLayer.set_cell(Vector2i(i,j),terrain[i][j],Vector2i(0,0))

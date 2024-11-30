@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://b0333eyi3skxo" path="res://assets/placeholders/tilesets/terrain.tres" id="1_7n8vy"]
 
 [node name="Environment" type="Node2D"]
+visible = false
 script = ExtResource("1_1iak0")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
