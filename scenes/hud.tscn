@@ -190,6 +190,17 @@ item_1/icon = ExtResource("9_v6t22")
 item_2/text = "Majority"
 item_2/icon = ExtResource("10_0ka61")
 
+[node name="Container" type="GridContainer" parent="."]
+offset_left = 980.0
+offset_top = 431.0
+offset_right = 1108.0
+offset_bottom = 583.0
+
+[node name="Button" type="Button" parent="Container"]
+layout_mode = 2
+text = "Fire"
+icon = ExtResource("9_v6t22")
+
 [connection signal="pressed" from="Actions/Rain/Rain" to="." method="_on_rain_pressed"]
 [connection signal="pressed" from="Actions/Draught/Draught" to="." method="_on_draught_pressed"]
 [connection signal="pressed" from="Actions/Majority/Majority" to="." method="_on_majority_pressed"]
