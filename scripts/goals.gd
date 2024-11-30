@@ -16,4 +16,7 @@ func _ready() -> void:
 		sum += val
 	for type in TileTypes.values():
 		HUD.set_goal(type,vals[type]/sum)
+		
+func get_rand_tile_type() -> TileTypes:
+	return randi_range(0,len(TileTypes)-1)
 	
