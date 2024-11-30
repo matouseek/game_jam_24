@@ -2,7 +2,6 @@ extends Node2D
 
 const ENV_SIZE: int = 12
 var last_pos = null
-var last_id = 0
 
 enum TileTypes {
 	DESERT,
@@ -31,10 +30,9 @@ func _input(event):
 		$TileMapLayer.set_cell(pos,4,Vector2i(0,0))
 	if (pos.x >= 0 and pos.x < ENV_SIZE and pos.y >= 0 and pos.y<ENV_SIZE and last_pos!=pos):
 		if (last_pos != null):
-			$TileMapLayer.set_cell(last_pos,last_id,Vector2i(0,0))
-		last_id = $TileMapLayer.get_cell_source_id(pos)
+			$Highlight.set_cell(last_pos,-1,Vector2i(0,0))
 		last_pos = pos
-		$TileMapLayer.set_cell(pos,3,Vector2i(0,0))
+		$Highlight.set_cell(pos,0,Vector2i(0,0))
 		
 
 func initialize_randomly() -> void:
