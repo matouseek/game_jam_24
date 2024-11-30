@@ -5,9 +5,24 @@ extends Node
 
 const MAX_ROUNDS : int = 10
 var round_num : int = 0
+const ZOOM_COEF = 1.25
+const CAM_SPEED = 3500
 
 func _ready() -> void:
 	HUD.do_will.connect(_on_will_done)
+
+func _input(event: InputEvent) -> void:
+	if (event.is_action_pressed("zoom_in")):
+		$Environment/Camera2D.zoom *= ZOOM_COEF
+	if (event.is_action_pressed("zoom_out")):
+		$Environment/Camera2D.zoom /= ZOOM_COEF
+
+func _process(delta: float) -> void:
+	var dir = Vector2(Input.get_action_strength("right")-Input.get_action_strength("left"),
+	Input.get_action_strength("down")-Input.get_action_strength("up"))
+	dir = dir.normalized()
+	$Environment/Camera2D.position += (dir*(CAM_SPEED*delta)/$Environment/Camera2D.zoom)
+	
 	
 func _on_will_done() -> void:
 	

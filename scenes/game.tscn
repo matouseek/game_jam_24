@@ -11,5 +11,8 @@ script = ExtResource("1_bggsq")
 position = Vector2(1814, 460)
 scale = Vector2(0.2, 0.2)
 
+[node name="Camera2D" type="Camera2D" parent="Environment"]
+scale = Vector2(5, 5)
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
