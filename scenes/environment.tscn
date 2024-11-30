@@ -9,7 +9,7 @@ texture = ExtResource("2_jnfon")
 margins = Vector2i(0, 106)
 texture_region_size = Vector2i(256, 150)
 0:0/0 = 0
-0:0/0/modulate = Color(1, 0, 0, 0.619608)
+0:0/0/modulate = Color(1, 0, 0, 0.560784)
 
 [sub_resource type="TileSet" id="TileSet_uqor2"]
 tile_shape = 1

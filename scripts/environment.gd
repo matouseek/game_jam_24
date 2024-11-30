@@ -34,6 +34,9 @@ func _input(event):
 			if event.is_action_pressed("mouse_click"):
 				for lpos in last_pos:
 					$TileMapLayer.set_cell(lpos,2,Vector2i(0,0))
+					terrain[lpos.x][lpos.y] = 2
+					print(pos)
+					print(terrain)
 			if (last_pos != null):
 				for lpos in last_pos:
 					$Highlight.set_cell(lpos,-1,Vector2i(0,0))
@@ -51,20 +54,8 @@ func initialize_randomly() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
 			terrain[i][j] = randi_range(0,1)
-	pass
 
 func set_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			#print("Setting cell to",terrain[i][j])
 			$TileMapLayer.set_cell(Vector2i(i,j),terrain[i][j],Vector2i(0,0))
-
-func get_tile_id(type : TileTypes) -> int:
-	if type == TileTypes.DESERT:
-		return 0
-	elif type == TileTypes.MEADOW:
-		return 4
-	elif type == TileTypes.WATER:
-		return 5
-	else:
-		return -1
