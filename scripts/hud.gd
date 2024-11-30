@@ -34,4 +34,6 @@ func reset_hud():
 
 
 func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
-	print(index)
+	reset_hud()
+	PS.update_state(index)
+	update_hud()
