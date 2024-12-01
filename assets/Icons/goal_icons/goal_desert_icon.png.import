@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qpcmdy3prsi5"
-path="res://.godot/imported/Untitled_Artwork.png-d90c847bcdbe0f822183364093d4c923.ctex"
+uid="uid://cyej3phb5ak1t"
+path="res://.godot/imported/goal_desert_icon.png-7ad9d41b259e386f80c1ca919fd1dd4a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Untitled_Artwork.png"
-dest_files=["res://.godot/imported/Untitled_Artwork.png-d90c847bcdbe0f822183364093d4c923.ctex"]
+source_file="res://assets/Icons/goal_icons/goal_desert_icon.png"
+dest_files=["res://.godot/imported/goal_desert_icon.png-7ad9d41b259e386f80c1ca919fd1dd4a.ctex"]
 
 [params]
 

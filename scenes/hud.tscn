@@ -3,18 +3,18 @@
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_n2wg5"]
 [ext_resource type="FontFile" uid="uid://bnl7mksd21ct3" path="res://assets/Fonts/press_start/prstartk.ttf" id="2_hv5e1"]
 [ext_resource type="Texture2D" uid="uid://cy750ojup4k4t" path="res://assets/icon.svg" id="2_mag1m"]
-[ext_resource type="Texture2D" uid="uid://jbidh6p24g5a" path="res://assets/placeholders/goal_water_placeholder.png" id="3_k47o0"]
 [ext_resource type="StyleBox" uid="uid://dcx2h8hwsyilc" path="res://assets/Themes/progress_bar_background.tres" id="3_wc02s"]
-[ext_resource type="Texture2D" uid="uid://brbln01sk5lc4" path="res://assets/placeholders/meadow_desert_placeholder.png" id="4_posue"]
-[ext_resource type="Texture2D" uid="uid://tah1o0oxqomc" path="res://assets/placeholders/goal_desert_placeholder.png" id="5_0yjri"]
 [ext_resource type="StyleBox" uid="uid://c5vsl1uje50w1" path="res://assets/empty_stylebox.tres" id="6_1iuva"]
 [ext_resource type="StyleBox" uid="uid://5g0t4mivu43k" path="res://assets/IL_style/hovered.tres" id="6_besod"]
+[ext_resource type="Texture2D" uid="uid://cbtbf6ek5t4nu" path="res://assets/Icons/goal_icons/goal_water_icon.png" id="6_or2j3"]
+[ext_resource type="Texture2D" uid="uid://c6fs5iwcss7dt" path="res://assets/Icons/goal_icons/goal_forest_icon.png" id="7_ja18d"]
 [ext_resource type="StyleBox" uid="uid://coyx1uab0hiss" path="res://assets/IL_style/selected.tres" id="7_lqxro"]
-[ext_resource type="Texture2D" uid="uid://bh18oota23lif" path="res://assets/placeholders/resized/action_rain_placeholder.png" id="8_ov0ut"]
-[ext_resource type="Texture2D" uid="uid://bwda5gdkoyy52" path="res://assets/placeholders/resized/action_fire_placeholder.png" id="9_v6t22"]
-[ext_resource type="Texture2D" uid="uid://copy48h82sbij" path="res://assets/placeholders/action_majority_placeholder_2.png" id="11_et0tm"]
+[ext_resource type="Texture2D" uid="uid://cyej3phb5ak1t" path="res://assets/Icons/goal_icons/goal_desert_icon.png" id="8_f02u3"]
+[ext_resource type="Texture2D" uid="uid://8dnus1qpccbu" path="res://assets/Icons/action_icons/action_rain_icon.png" id="12_hs7tp"]
+[ext_resource type="Texture2D" uid="uid://diih4v77gbu10" path="res://assets/Icons/action_icons/action_draught_icon.png" id="13_r4s4m"]
 [ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="14_1ltn4"]
-[ext_resource type="Texture2D" uid="uid://qpcmdy3prsi5" path="res://assets/Untitled_Artwork.png" id="15_nqxbi"]
+[ext_resource type="Texture2D" uid="uid://b1m2t4nwg6j8k" path="res://assets/Icons/action_icons/action_majority_icon.png" id="14_xh7i4"]
+[ext_resource type="Texture2D" uid="uid://cipdh4ylptjwr" path="res://assets/Tutorial/action_expl_tutorial.png" id="15_xwbhj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klhoy"]
 bg_color = Color(0.39987, 0.617629, 0.8455, 1)
@@ -37,8 +37,8 @@ position = Vector2(1761, 32)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -169.0
-offset_right = 111.0
+offset_left = -165.0
+offset_right = 115.0
 offset_bottom = 55.0
 grow_horizontal = 2
 theme = ExtResource("14_1ltn4")
@@ -58,11 +58,11 @@ text = "GOALS"
 metadata/_edit_use_anchors_ = true
 
 [node name="Water" type="Node2D" parent="Goals"]
-position = Vector2(30, 96)
+position = Vector2(38, 96)
 
 [node name="ProgressBar" type="ProgressBar" parent="Goals/Water"]
-offset_left = 40.0
-offset_right = 240.0
+offset_left = 56.0
+offset_right = 256.0
 offset_bottom = 30.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_hv5e1")
@@ -79,15 +79,13 @@ position = Vector2(167, 15)
 scale = Vector2(0.084375, 0.253906)
 texture = ExtResource("2_mag1m")
 
-[node name="Icon" type="Sprite2D" parent="Goals/Water"]
-position = Vector2(22, 15)
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("3_k47o0")
-region_enabled = true
-region_rect = Rect2(58, 16.9959, 141, 218.576)
+[node name="GoalWaterIcon" type="Sprite2D" parent="Goals/Water"]
+position = Vector2(15, 15)
+scale = Vector2(0.155844, 0.155844)
+texture = ExtResource("6_or2j3")
 
 [node name="Sprite2D" type="Polygon2D" parent="Goals/Water"]
-position = Vector2(-125, -14)
+position = Vector2(-109, -14)
 polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
 
 [node name="ErrorMargin" type="Polygon2D" parent="Goals/Water/Sprite2D"]
@@ -97,11 +95,11 @@ color = Color(1, 1, 1, 0.188235)
 polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
 
 [node name="Meadow" type="Node2D" parent="Goals"]
-position = Vector2(30, 151)
+position = Vector2(38, 151)
 
 [node name="ProgressBar" type="ProgressBar" parent="Goals/Meadow"]
-offset_left = 40.0
-offset_right = 240.0
+offset_left = 56.0
+offset_right = 256.0
 offset_bottom = 30.0
 theme_override_fonts/font = ExtResource("2_hv5e1")
 theme_override_styles/background = ExtResource("3_wc02s")
@@ -117,15 +115,13 @@ position = Vector2(167, 15)
 scale = Vector2(0.084375, 0.253906)
 texture = ExtResource("2_mag1m")
 
-[node name="Icon" type="Sprite2D" parent="Goals/Meadow"]
-position = Vector2(22, 15)
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("4_posue")
-region_enabled = true
-region_rect = Rect2(44.5761, 28.9869, 159.605, 200.132)
+[node name="GoalForestIcon" type="Sprite2D" parent="Goals/Meadow"]
+position = Vector2(14, 14.9999)
+scale = Vector2(0.193548, 0.193548)
+texture = ExtResource("7_ja18d")
 
 [node name="Sprite2D" type="Polygon2D" parent="Goals/Meadow"]
-position = Vector2(-125, -14)
+position = Vector2(-109, -14)
 polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
 
 [node name="ErrorMargin" type="Polygon2D" parent="Goals/Meadow/Sprite2D"]
@@ -135,11 +131,11 @@ color = Color(1, 1, 1, 0.188235)
 polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
 
 [node name="Desert" type="Node2D" parent="Goals"]
-position = Vector2(30, 206)
+position = Vector2(38, 206)
 
 [node name="ProgressBar" type="ProgressBar" parent="Goals/Desert"]
-offset_left = 40.0
-offset_right = 240.0
+offset_left = 56.0
+offset_right = 256.0
 offset_bottom = 30.0
 theme_override_fonts/font = ExtResource("2_hv5e1")
 theme_override_styles/background = ExtResource("3_wc02s")
@@ -155,15 +151,13 @@ position = Vector2(167, 15)
 scale = Vector2(0.084375, 0.253906)
 texture = ExtResource("2_mag1m")
 
-[node name="Icon" type="Sprite2D" parent="Goals/Desert"]
-position = Vector2(22, 15)
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("5_0yjri")
-region_enabled = true
-region_rect = Rect2(23.9042, 26.6709, 209.595, 208.901)
+[node name="GoalDesertIcon" type="Sprite2D" parent="Goals/Desert"]
+position = Vector2(13, 15)
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("8_f02u3")
 
 [node name="Sprite2D" type="Polygon2D" parent="Goals/Desert"]
-position = Vector2(-125, -14)
+position = Vector2(-109, -14)
 polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
 
 [node name="ErrorMargin" type="Polygon2D" parent="Goals/Desert/Sprite2D"]
@@ -174,18 +168,17 @@ polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
 
 [node name="ItemList" type="ItemList" parent="."]
 anchors_preset = -1
-anchor_left = 0.85
-anchor_top = 0.0972222
-anchor_right = 0.965107
-anchor_bottom = 0.266667
-offset_top = -0.999977
-offset_bottom = -0.999969
+anchor_left = 0.880729
+anchor_top = 0.107407
+anchor_right = 0.972917
+anchor_bottom = 0.264815
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/guide_color = Color(0, 0, 0, 0)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_constants/icon_margin = 5
-theme_override_constants/v_separation = 20
+theme_override_constants/v_separation = 40
+theme_override_constants/h_separation = 30
 theme_override_fonts/font = ExtResource("2_hv5e1")
 theme_override_styles/focus = ExtResource("6_1iuva")
 theme_override_styles/panel = ExtResource("6_1iuva")
@@ -194,24 +187,41 @@ theme_override_styles/selected = ExtResource("7_lqxro")
 theme_override_styles/selected_focus = ExtResource("7_lqxro")
 item_count = 3
 item_0/text = "RAIN"
-item_0/icon = ExtResource("8_ov0ut")
 item_1/text = "DRAUGHT"
-item_1/icon = ExtResource("9_v6t22")
 item_2/text = "MAJORITY"
-item_2/icon = ExtResource("11_et0tm")
 metadata/_edit_use_anchors_ = true
 
+[node name="ActionRainIcon" type="Sprite2D" parent="."]
+position = Vector2(1652, 144)
+scale = Vector2(0.203125, 0.203125)
+texture = ExtResource("12_hs7tp")
+
+[node name="ActionDraughtIcon" type="Sprite2D" parent="."]
+position = Vector2(1653, 195)
+scale = Vector2(0.203125, 0.203125)
+texture = ExtResource("13_r4s4m")
+
+[node name="ActionMajorityIcon" type="Sprite2D" parent="."]
+position = Vector2(1652.5, 248.5)
+scale = Vector2(0.167968, 0.167968)
+texture = ExtResource("14_xh7i4")
+
 [node name="WillBeDone" type="Button" parent="."]
-anchors_preset = -1
-anchor_left = 0.34375
-anchor_top = 0.927778
-anchor_right = 0.707813
-anchor_bottom = 0.994445
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -336.0
+offset_top = -82.0004
+offset_right = 336.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
 theme = ExtResource("14_1ltn4")
 theme_override_font_sizes/font_size = 40
 text = "MY WILL BE DONE!
 "
-metadata/_edit_use_anchors_ = true
 
 [node name="RoundLabel" type="Label" parent="."]
 anchors_preset = -1
@@ -276,7 +286,7 @@ offset_bottom = 853.0
 theme_override_font_sizes/font_size = 40
 text = "These progress bars display the scoring for each biome.
 
-The more tiles of a biome type you have, the bigger the score for the type. Grouped tiles of same type increase the score by greater amount.
+The more tiles of a biome type you have, the bigger the score for the type. Tiles surrounded by tiles of the same type increase the score by greater amount.
 
 You win the game when you get close enough to the goal markers."
 horizontal_alignment = 1
@@ -307,9 +317,9 @@ polygon = PackedVector2Array(0, 0, 1560, 0, 1560, 288, 1920, 288, 1920, 1080, 0,
 
 [node name="L21" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(952, 552)
+position = Vector2(979, 548)
 scale = Vector2(0.503126, 0.503126)
-texture = ExtResource("15_nqxbi")
+texture = ExtResource("15_xwbhj")
 
 [node name="P22" type="Polygon2D" parent="."]
 visible = false
@@ -323,7 +333,7 @@ offset_top = 136.0
 offset_right = 1362.0
 offset_bottom = 853.0
 theme_override_font_sizes/font_size = 40
-text = "You can only use a limited amount of actions per turn.
+text = "You can only use a limited amount of actions per turn and you only have 10 turns.
 
 Press 'u' to undo your actions."
 horizontal_alignment = 1
@@ -338,7 +348,7 @@ polygon = PackedVector2Array(1592, -2, 1595, 337, 1918, 337, 1918, 1080, -2, 108
 [node name="P3" type="Polygon2D" parent="."]
 visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
-polygon = PackedVector2Array(0, 0, 1936, 0, 1936, 1080, 1392, 1080, 1392, 968, 640, 968, 640, 1080, 0, 1080)
+polygon = PackedVector2Array(0, 0, 1936, 0, 1936, 1080, 1344, 1080, 1344, 960, 576, 960, 576, 1080, 0, 1080)
 
 [node name="L3" type="Label" parent="."]
 visible = false
