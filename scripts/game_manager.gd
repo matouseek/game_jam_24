@@ -95,7 +95,7 @@ func _on_will_done() -> void:
 	if (is_goal_reached(G.goal_percentages,G.current_percentages,G.GOAL_ERROR_MARGIN)):
 		win = true
 		end()
-	if (turns == 9):
+	if (turns == 0):
 		end()
 	print("Add fuck ups for next round")
 	add_fuck_ups()
@@ -257,5 +257,5 @@ func end():
 
 
 func _on_timer_timeout() -> void:
-	if (win):END.won()
+	if (win): END.won()
 	else: END.lost()
