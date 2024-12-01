@@ -124,6 +124,8 @@ func process_fuck_ups() -> void:
 			AS.play_sfx("res://assets/Sounds/fire.wav")
 		elif (fuck_up_effect.type == PS.PlayerEffects.RAIN):
 			AS.play_sfx("res://assets/Sounds/water.wav")
+		elif (fuck_up_effect.type == PS.PlayerEffects.MAJORITY):
+			AS.play_sfx("res://assets/Sounds/majority.wav")
 		terrain_copy = env.get_terrain_copy()
 		process_effect(fuck_up_effect)
 		env.update_tiers()
@@ -141,6 +143,8 @@ func process_used_effects() -> void:
 			AS.play_sfx("res://assets/Sounds/fire.wav")
 		elif (used_effect.type == PS.PlayerEffects.RAIN):
 			AS.play_sfx("res://assets/Sounds/water.wav")
+		elif (used_effect.type == PS.PlayerEffects.MAJORITY):
+			AS.play_sfx("res://assets/Sounds/majority.wav")
 		terrain_copy = env.get_terrain_copy()
 		process_effect(used_effect)
 		env.update_tiers()
