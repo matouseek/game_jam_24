@@ -192,17 +192,21 @@ metadata/_edit_use_anchors_ = true
 [node name="P1" type="Polygon2D" parent="."]
 visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
-polygon = PackedVector2Array(2, 293, 323, 293, 323, 1, 1921, -2, 1921, 1077, -5, 1080)
+polygon = PackedVector2Array(0, 290, 300, 290, 300, 0, 1920, 0, 1920, 1080, 0, 1080)
 
 [node name="P2" type="Polygon2D" parent="."]
+visible = false
+modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
+polygon = PackedVector2Array(0, 0, 1650, 0, 1650, 300, 1920, 300, 1920, 1080, 0, 1080)
+
+[node name="x" type="Polygon2D" parent="."]
 visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
 polygon = PackedVector2Array(1592, -2, 1595, 337, 1918, 337, 1918, 1080, -2, 1083, 1, -11)
 
 [node name="P3" type="Polygon2D" parent="."]
-visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
-polygon = PackedVector2Array(-2, -5, 1921, -5, 1921, 984, 1553, 981, 1556, 1074, 1, 1077)
+polygon = PackedVector2Array(0, 0, 1920, 0, 1920, 980, 1550, 980, 1550, 1080, 0, 1080)
 
 [connection signal="item_clicked" from="ItemList" to="." method="_on_item_list_item_clicked"]
 [connection signal="pressed" from="WillBeDone" to="." method="_on_will_be_done_pressed"]
