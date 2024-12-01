@@ -64,7 +64,6 @@ func third_step():
 func last_step():
 	$P3.visible = false
 	$L3.visible = false
-	
 
 func _ready() -> void:
 	$ItemList.select(0)
@@ -77,7 +76,6 @@ func set_goal_hud(type: G.TileTypes, value:float):
 func update_progress_hud(vals):
 	for i in range(len(vals)):
 		progress_nodes[i].value = vals[i]*100
-		
 
 func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	PS.update_state(index)

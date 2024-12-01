@@ -10,13 +10,11 @@ func lost():
 	init()
 	text.text = "The Change Conquered You"
 
-
 func init():
 	#HUD.visible = false
 	AS.process_mode = Node.PROCESS_MODE_DISABLED
 	visible = true
 	get_tree().paused = true
-
 
 func _on_button_pressed() -> void:
 	visible = false

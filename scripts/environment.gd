@@ -17,8 +17,6 @@ var offsets = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
 
 var terrain: Array = []
 
-
-
 func _ready() -> void:
 	for i in range(ENV_SIZE):
 		var row: Array[WorldTile] = []
@@ -46,8 +44,6 @@ func _input(event):
 			clear_all_highlights()
 	elif Input.is_action_just_pressed("undo"):
 		reset_last_used_effect()
-
-
 
 func calc_distribution() -> Array[float]:
 	update_tiers()
@@ -173,8 +169,7 @@ func tween_tilemap(old_terrain: Array, new_terrain: Array) -> void:
 			if old_tile.type == new_tile.type and old_tile.render_tier == new_tile.render_tier: 
 				continue
 			tween_out_tile(Vector2i(i, j))
-			
-	
+
 func get_terrain_copy() -> Array:
 	var ar: Array = []
 	for i in range(ENV_SIZE):

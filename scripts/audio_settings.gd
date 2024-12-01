@@ -37,7 +37,6 @@ func _input(event: InputEvent) -> void:
 			$MainMenu.visible = true
 		cp.visible = false
 
-
 func _on_sfx_value_changed(value: float) -> void:
 	if (value == MIN_DB): sp.stop()
 	sfx = value
@@ -55,7 +54,6 @@ func play_music(name):
 		mp.stream.loop = true
 		mp.play()
 
-
 func _on_back_pressed() -> void:
 	if (get_tree().current_scene.name == 'Menu'):
 		get_tree().current_scene.visible = true
@@ -64,8 +62,6 @@ func _on_back_pressed() -> void:
 		visible = !visible
 		HUD.visible = !HUD.visible
 		get_tree().paused = !get_tree().paused
-		
-
 
 func _on_main_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/menu.tscn")
@@ -77,14 +73,12 @@ func _on_default_background_pressed() -> void:
 	cp.color = Color(DEFAULT_BACK_COLOR)
 	RenderingServer.set_default_clear_color(Color(DEFAULT_BACK_COLOR))
 
-
 func _on_background_pressed() -> void:
 	cp.visible = !cp.visible
 
 func tutorial():
 	$MusicPlayer.process_mode = Node.PROCESS_MODE_ALWAYS
 	process_mode = Node.PROCESS_MODE_DISABLED
-
 
 func _on_cp_color_changed(color: Color) -> void:
 	RenderingServer.set_default_clear_color(color)

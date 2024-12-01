@@ -251,7 +251,6 @@ func process_majority(majority_effect: PlacedEffect) -> void:
 				continue
 			env.terrain[current_tile.x][current_tile.y].type = resulting_tile
 
-
 func _on_camera_unlock_timeout() -> void:
 	camera.limit_bottom = 8000
 	camera.limit_top = -3000
@@ -259,7 +258,6 @@ func _on_camera_unlock_timeout() -> void:
 	camera.limit_right = 8500
 	limit_camera = false
 	start_tutorial()
-	
 
 func end():
 	HUD.visible = false
@@ -270,7 +268,6 @@ func end():
 	$Timer.wait_time = TRANS_TIME-1
 	$Timer.start()
 	tween.tween_property($Environment,"modulate",Color(1,1,1,0),TRANS_TIME-1)
-
 
 func _on_timer_timeout() -> void:
 	if (win): END.won()

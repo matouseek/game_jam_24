@@ -70,7 +70,6 @@ func set_goals_distribution(current_dist : Array[float]) -> void:
 	for type in TileTypes.values():
 		HUD.set_goal_hud(type,goal_percentages[type])
 	HUD.set_error_margins_scale(GOAL_ERROR_MARGIN*2)
-	
 
 func update_progress(vals):
 	for i in range(len(vals)):
