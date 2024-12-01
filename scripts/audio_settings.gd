@@ -9,10 +9,15 @@ func _ready() -> void:
 	$Music.value = music
 
 func _input(event: InputEvent) -> void:
-	if (event.is_action_pressed("settings") and get_tree().current_scene.name != 'Menu'):
-		visible = !visible
-		HUD.visible = !HUD.visible
-		get_tree().paused = !get_tree().paused
+	if (event.is_action_pressed("settings")):
+		if (get_tree().current_scene.name == 'Menu' and visible == true):
+			visible = false
+			get_tree().paused = false
+			get_tree().current_scene.visible = true
+		elif (get_tree().current_scene.name != 'Menu'):
+			visible = !visible
+			HUD.visible = !HUD.visible
+			get_tree().paused = !get_tree().paused
 
 
 func _on_sfx_value_changed(value: float) -> void:
