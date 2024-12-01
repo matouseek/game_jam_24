@@ -4,11 +4,11 @@ extends CanvasLayer
 
 func won():
 	init()
-	text.text = "SKIBIDI WIN"
+	text.text = "You Conquered the Change"
 	
 func lost():
 	init()
-	text.text = "OHIO LOSE"
+	text.text = "The Change Conquered You"
 
 
 func init():
