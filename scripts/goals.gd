@@ -6,7 +6,7 @@ const GOAL_DISTR_REL_UP_BOUND = 20
 
 const GOAL_DISTR_SELECTION_SIZE = 10 # bigger -> harder game
 
-var percentages : Array[float] = [0.0,0.0,0.0]
+var current_percentages : Array[float] = [0.0,0.0,0.0]
 var goal_percentages : Array[float] = [0.0,0.0,0.0]
 
 enum TileTypes {
@@ -71,8 +71,8 @@ func set_goals_distribution(current_dist : Array[float]) -> void:
 
 func update_progress(vals):
 	for i in range(len(vals)):
-		percentages[i] = vals[i]
-	HUD.update_progress_hud(percentages)
+		current_percentages[i] = vals[i]
+	HUD.update_progress_hud(current_percentages)
 
 func _ready() -> void:
 	pass
