@@ -15,9 +15,7 @@ func _on_controls_pressed() -> void:
 	if (showed): AS.process_mode = Node.PROCESS_MODE_ALWAYS
 	else: AS.process_mode = Node.PROCESS_MODE_DISABLED
 	label.visible = !showed
-	$Play.visible = showed
-	$Settings.visible = showed
-	$Exit.visible = showed
+	toggle_buttons_visible(showed)
 	if (showed):button.text = 'CONTROLS'
 	else: button.text = 'BACK'
 
@@ -27,10 +25,14 @@ func _input(event: InputEvent) -> void:
 		if (showed): AS.process_mode = Node.PROCESS_MODE_ALWAYS
 		else: AS.process_mode = Node.PROCESS_MODE_DISABLED
 		label.visible = !showed
-		$Play.visible = showed
-		$Settings.visible = showed
+		toggle_buttons_visible(showed)
 		if (showed):button.text = 'CONTROLS'
 		else: button.text = 'BACK'
+
+func toggle_buttons_visible(showed : bool):
+	$Play.visible = showed
+	$Settings.visible = showed
+	$Exit.visible = showed
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
