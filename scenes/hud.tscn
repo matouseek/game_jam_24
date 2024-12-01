@@ -20,6 +20,7 @@ visible = false
 script = ExtResource("1_n2wg5")
 
 [node name="Actions" type="Node2D" parent="."]
+modulate = Color(0.103744, 0.103744, 0.103744, 1)
 position = Vector2(1761, 16)
 
 [node name="Label" type="Label" parent="Actions"]
@@ -118,10 +119,11 @@ region_enabled = true
 region_rect = Rect2(23.9042, 26.6709, 209.595, 208.901)
 
 [node name="ItemList" type="ItemList" parent="."]
-offset_left = 1769.0
-offset_top = 96.0
-offset_right = 1893.0
-offset_bottom = 380.0
+anchors_preset = -1
+anchor_left = 0.921354
+anchor_top = 0.0888889
+anchor_right = 0.985937
+anchor_bottom = 0.351852
 theme_override_colors/guide_color = Color(0, 0, 0, 0)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_margin = 5
@@ -138,29 +140,55 @@ item_1/text = "Draught"
 item_1/icon = ExtResource("9_v6t22")
 item_2/text = "Majority"
 item_2/icon = ExtResource("11_et0tm")
+metadata/_edit_use_anchors_ = true
 
 [node name="WillBeDone" type="Button" parent="."]
-offset_left = 1572.0
-offset_top = 998.0
-offset_right = 1904.0
-offset_bottom = 1061.0
+modulate = Color(0.101961, 0.101961, 0.101961, 1)
+anchors_preset = -1
+anchor_left = 0.81875
+anchor_top = 0.924074
+anchor_right = 0.991667
+anchor_bottom = 0.982407
 theme_override_font_sizes/font_size = 40
 text = "My Will Be Done!"
+metadata/_edit_use_anchors_ = true
 
 [node name="RoundLabel" type="Label" parent="."]
-offset_top = 230.0
-offset_right = 147.0
-offset_bottom = 285.0
+anchors_preset = -1
+anchor_top = 0.212963
+anchor_right = 0.0885417
+anchor_bottom = 0.263889
+offset_top = -1.52588e-05
+offset_right = -23.0
 theme_override_font_sizes/font_size = 40
 text = "Round: 0"
+metadata/_edit_use_anchors_ = true
 
 [node name="RemainingActionsLabel" type="Label" parent="."]
-offset_left = 1657.0
-offset_top = 278.0
-offset_right = 1907.0
-offset_bottom = 333.0
+modulate = Color(0.101961, 0.101961, 0.101961, 1)
+anchors_preset = -1
+anchor_left = 0.863021
+anchor_top = 0.257407
+anchor_right = 0.993229
+anchor_bottom = 0.308333
 theme_override_font_sizes/font_size = 40
 text = "Remaining: 0"
+metadata/_edit_use_anchors_ = true
+
+[node name="P1" type="Polygon2D" parent="."]
+visible = false
+modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
+polygon = PackedVector2Array(2, 293, 323, 293, 323, 1, 1921, -2, 1921, 1077, -5, 1080)
+
+[node name="P2" type="Polygon2D" parent="."]
+visible = false
+modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
+polygon = PackedVector2Array(1592, -2, 1595, 337, 1918, 337, 1918, 1080, -2, 1083, 1, -11)
+
+[node name="P3" type="Polygon2D" parent="."]
+visible = false
+modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
+polygon = PackedVector2Array(-2, -5, 1921, -5, 1921, 984, 1553, 981, 1556, 1074, 1, 1077)
 
 [connection signal="item_clicked" from="ItemList" to="." method="_on_item_list_item_clicked"]
 [connection signal="pressed" from="WillBeDone" to="." method="_on_will_be_done_pressed"]

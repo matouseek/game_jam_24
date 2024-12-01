@@ -28,6 +28,12 @@ func _ready() -> void:
 	HUD.visible = true
 	$Environment.visible = true
 	AS.play_music("res://assets/Sounds/game_placeholder.mp3")
+	if (PS.tutorial):
+		AS.process_mode = Node.PROCESS_MODE_DISABLED
+		T.process_mode = Node.PROCESS_MODE_ALWAYS
+		$CameraUnlock.stop()
+		get_tree().paused = true
+		
 
 func _input(event: InputEvent) -> void:
 	if (!limit_camera):

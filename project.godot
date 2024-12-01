@@ -21,6 +21,7 @@ PS="*res://scripts/player_state.gd"
 HUD="*res://scenes/hud.tscn"
 G="*res://scripts/goals.gd"
 AS="*res://scenes/audio_settings.tscn"
+T="*res://scenes/tutorial.tscn"
 
 [display]
 

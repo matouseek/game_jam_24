@@ -14,6 +14,21 @@ signal do_will
 	G.TileTypes.DESERT :  $Goals/Desert/ProgressBar
 }
 
+func first_step():
+	$P1.visible = true
+
+func second_step():
+	$P1.visible = false
+	$P2.visible = true
+
+func third_step():
+	$P2.visible = false
+	$P3.visible = true
+
+func last_step():
+	$P3.visible = false
+	
+
 func _ready() -> void:
 	$ItemList.select(0)
 	HUD.update_remaining_actions()

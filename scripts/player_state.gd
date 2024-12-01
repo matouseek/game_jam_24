@@ -7,7 +7,7 @@ enum PlayerEffects {
 }
 
 const MAX_ACTIONS_PER_TURN: int = 2
-
+var tutorial = true
 var is_player_turn: bool = true
 var selected_effect: PlayerEffects = PlayerEffects.RAIN
 var remaining_actions: int = MAX_ACTIONS_PER_TURN
