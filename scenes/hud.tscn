@@ -16,6 +16,7 @@
 bg_color = Color(0, 0, 0, 0.243137)
 
 [node name="HUD" type="CanvasLayer"]
+visible = false
 script = ExtResource("1_n2wg5")
 
 [node name="Actions" type="Node2D" parent="."]
@@ -205,6 +206,7 @@ modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
 polygon = PackedVector2Array(1592, -2, 1595, 337, 1918, 337, 1918, 1080, -2, 1083, 1, -11)
 
 [node name="P3" type="Polygon2D" parent="."]
+visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
 polygon = PackedVector2Array(0, 0, 1920, 0, 1920, 980, 1550, 980, 1550, 1080, 0, 1080)
 
