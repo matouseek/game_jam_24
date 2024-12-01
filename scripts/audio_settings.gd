@@ -40,7 +40,7 @@ func _on_sfx_value_changed(value: float) -> void:
 	sp.volume_db = sfx
 
 func _on_music_value_changed(value: float) -> void:
-	if (value == MIN_DB): mp.stop()
+	if (value == MIN_DB): value = -80
 	elif(music == MIN_DB): mp.play()
 	music = value
 	mp.volume_db = music
