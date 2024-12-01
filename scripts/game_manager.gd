@@ -5,7 +5,7 @@ const GODS_ACTION_COUNT : int = 2
 
 const BEFORE_WIN_SCREEN_DELAY : float = 1.5
 
-const MAX_ROUNDS : int = 5
+const MAX_ROUNDS : int = 10
 const START_ROUND : int = 0
 const RED_ROUNDS_LIMIT : int = 7
 var round_num : int = 0
