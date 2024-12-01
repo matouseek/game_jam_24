@@ -3,7 +3,7 @@ extends Node
 const GODS_ACTION_PROB_DISTR : Array[float] = [0.4,0.4,0.2] # RAIN, DRAUGHT, MAJORITY
 const GODS_ACTION_COUNT : int = 2
 
-const BEFORE_WIN_SCREEN_DELAY : float = 1.5
+const BEFORE_WIN_SCREEN_DELAY : float = 2.0
 
 const MAX_ROUNDS : int = 10
 const START_ROUND : int = 0
@@ -100,7 +100,8 @@ func _on_will_done() -> void:
 	print("Clear board")
 	env.reset_effects()
 	
-	handle_game_end()
+	if await handle_game_end(): # the goal was reached
+		return
 
 	print("Add fuck ups for next round")
 	add_fuck_ups()
@@ -110,15 +111,24 @@ func _on_will_done() -> void:
 	PS.reset_player_actions_amount()
 	PS.is_player_turn = true
 
-func handle_game_end():
+func handle_game_end() -> bool:
 	if (is_goal_reached(G.goal_percentages,G.current_percentages,G.GOAL_ERROR_MARGIN)):
 		win = true
+		print("make will be done invis")
+		HUD.set_will_be_done_visibility(false)
 		await get_tree().create_timer(BEFORE_WIN_SCREEN_DELAY).timeout
+		HUD.set_will_be_done_visibility(true)
 		end()
+		return true
 	elif (round_num == MAX_ROUNDS):
 		win = false
+		print("make will be done invis")
+		HUD.set_will_be_done_visibility(false)
 		await get_tree().create_timer(BEFORE_WIN_SCREEN_DELAY).timeout
+		HUD.set_will_be_done_visibility(true)
 		end()
+		return true
+	return false
 
 func is_goal_reached(goal_distr : Array[float], cur_dist : Array[float], margin_error : float) -> bool:
 	for i in range(len(goal_distr)):
