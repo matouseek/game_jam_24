@@ -74,18 +74,69 @@ stream = ExtResource("3_7t5fu")
 
 [node name="Back" type="Button" parent="."]
 anchors_preset = -1
-anchor_left = 0.586979
-anchor_top = 0.15
-anchor_right = 0.591146
-anchor_bottom = 0.157407
-offset_left = 289.0
-offset_top = -104.0
-offset_right = 419.0
-offset_bottom = -35.0
+anchor_left = 0.86875
+anchor_top = 0.00740741
+anchor_right = 0.940625
+anchor_bottom = 0.0787037
 theme_override_font_sizes/font_size = 50
 text = "BACK"
+metadata/_edit_use_anchors_ = true
+
+[node name="MainMenu" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.828125
+anchor_top = 0.12037
+anchor_right = 0.986979
+anchor_bottom = 0.191667
+theme_override_font_sizes/font_size = 50
+text = "MAIN MENU"
+metadata/_edit_use_anchors_ = true
+
+[node name="DefaultBackground" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.00833333
+anchor_top = 0.243519
+anchor_right = 0.314583
+anchor_bottom = 0.314815
+offset_left = 17.0
+offset_top = 115.0
+offset_right = 17.0
+offset_bottom = 115.0
+theme_override_font_sizes/font_size = 50
+text = "DEFAULT BACKGROUND"
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="Button" parent="."]
+offset_left = 36.0
+offset_top = 494.0
+offset_right = 619.0
+offset_bottom = 640.0
+theme_override_font_sizes/font_size = 50
+text = "SELECT YOUR
+BACKGROUND"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+visible = false
+anchors_preset = -1
+anchor_left = 0.0265625
+anchor_top = 0.248148
+anchor_right = 0.182812
+anchor_bottom = 0.319444
+offset_left = -15.0
+offset_top = 226.0
+offset_right = 123.719
+offset_bottom = 297.51
+theme_override_colors/icon_normal_color = Color(0.905882, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 50
+text = "Pick Color"
+color = Color(0.839216, 0.945098, 0.921569, 1)
 metadata/_edit_use_anchors_ = true
 
 [connection signal="value_changed" from="SFX" to="." method="_on_sfx_value_changed"]
 [connection signal="value_changed" from="Music" to="." method="_on_music_value_changed"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="DefaultBackground" to="." method="_on_default_background_pressed"]
+[connection signal="pressed" from="Background" to="." method="_on_background_pressed"]
+[connection signal="color_changed" from="ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
