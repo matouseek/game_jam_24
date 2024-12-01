@@ -93,3 +93,11 @@ func _on_item_list_mouse_entered() -> void:
 
 func _on_item_list_mouse_exited() -> void:
 	mouse_unlock = true
+
+
+func _on_will_be_done_mouse_entered() -> void:
+	mouse_unlock = false
+
+
+func _on_will_be_done_mouse_exited() -> void:
+	mouse_unlock = true

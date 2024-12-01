@@ -66,11 +66,11 @@ func _process(delta: float) -> void:
 	
 func _on_will_done() -> void:
 	
-	var terrain_copy: Array = env.get_terrain_copy()
-	
 	PS.is_player_turn = false
 	HUD.set_will_be_done_visibility(false)
 
+	env.clear_all_highlights()	
+	
 	print("Process player selection")
 	await process_used_effects()
 	
