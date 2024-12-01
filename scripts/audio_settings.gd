@@ -1,15 +1,20 @@
 extends CanvasLayer
 
-var sfx = 0
-var music = 0
 var show = false
-const MIN_DB = -7
+const MIN_DB = -20
 const MAX_DB = 7
+var sfx = -5
+var music = -5
 @onready var cp = $Background/CP
 @onready var mp = $MusicPlayer
 @onready var sp = $SFXPlayer
 
 func _ready() -> void:
+	
+	$SFX.max_value = MAX_DB
+	$Music.max_value = MAX_DB
+	$SFX.min_value = MIN_DB
+	$Music.min_value = MIN_DB
 	$SFX.value = sfx
 	$Music.value = music
 	cp.color_modes_visible = false
