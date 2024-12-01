@@ -69,13 +69,14 @@ func _ready() -> void:
 	$ItemList.select(0)
 	HUD.update_remaining_actions()
 
-func set_goal_hud(type: G.TileTypes, value:float):
+func set_goal_hud(type: G.TileTypes, ratio : float):
 	var sprite = goals_nodes[type]
-	sprite.position.x = int(200*value)-191
+	sprite.position.x = int(200 * ratio) - 175 # hardwired offset of 175
 
 func update_progress_hud(vals):
 	for i in range(len(vals)):
-		progress_nodes[i].value = vals[i]*100
+		var tween = create_tween()
+		tween.tween_property(progress_nodes[i], "value", vals[i]*100, 0.5).set_ease(Tween.EASE_OUT)
 
 func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	PS.update_state(index)
