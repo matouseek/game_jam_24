@@ -155,7 +155,22 @@ func process_draught(draught_effect: PlacedEffect) -> void:
 			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type = G.TileTypes.DESERT
 		G.TileTypes.WATER:
 			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type = G.TileTypes.MEADOW
-	
+
+func get_unique_max_index_or_neg(amounts : Array[int]) -> int:
+	print("Amounts: ",amounts)
+	var first_max_index : int = 0
+	var last_max_index : int = 0
+	for i in range(len(amounts)):
+		if amounts[i] > amounts[first_max_index]:
+			first_max_index = i
+	for i in range(len(amounts)):
+		if amounts[i] >= amounts[last_max_index]:
+			last_max_index = i
+	if first_max_index == last_max_index:
+		return first_max_index
+	else:
+		return -1
+
 func process_majority(majority_effect: PlacedEffect) -> void:
 	var amounts: Array[int] = []
 	amounts.resize(G.TileTypes.size())
@@ -176,9 +191,10 @@ func process_majority(majority_effect: PlacedEffect) -> void:
 				G.TileTypes.WATER:
 					amounts[G.TileTypes.WATER] += 1
 	
-	var max_amount: int = amounts.max()
-	var max_index: int = amounts.find(max_amount)
-	var resulting_tile: G.TileTypes = max_index
+	var max_index: int = get_unique_max_index_or_neg(amounts)
+	var resulting_tile : G.TileTypes = env.terrain[majority_effect.source_coord.x][majority_effect.source_coord.y].type
+	if max_index >= 0: # we found unique max
+		resulting_tile = max_index
 	
 	for i in range(3):
 		for j in range(3):
