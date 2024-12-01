@@ -278,3 +278,4 @@ func calculate_tier(friends_count : int, tile : WorldTile) -> G.TileTier:
 
 func get_tile_source_id(tile : WorldTile, render_tier : G.TileTier) -> int:
 	return tile.type * type_modulo + render_tier * tier_modulo
+	
