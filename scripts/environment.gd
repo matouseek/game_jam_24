@@ -32,7 +32,6 @@ func _ready() -> void:
 	
 func _input(event):
 	if not PS.is_player_turn: return
-	print(HUD.mouse_unlock)
 	if event is InputEventMouse:
 		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
 		if (is_valid_map_pos(pos)):
