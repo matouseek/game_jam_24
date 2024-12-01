@@ -28,6 +28,7 @@ offset_top = 479.0
 offset_right = 693.0
 offset_bottom = 479.0
 grow_vertical = 2
+theme = ExtResource("4_0axf6")
 step = 0.1
 metadata/_edit_use_anchors_ = true
 
@@ -43,6 +44,7 @@ offset_right = 668.0
 offset_bottom = 776.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_0axf6")
 step = 0.1
 metadata/_edit_use_anchors_ = true
 
