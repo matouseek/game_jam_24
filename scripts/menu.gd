@@ -16,6 +16,7 @@ func _on_controls_pressed() -> void:
 	label.visible = !showed
 	$Play.visible = showed
 	$Settings.visible = showed
+	$Exit.visible = showed
 	if (showed):button.text = 'CONTROLS'
 	else: button.text = 'BACK'
 
@@ -30,3 +31,8 @@ func _input(event: InputEvent) -> void:
 		if (showed):button.text = 'CONTROLS'
 		else: button.text = 'BACK'
 		
+
+
+func _on_exit_pressed() -> void:
+	get_tree().quit()
+	pass # Replace with function body.
