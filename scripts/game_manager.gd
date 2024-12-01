@@ -3,8 +3,11 @@ extends Node
 const GODS_ACTION_PROB_DISTR : Array[float] = [0.4,0.4,0.2] # RAIN, DRAUGHT, MAJORITY
 const GODS_ACTION_COUNT : int = 2
 
+const BEFORE_WIN_SCREEN_DELAY : float = 1.5
+
 @onready var env: Node2D = $Environment
 
+# CAMERA GLOBAL VARS
 const MAX_ROUNDS : int = 10
 var round_num : int = 0
 const ZOOM_COEF = 1.25
@@ -16,8 +19,12 @@ var zoom_factor = 0.25
 @onready var camera = $Camera2D
 const TRANS_TIME = 4
 var camera_start_pos = null
+# END OF CAMERA GLOBAL VARS
+
 var turns = 10
 var win = false
+
+
 func _ready() -> void:
 	camera_start_pos = camera.position
 	$CameraUnlock.start()
@@ -92,11 +99,9 @@ func _on_will_done() -> void:
 	
 	print("Clear board")
 	env.reset_effects()
-	if (is_goal_reached(G.goal_percentages,G.current_percentages,G.GOAL_ERROR_MARGIN)):
-		win = true
-		end()
-	if (turns == 0):
-		end()
+	
+	handle_game_end()
+
 	print("Add fuck ups for next round")
 	add_fuck_ups()
 	# now wait for player to make selection and then press will be done
@@ -104,6 +109,15 @@ func _on_will_done() -> void:
 	HUD.set_will_be_done_visibility(true)
 	PS.reset_player_actions_amount()
 	PS.is_player_turn = true
+
+func handle_game_end():
+	if (is_goal_reached(G.goal_percentages,G.current_percentages,G.GOAL_ERROR_MARGIN)):
+		win = true
+		await get_tree().create_timer(BEFORE_WIN_SCREEN_DELAY).timeout
+		end()
+	if (turns == 0):
+		win = false
+		end()
 
 func is_goal_reached(goal_distr : Array[float], cur_dist : Array[float], margin_error : float) -> bool:
 	for i in range(len(goal_distr)):
