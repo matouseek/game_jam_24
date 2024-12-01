@@ -63,4 +63,7 @@ func _on_default_background_pressed() -> void:
 func _on_background_pressed() -> void:
 	$ColorPickerButton.get_popup().visible = !show
 	show = !show
-	
+
+func tutorial():
+	$MusicPlayer.process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_DISABLED
