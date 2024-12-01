@@ -32,6 +32,7 @@ func _ready() -> void:
 	
 func _input(event):
 	if not PS.is_player_turn: return
+	print(HUD.mouse_unlock)
 	if event is InputEventMouse:
 		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
 		if (is_valid_map_pos(pos)):
@@ -211,6 +212,7 @@ func tween_in_tile(coord: Vector2i) -> void:
 	var tween: Tween = create_tween()
 	tween.parallel().tween_property($SpriteToTween, "scale", Vector2(1,1), 0.5).set_trans(Tween.TRANS_SPRING)
 	tween.parallel().tween_property($SpriteToTween, "modulate:a", 1, 0.5).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property($SpriteToTween, "position:y", sprite.position.y + 40, 0.5)
 	tween.tween_callback($SpriteToTween.queue_free)
 	tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(get_tile_source_id(terrain[coord.x][coord.y])).bind(coord))
 	sprite.name = "TweeningSprite"
