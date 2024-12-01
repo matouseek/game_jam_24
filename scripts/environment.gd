@@ -1,7 +1,7 @@
 extends Node2D
 
+const TIER_BOOST_COEFF : float = 2.5
 const ENV_SIZE: int = 12
-
 
 var type_modulo : int = 10
 var tier_modulo : int = 3
@@ -50,13 +50,12 @@ func _input(event):
 
 
 func calc_distribution() -> Array[float]:
-	var tier_boost_coeff : int = 2
 	update_tiers()
 	var tile_counts_weighted = [0.0,0.0,0.0]
 	var total_count : int = 0
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			var count_to_add : int = pow(terrain[i][j].tier + 1,tier_boost_coeff)
+			var count_to_add : int = pow(terrain[i][j].tier + 1,TIER_BOOST_COEFF)
 			tile_counts_weighted[terrain[i][j].type] += count_to_add
 			total_count += count_to_add
 	var tile_percents : Array[float]= [0.0,0.0,0.0]

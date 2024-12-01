@@ -1,5 +1,11 @@
 extends Node2D
 
+# bigger difference -> harder game
+const GOAL_DISTR_REL_LOW_BOUND = 10 
+const GOAL_DISTR_REL_UP_BOUND = 20
+
+const GOAL_DISTR_SELECTION_SIZE = 10 # bigger -> harder game
+
 var percentages : Array[float] = [0.0,0.0,0.0]
 var goal_percentages : Array[float] = [0.0,0.0,0.0]
 
@@ -22,14 +28,12 @@ func calculate_mse(distribution1: Array, distribution2: Array) -> float:
 	return mse / len(distribution1)
 
 func get_random_distribs(amount : int, distr_size : int) -> Array:
-	var max_val : int = 20
-	var min_val : int = 10
 	var distribs = []
 	for i in range(amount):
 		# generate distribution
 		var distribution : Array[float] = [0.0,0.0,0.0]
 		for j in range(distr_size):
-			distribution[j] = randi_range(min_val,max_val)
+			distribution[j] = randi_range(GOAL_DISTR_REL_LOW_BOUND,GOAL_DISTR_REL_UP_BOUND)
 		normalize(distribution)
 		distribs.append(distribution)
 	return distribs
@@ -50,9 +54,8 @@ func argmax(arr : Array[float]) -> int:
 	return max_index
 
 func set_goals_distribution(current_dist : Array[float]) -> void:
-	var distr_amount : int = 10
 	
-	var distributions : Array = get_random_distribs(distr_amount,len(current_dist))
+	var distributions : Array = get_random_distribs(GOAL_DISTR_SELECTION_SIZE,len(current_dist))
 	var mses : Array[float] = []
 	
 	for distribution in distributions:

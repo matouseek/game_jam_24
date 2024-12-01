@@ -1,5 +1,7 @@
 extends Node
 
+const GODS_ACTION_PROB_DISTR : Array[float] = [0.4,0.4,0.2] # RAIN, DRAUGHT, MAJORITY
+const GODS_ACTION_COUNT : int = 2
 
 @onready var env: Node2D = $Environment
 
@@ -111,10 +113,9 @@ func update_round_count() -> void:
 
 func add_fuck_ups() -> void:
 	var new_fuck_ups : Array[PlacedEffect] = []
-	var fuck_up_amount = 3
-	for i in range(fuck_up_amount):
+	for i in range(GODS_ACTION_COUNT):
 		var pos : Vector2i = env.get_random_map_coord()
-		new_fuck_ups.append(PlacedEffect.new(pos,PS.get_rand_effect_type()))
+		new_fuck_ups.append(PlacedEffect.new(pos,PS.get_rand_effect_type(GODS_ACTION_PROB_DISTR)))
 	env.fuck_up_effects = new_fuck_ups
 	env.render_all_effects()
 
