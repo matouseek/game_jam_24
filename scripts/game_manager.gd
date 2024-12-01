@@ -16,7 +16,8 @@ var zoom_factor = 0.25
 @onready var camera = $Camera2D
 const TRANS_TIME = 4
 var camera_start_pos = null
-
+var turns = 10
+var win = false
 func _ready() -> void:
 	camera_start_pos = camera.position
 	$CameraUnlock.start()
@@ -69,7 +70,7 @@ func _process(delta: float) -> void:
 		
 	
 func _on_will_done() -> void:
-	
+	turns-=1
 	PS.is_player_turn = false
 	HUD.set_will_be_done_visibility(false)
 
@@ -91,6 +92,9 @@ func _on_will_done() -> void:
 	print("Clear board")
 	env.reset_effects()
 	if (is_goal_reached(G.goal_percentages,G.current_percentages,G.GOAL_ERROR_MARGIN)):
+		win = true
+		end()
+	if (turns == 9):
 		end()
 	print("Add fuck ups for next round")
 	add_fuck_ups()
@@ -252,4 +256,5 @@ func end():
 
 
 func _on_timer_timeout() -> void:
-	END.won()
+	if (win):END.won()
+	else: END.lost()
