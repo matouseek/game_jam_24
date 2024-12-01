@@ -27,6 +27,7 @@ func _ready() -> void:
 	tween.tween_property(camera, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
 	$Environment.visible = true
 	add_fuck_ups()
+	PS.reset_player_actions_amount()
 
 func start_tutorial() -> void:
 	HUD.visible = true
