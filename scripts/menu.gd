@@ -9,3 +9,12 @@ func _on_button_pressed() -> void:
 func _on_settings_pressed() -> void:
 	visible = false
 	AS.visible = true
+
+
+func _on_controls_pressed() -> void:
+	var showed = $Label.visible
+	$Label.visible = !showed
+	$Play.visible = showed
+	$Settings.visible = showed
+	if (showed):$Controls.text = 'CONTROLS'
+	else: $Controls.text = 'BACK'

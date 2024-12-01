@@ -3,10 +3,12 @@ extends CanvasLayer
 var sfx = 0
 var music = 0
 var show = false
+@onready var cp = $Background/CP
 
 func _ready() -> void:
 	$SFX.value = sfx
 	$Music.value = music
+	cp.color_modes_visible = false
 
 func _input(event: InputEvent) -> void:
 	if (event.is_action_pressed("settings")):
@@ -18,6 +20,7 @@ func _input(event: InputEvent) -> void:
 			visible = !visible
 			HUD.visible = !HUD.visible
 			get_tree().paused = !get_tree().paused
+		cp.visible = false
 
 
 func _on_sfx_value_changed(value: float) -> void:
@@ -50,20 +53,18 @@ func _on_main_menu_pressed() -> void:
 	visible = false
 	get_tree().paused = false
 
-
-func _on_color_picker_button_color_changed(color: Color) -> void:
-	RenderingServer.set_default_clear_color(color)
-
-
 func _on_default_background_pressed() -> void:
-	$ColorPickerButton.color = Color("d6f1eb")
+	cp.color = Color("d6f1eb")
 	RenderingServer.set_default_clear_color(Color("d6f1eb"))
 
 
 func _on_background_pressed() -> void:
-	$ColorPickerButton.get_popup().visible = !show
-	show = !show
+	cp.visible = !cp.visible
 
 func tutorial():
 	$MusicPlayer.process_mode = Node.PROCESS_MODE_ALWAYS
 	process_mode = Node.PROCESS_MODE_DISABLED
+
+
+func _on_cp_color_changed(color: Color) -> void:
+	RenderingServer.set_default_clear_color(color)

@@ -28,5 +28,29 @@ theme_override_font_sizes/font_size = 50
 text = "SETTINGS"
 metadata/_edit_use_anchors_ = true
 
+[node name="Controls" type="Button" parent="."]
+offset_left = -119.0
+offset_top = 96.0
+offset_right = 119.0
+offset_bottom = 173.0
+theme_override_font_sizes/font_size = 50
+text = "CONTROLS"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -497.0
+offset_top = -512.0
+offset_right = 547.0
+offset_bottom = -155.0
+theme_override_font_sizes/font_size = 50
+text = "WASD/ARROWS = CAMERA MOVEMENT
+MIDLLEMOUSE/J,K = ZOOMING IN AND OUT
+BACKSPACE/U = UNDO
+LEFTMOUSEBUTTON = ACTIONS
+AMOGUSGUS"
+metadata/_edit_use_anchors_ = true
+
 [connection signal="pressed" from="Play" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Controls" to="." method="_on_controls_pressed"]

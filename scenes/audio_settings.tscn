@@ -115,23 +115,11 @@ theme_override_font_sizes/font_size = 50
 text = "SELECT YOUR
 BACKGROUND"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="."]
+[node name="CP" type="ColorPicker" parent="Background"]
 visible = false
-anchors_preset = -1
-anchor_left = 0.0265625
-anchor_top = 0.248148
-anchor_right = 0.182812
-anchor_bottom = 0.319444
-offset_left = -15.0
-offset_top = 226.0
-offset_right = 123.719
-offset_bottom = 297.51
-theme_override_colors/icon_normal_color = Color(0.905882, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 50
-text = "Pick Color"
-color = Color(0.839216, 0.945098, 0.921569, 1)
-metadata/_edit_use_anchors_ = true
+layout_mode = 0
+offset_right = 298.0
+offset_bottom = 576.0
 
 [connection signal="value_changed" from="SFX" to="." method="_on_sfx_value_changed"]
 [connection signal="value_changed" from="Music" to="." method="_on_music_value_changed"]
@@ -139,4 +127,4 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="DefaultBackground" to="." method="_on_default_background_pressed"]
 [connection signal="pressed" from="Background" to="." method="_on_background_pressed"]
-[connection signal="color_changed" from="ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
+[connection signal="color_changed" from="Background/CP" to="." method="_on_cp_color_changed"]
