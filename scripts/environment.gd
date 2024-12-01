@@ -149,7 +149,7 @@ func tween_out_tile(coord: Vector2i) -> void:
 	sprite.texture = texture
 	sprite.position = tilemaplayer.map_to_local(coord)
 	if texture.get_height() > 600:
-		sprite.position.y -= 100
+		sprite.position.y -= 60
 	sprite.scale = Vector2(1, 1)
 	sprite.name = "SpriteToTween"
 	add_child(sprite, true)
@@ -205,6 +205,8 @@ func tween_in_tile(coord: Vector2i) -> void:
 	sprite.position = tilemaplayer.map_to_local(coord)
 	if texture.get_height() > 600:
 		sprite.position.y -= 100
+	else:
+		sprite.position.y -= 40
 	sprite.scale = Vector2(0, 0)
 	sprite.name = "SpriteToTween"
 	sprite.modulate.a = 0
