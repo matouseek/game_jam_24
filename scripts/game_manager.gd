@@ -29,6 +29,7 @@ func _ready() -> void:
 	tween.tween_property(camera, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
 	HUD.visible = true
 	$Environment.visible = true
+<<<<<<< HEAD
 	AS.play_music("res://assets/Sounds/Background.ogg")
 	if (PS.tutorial):
 		AS.tutorial()
@@ -36,6 +37,10 @@ func _ready() -> void:
 		#$CameraUnlock.stop()
 		get_tree().paused = true
 		
+=======
+	AS.play_music("res://assets/Sounds/game_placeholder.mp3")
+	add_fuck_ups()
+>>>>>>> progressive-effects
 
 func _input(event: InputEvent) -> void:
 	if (!limit_camera):
@@ -77,25 +82,10 @@ func _on_will_done() -> void:
 	HUD.set_will_be_done_visibility(false)
 
 	print("Process player selection")
-	process_used_effects()
-	env.update_tiers()
-	
-	if not env.used_effects.is_empty():
-		env.tween_tilemap(terrain_copy, env.terrain)
-		await get_tree().create_timer(2.0).timeout
-	
-	terrain_copy = env.get_terrain_copy()
+	await process_used_effects()
 	
 	print("Process fuck ups")
-	process_fuck_ups()
-	env.update_tiers()
-	
-	if not env.fuck_up_effects.is_empty():
-		env.tween_tilemap(terrain_copy, env.terrain)
-		await get_tree().create_timer(2.0).timeout
-	
-	env.update_tiers()
-	env.render_map()
+	await process_fuck_ups()
 	
 	env.calc_distribution()
 	
@@ -134,13 +124,41 @@ func add_fuck_ups() -> void:
 	env.render_all_effects()
 
 func process_fuck_ups() -> void:
+	if env.fuck_up_effects.is_empty():
+		await get_tree().create_timer(0.2).timeout
+	var terrain_copy: Array
 	for fuck_up_effect in env.fuck_up_effects:
+		terrain_copy = env.get_terrain_copy()
 		process_effect(fuck_up_effect)
+		env.update_tiers()
+		env.tween_tilemap(terrain_copy, env.terrain)
+		# Doesnt work when timer is too low or removed
+		# Tileset is written too early if removed or lowered
+		await wait_if_terrain_diff(terrain_copy, env.terrain)
 
 func process_used_effects() -> void:
+	if env.used_effects.is_empty():
+		await get_tree().create_timer(0.2).timeout
+	var terrain_copy: Array
 	for used_effect in env.used_effects:
+		terrain_copy = env.get_terrain_copy()
 		process_effect(used_effect)
-
+		env.update_tiers()
+		env.tween_tilemap(terrain_copy, env.terrain)
+		# Doesnt work when timer is too low or removed
+		# Tileset is written too early if removed or lowered
+		await wait_if_terrain_diff(terrain_copy, env.terrain)
+	
+func wait_if_terrain_diff(old_terrain, new_terrain) -> bool:
+	for i in range(env.ENV_SIZE):
+		for j in range(env.ENV_SIZE):
+			var old_tile : WorldTile = old_terrain[i][j]
+			var new_tile : WorldTile = new_terrain[i][j]
+			if old_tile.type != new_tile.type or old_tile.tier != new_tile.tier: 
+				await get_tree().create_timer(1.5).timeout
+				print("await in function finished")
+				return true
+	return false
 
 func process_effect(effect: PlacedEffect) -> void:
 	match effect.type:
