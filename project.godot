@@ -87,6 +87,7 @@ settings={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.132824, 0.305171, 0.316315, 1)
+environment/defaults/default_clear_color=Color(0.446748, 0.543965, 0.698818, 1)
