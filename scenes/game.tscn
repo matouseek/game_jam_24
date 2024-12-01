@@ -25,4 +25,5 @@ wait_time = 3.0
 [node name="CameraUnlock" type="Timer" parent="."]
 wait_time = 4.0
 
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="CameraUnlock" to="." method="_on_camera_unlock_timeout"]

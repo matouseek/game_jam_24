@@ -15,9 +15,10 @@ const ZOOM_FACTOR_MIN = 0.2
 var zoom_factor = 0.25
 @onready var camera = $Camera2D
 const TRANS_TIME = 4
-
+var camera_start_pos = null
 
 func _ready() -> void:
+	camera_start_pos = camera.position
 	$CameraUnlock.start()
 	HUD.do_will.connect(_on_will_done)
 	camera.zoom = Vector2(zoom_factor,zoom_factor)
@@ -89,7 +90,8 @@ func _on_will_done() -> void:
 	
 	print("Clear board")
 	env.reset_effects()
-	
+	if (is_goal_reached(G.goal_percentages,G.current_percentages,G.GOAL_ERROR_MARGIN)):
+		end()
 	print("Add fuck ups for next round")
 	add_fuck_ups()
 	# now wait for player to make selection and then press will be done
@@ -238,6 +240,16 @@ func _on_camera_unlock_timeout() -> void:
 	start_tutorial()
 	
 
-
 func end():
-	END.won(8)
+	HUD.visible = false
+	process_mode = Node.PROCESS_MODE_DISABLED
+	$Environment.process_mode = Node.PROCESS_MODE_ALWAYS
+	$Timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	var tween = get_tree().create_tween()
+	$Timer.wait_time = TRANS_TIME-1
+	$Timer.start()
+	tween.tween_property($Environment,"modulate",Color(1,1,1,0),TRANS_TIME-1)
+
+
+func _on_timer_timeout() -> void:
+	END.won()
