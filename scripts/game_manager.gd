@@ -282,5 +282,7 @@ func end():
 	tween.tween_property($Environment,"modulate",Color(1,1,1,0),TRANS_TIME-1)
 
 func _on_timer_timeout() -> void:
+	PS.is_player_turn = true
 	if (win): END.won()
 	else: END.lost()
+	

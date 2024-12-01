@@ -36,6 +36,7 @@ func _input(event):
 	if event is InputEventMouse:
 		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
 		if (is_valid_map_pos(pos)):
+			print(HUD.mouse_unlock)
 			if event.is_action_pressed("mouse_click") and PS.remaining_actions != 0 and HUD.mouse_unlock:
 				PS.remaining_actions -= 1
 				PS.update_player_action_amount(PS.remaining_actions)
