@@ -12,6 +12,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if (event.is_action_pressed("settings")):
+		print(!(get_tree().current_scene.name == 'Menu'))
 		if (get_tree().current_scene.name == 'Menu' and visible == true):
 			visible = false
 			get_tree().paused = false
@@ -20,6 +21,7 @@ func _input(event: InputEvent) -> void:
 			visible = !visible
 			HUD.visible = !HUD.visible
 			get_tree().paused = !get_tree().paused
+			$MainMenu.visible = true
 		cp.visible = false
 
 
@@ -52,6 +54,7 @@ func _on_main_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/menu.tscn")
 	visible = false
 	get_tree().paused = false
+	$MainMenu.visible = false
 
 func _on_default_background_pressed() -> void:
 	cp.color = Color("d6f1eb")
