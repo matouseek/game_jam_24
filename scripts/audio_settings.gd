@@ -21,17 +21,18 @@ func _ready() -> void:
 	$SFX.value = sfx
 	$Music.value = music
 	cp.color_modes_visible = false
+	#play_music("res://assets/Sounds/Background.ogg")
 
 func _input(event: InputEvent) -> void:
 	if (event.is_action_pressed("settings")):
-		print(!(get_tree().current_scene.name == 'Menu'))
+		$Sprite2D.visible = (get_tree().current_scene.name == 'Menu')
 		if (get_tree().current_scene.name == 'Menu' and visible == true):
 			visible = false
 			get_tree().paused = false
 			get_tree().current_scene.visible = true
 		elif (get_tree().current_scene.name != 'Menu'):
 			visible = !visible
-			HUD.visible = !HUD.visible
+			HUD.visible = !visible
 			get_tree().paused = !get_tree().paused
 			$MainMenu.visible = true
 		cp.visible = false
