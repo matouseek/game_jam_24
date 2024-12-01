@@ -66,6 +66,8 @@ func _process(delta: float) -> void:
 			update.y = camera.limit_bottom
 		if (dir != Vector2.ZERO):
 			print(camera.position)
+		
+		if (Input.is_action_pressed("end")): end()
 		camera.position = update
 		
 	
@@ -226,3 +228,8 @@ func _on_camera_unlock_timeout() -> void:
 	camera.limit_left = -7000
 	camera.limit_right = 8500
 	limit_camera = false
+	
+
+
+func end():
+	END.won(8)

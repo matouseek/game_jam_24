@@ -79,3 +79,6 @@ func tutorial():
 
 func _on_cp_color_changed(color: Color) -> void:
 	RenderingServer.set_default_clear_color(color)
+	
+func hide_mm():
+	$MainMenu.visible = false
