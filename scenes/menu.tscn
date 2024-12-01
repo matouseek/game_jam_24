@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4wq0engbvksj"]
+[gd_scene load_steps=5 format=3 uid="uid://c4wq0engbvksj"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_4l1wm"]
+[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Hud_styles/default_button.tres" id="2_jb440"]
+[ext_resource type="FontFile" uid="uid://2o2ofjygxerx" path="res://assets/Fonts/press_start/PrStart.ttf" id="2_tgtrr"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qrphs"]
 
@@ -11,22 +13,31 @@ script = ExtResource("1_4l1wm")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Play" type="Button" parent="."]
-offset_left = -68.0
-offset_top = -99.0
-offset_right = 61.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -154.0
+offset_top = -105.0
+offset_right = 95.0
 offset_bottom = -22.0
+grow_horizontal = 2
 pivot_offset = Vector2(25, 0)
-theme_override_font_sizes/font_size = 50
+theme = ExtResource("2_jb440")
 text = "PLAY"
 
 [node name="Settings" type="Button" parent="."]
-offset_left = -119.0
-offset_top = 4.0
-offset_right = 119.0
-offset_bottom = 81.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -247.0
+offset_top = 24.0
+offset_right = 196.0
+offset_bottom = 107.0
+grow_horizontal = 2
+theme = ExtResource("2_jb440")
+theme_override_fonts/font = ExtResource("2_tgtrr")
 theme_override_font_sizes/font_size = 50
 text = "SETTINGS"
-metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Play" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
