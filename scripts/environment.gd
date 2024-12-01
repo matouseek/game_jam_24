@@ -46,9 +46,6 @@ func _input(event):
 			clear_all_highlights()
 	elif Input.is_action_just_pressed("undo"):
 		reset_last_used_effect()
-	if Input.is_action_just_pressed("ui_accept"):
-		update_tiers()
-		test_print_board()
 
 
 

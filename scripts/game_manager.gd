@@ -15,9 +15,11 @@ const ZOOM_FACTOR_MIN = 0.2
 var zoom_factor = 0.25
 @onready var camera = $Camera2D
 const TRANS_TIME = 4
-
-
+var camera_start_pos = null
+var turns = 10
+var win = false
 func _ready() -> void:
+	camera_start_pos = camera.position
 	$CameraUnlock.start()
 	HUD.do_will.connect(_on_will_done)
 	camera.zoom = Vector2(zoom_factor,zoom_factor)
@@ -27,6 +29,8 @@ func _ready() -> void:
 	tween.tween_property(camera, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
 	$Environment.visible = true
 	add_fuck_ups()
+	PS.reset_player_actions_amount()
+	#HUD.set_error_margins_scale(G.GOAL_ERROR_MARGIN*2)
 
 func start_tutorial() -> void:
 	HUD.visible = true
@@ -67,7 +71,7 @@ func _process(delta: float) -> void:
 		
 	
 func _on_will_done() -> void:
-	
+	turns-=1
 	PS.is_player_turn = false
 	HUD.set_will_be_done_visibility(false)
 
@@ -88,7 +92,11 @@ func _on_will_done() -> void:
 	
 	print("Clear board")
 	env.reset_effects()
-	
+	if (is_goal_reached(G.goal_percentages,G.current_percentages,G.GOAL_ERROR_MARGIN)):
+		win = true
+		end()
+	if (turns == 0):
+		end()
 	print("Add fuck ups for next round")
 	add_fuck_ups()
 	# now wait for player to make selection and then press will be done
@@ -237,6 +245,17 @@ func _on_camera_unlock_timeout() -> void:
 	start_tutorial()
 	
 
-
 func end():
-	END.won(8)
+	HUD.visible = false
+	process_mode = Node.PROCESS_MODE_DISABLED
+	$Environment.process_mode = Node.PROCESS_MODE_ALWAYS
+	$Timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	var tween = get_tree().create_tween()
+	$Timer.wait_time = TRANS_TIME-1
+	$Timer.start()
+	tween.tween_property($Environment,"modulate",Color(1,1,1,0),TRANS_TIME-1)
+
+
+func _on_timer_timeout() -> void:
+	if (win): END.won()
+	else: END.lost()

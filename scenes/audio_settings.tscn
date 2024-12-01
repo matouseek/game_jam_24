@@ -11,6 +11,7 @@ visible = false
 script = ExtResource("1_64tt8")
 
 [node name="SFX" type="HSlider" parent="."]
+visible = false
 anchors_preset = -1
 anchor_left = 0.0833333
 anchor_top = 0.185185
@@ -57,6 +58,7 @@ text = "MUSIC"
 metadata/_edit_use_anchors_ = true
 
 [node name="SFXL" type="Label" parent="."]
+visible = false
 anchors_preset = -1
 anchor_left = 0.00260417
 anchor_top = 0.155556
@@ -75,6 +77,7 @@ metadata/_edit_use_anchors_ = true
 stream = ExtResource("2_nkpeu")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("4_x0joq")
 autoplay = true
 

@@ -2,17 +2,17 @@ extends CanvasLayer
 
 @onready var text = $Label
 
-func won(score):
+func won():
 	init()
-	text.text = "SKIBIDI WIN"
+	text.text = "You Conquered the Change"
 	
-func lost(score):
+func lost():
 	init()
-	text.text = "OHIO LOSE"
+	text.text = "The Change Conquered You"
 
 
 func init():
-	HUD.visible = false
+	#HUD.visible = false
 	AS.process_mode = Node.PROCESS_MODE_DISABLED
 	visible = true
 	get_tree().paused = true

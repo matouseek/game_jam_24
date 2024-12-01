@@ -27,7 +27,7 @@ script = ExtResource("1_n2wg5")
 
 [node name="Actions" type="Node2D" parent="."]
 modulate = Color(0.103744, 0.103744, 0.103744, 1)
-position = Vector2(1761, 16)
+position = Vector2(1761, 32)
 
 [node name="Label" type="Label" parent="Actions"]
 anchors_preset = 5
@@ -43,7 +43,7 @@ theme_override_font_sizes/font_size = 50
 text = "ACTIONS"
 
 [node name="Goals" type="Node2D" parent="."]
-position = Vector2(21, 10)
+position = Vector2(8, 32)
 
 [node name="Label" type="Label" parent="Goals"]
 offset_left = 21.0
@@ -95,7 +95,7 @@ polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
 [node name="ErrorMargin" type="Polygon2D" parent="Goals/Water/Sprite2D"]
 position = Vector2(231, 29)
 scale = Vector2(10, 1.5)
-color = Color(0, 0.568627, 0, 0.27451)
+color = Color(1, 1, 1, 0.188235)
 polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
 
 [node name="Meadow" type="Node2D" parent="Goals"]
@@ -136,7 +136,7 @@ polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
 [node name="ErrorMargin" type="Polygon2D" parent="Goals/Meadow/Sprite2D"]
 position = Vector2(231.5, 29)
 scale = Vector2(10, 1.5)
-color = Color(0, 0.568627, 0, 0.27451)
+color = Color(1, 1, 1, 0.188235)
 polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
 
 [node name="Desert" type="Node2D" parent="Goals"]
@@ -178,7 +178,7 @@ polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
 [node name="ErrorMargin" type="Polygon2D" parent="Goals/Desert/Sprite2D"]
 position = Vector2(231.5, 29)
 scale = Vector2(10, 1.5)
-color = Color(0, 0.568627, 0, 0.27451)
+color = Color(1, 1, 1, 0.188235)
 polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
 
 [node name="ItemList" type="ItemList" parent="."]
@@ -260,57 +260,88 @@ metadata/_edit_use_anchors_ = true
 [node name="P0" type="Polygon2D" parent="."]
 visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
-polygon = PackedVector2Array(0, 290, 2, 1, 300, 0, 1920, 0, 1920, 1080, 0, 1080)
+polygon = PackedVector2Array(0, 290, 0, 0, 300, 0, 1920, 0, 1920, 1080, 0, 1080)
 
 [node name="L0" type="Label" parent="."]
 visible = false
 offset_left = 600.0
-offset_top = 237.0
+offset_top = 142.0
 offset_right = 1368.0
-offset_bottom = 954.0
+offset_bottom = 859.0
 theme_override_font_sizes/font_size = 40
 text = "Welcome!
 
 You are a mighty being with power to shape your little game world."
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="P1" type="Polygon2D" parent="."]
 visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
-polygon = PackedVector2Array(0, 272, 320, 272, 320, 0, 1920, 0, 1920, 1080, 0, 1080)
+polygon = PackedVector2Array(0, 304, 320, 304, 320, 0, 1920, 0, 1920, 1080, 0, 1080)
 
 [node name="L1" type="Label" parent="."]
 visible = false
 offset_left = 594.0
-offset_top = 231.0
+offset_top = 136.0
 offset_right = 1362.0
-offset_bottom = 948.0
+offset_bottom = 853.0
 theme_override_font_sizes/font_size = 40
-text = "These progress bars display what are the ratios of biomes that appear in your world.
+text = "These progress bars display the scoring for each biome.
 
-You win the game when you get close enough to the red goal markers."
+The more tiles of a biome type you have, the bigger the score for the type. Grouped tiles of same type increase the score by greater amount.
+
+You win the game when you get close enough to the goal markers."
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="P2" type="Polygon2D" parent="."]
 visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
-polygon = PackedVector2Array(0, 0, 1584, 0, 1584, 360, 1920, 360, 1920, 1080, 0, 1080)
+polygon = PackedVector2Array(0, 0, 1560, 0, 1560, 288, 1920, 288, 1920, 1080, 0, 1080)
 
 [node name="L2" type="Label" parent="."]
 visible = false
 offset_left = 594.0
-offset_top = 231.0
+offset_top = 136.0
 offset_right = 1362.0
-offset_bottom = 948.0
+offset_bottom = 853.0
 theme_override_font_sizes/font_size = 40
-text = "Here is the list of actions you can use to transform the biomes according to your liking.
-
-You can only play a limited amount of actions per turn.
-
-See the diagrams to get an idea what each action does."
+text = "Here is the list of actions you can use to transform the biomes."
 horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="P21" type="Polygon2D" parent="."]
+visible = false
+modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
+polygon = PackedVector2Array(0, 0, 1560, 0, 1560, 288, 1920, 288, 1920, 1080, 0, 1080)
+
+[node name="L21" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(952, 552)
+scale = Vector2(0.503126, 0.503126)
+texture = ExtResource("15_nqxbi")
+
+[node name="P22" type="Polygon2D" parent="."]
+visible = false
+modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
+polygon = PackedVector2Array(0, 0, 1584, 0, 1920, 0, 1920, 280, 1560, 280, 1560, 360, 1920, 360, 1920, 1080, 0, 1080)
+
+[node name="L22" type="Label" parent="."]
+visible = false
+offset_left = 594.0
+offset_top = 136.0
+offset_right = 1362.0
+offset_bottom = 853.0
+theme_override_font_sizes/font_size = 40
+text = "You can only use a limited amount of actions per turn.
+
+Press 'u' to undo your actions."
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="x" type="Polygon2D" parent="."]
@@ -326,16 +357,17 @@ polygon = PackedVector2Array(0, 0, 1936, 0, 1936, 1080, 1392, 1080, 1392, 968, 6
 [node name="L3" type="Label" parent="."]
 visible = false
 offset_left = 594.0
-offset_top = 231.0
+offset_top = 136.0
 offset_right = 1362.0
-offset_bottom = 948.0
+offset_bottom = 853.0
 theme_override_font_sizes/font_size = 40
 text = "To apply the actions you placed on the game board, click this button.
 
-Watch out, the nature will also change by itself before next turn starts.
+Nature changes by itself. You can use this to your advantage or try to counter it.
 
 Good luck!"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [connection signal="item_clicked" from="ItemList" to="." method="_on_item_list_item_clicked"]

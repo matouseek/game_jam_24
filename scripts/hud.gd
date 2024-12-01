@@ -2,6 +2,8 @@ extends CanvasLayer
 var MAX_SHARE = 0.5
 signal do_will
 var mouse_unlock = true
+var first_run = true
+
 @onready var goals_nodes = {
 	G.TileTypes.WATER : $Goals/Water/Sprite2D,
 	G.TileTypes.MEADOW :  $Goals/Meadow/Sprite2D,
@@ -38,9 +40,23 @@ func second_step():
 	$P2.visible = true
 	$L2.visible = true
 	
-func third_step():
+func second_first_step():
 	$P2.visible = false
 	$L2.visible = false
+	
+	$P21.visible = true
+	$L21.visible = true
+
+func second_second_step():
+	$P21.visible = false
+	$L21.visible = false
+	
+	$P22.visible = true
+	$L22.visible = true
+
+func third_step():
+	$P22.visible = false
+	$L22.visible = false
 	
 	$P3.visible = true
 	$L3.visible = true
@@ -76,10 +92,18 @@ func update_remaining_actions() -> void:
 	$RemainingActionsLabel.text = "Remaining: " + str(PS.remaining_actions)
 
 func set_error_margins_scale(scale : float) -> void:
+	
 	for i in range(len(error_margin_nodes)):
 		var vertices = error_margin_nodes[i].polygon
 		var old_height = vertices[0].y 
-		var new_width = vertices[0].x * scale
+		var new_width = 0
+		if first_run:
+			new_width = vertices[0].x * scale
+			if i == 2:
+				first_run = false
+		else:
+			new_width = vertices[0].x
+		
 		var new_vert = [Vector2(new_width,old_height),Vector2(new_width,-old_height),Vector2(-new_width,-old_height),Vector2(-new_width,old_height)]
 		error_margin_nodes[i].polygon = new_vert
 
