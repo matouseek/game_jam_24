@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4wq0engbvksj"]
+[gd_scene load_steps=6 format=3 uid="uid://c4wq0engbvksj"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_4l1wm"]
+[ext_resource type="Texture2D" uid="uid://bs7kjyad6l7j2" path="res://assets/parralax_bgs/clouds_background.png" id="2_gdcvv"]
 [ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="2_jb440"]
 [ext_resource type="FontFile" uid="uid://2o2ofjygxerx" path="res://assets/Fonts/press_start/PrStart.ttf" id="2_tgtrr"]
 
@@ -11,6 +12,10 @@ material = SubResource("CanvasItemMaterial_qrphs")
 script = ExtResource("1_4l1wm")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D"]
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("2_gdcvv")
 
 [node name="Play" type="Button" parent="."]
 anchors_preset = 8
