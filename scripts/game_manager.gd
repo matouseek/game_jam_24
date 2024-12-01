@@ -35,6 +35,7 @@ func _ready() -> void:
 		T.process_mode = Node.PROCESS_MODE_ALWAYS
 		#$CameraUnlock.stop()
 		get_tree().paused = true
+		HUD.zeroth_step()
 		
 
 func _input(event: InputEvent) -> void:

@@ -190,15 +190,61 @@ theme_override_font_sizes/font_size = 40
 text = "Remaining: 0"
 metadata/_edit_use_anchors_ = true
 
+[node name="P0" type="Polygon2D" parent="."]
+visible = false
+modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
+polygon = PackedVector2Array(0, 290, 2, 1, 300, 0, 1920, 0, 1920, 1080, 0, 1080)
+
+[node name="L0" type="Label" parent="."]
+visible = false
+offset_left = 600.0
+offset_top = 237.0
+offset_right = 1368.0
+offset_bottom = 954.0
+theme_override_font_sizes/font_size = 40
+text = "Welcome!
+
+You are a mighty being with power to shape your little game world."
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="P1" type="Polygon2D" parent="."]
 visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
 polygon = PackedVector2Array(0, 290, 300, 290, 300, 0, 1920, 0, 1920, 1080, 0, 1080)
 
+[node name="L1" type="Label" parent="."]
+visible = false
+offset_left = 594.0
+offset_top = 231.0
+offset_right = 1362.0
+offset_bottom = 948.0
+theme_override_font_sizes/font_size = 40
+text = "These progress bars display what are the ratios of biomes that appear in your world.
+
+You win the game when you get close enough to the red goal markers."
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="P2" type="Polygon2D" parent="."]
 visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
 polygon = PackedVector2Array(0, 0, 1650, 0, 1650, 300, 1920, 300, 1920, 1080, 0, 1080)
+
+[node name="L2" type="Label" parent="."]
+visible = false
+offset_left = 594.0
+offset_top = 231.0
+offset_right = 1362.0
+offset_bottom = 948.0
+theme_override_font_sizes/font_size = 40
+text = "Here is the list of actions you can use to transform the biomes according to your liking.
+
+You can only play a limited amount of actions per turn.
+
+See the diagrams to get an idea what each action does."
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="x" type="Polygon2D" parent="."]
 visible = false
@@ -209,6 +255,21 @@ polygon = PackedVector2Array(1592, -2, 1595, 337, 1918, 337, 1918, 1080, -2, 108
 visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
 polygon = PackedVector2Array(0, 0, 1920, 0, 1920, 980, 1550, 980, 1550, 1080, 0, 1080)
+
+[node name="L3" type="Label" parent="."]
+visible = false
+offset_left = 594.0
+offset_top = 231.0
+offset_right = 1362.0
+offset_bottom = 948.0
+theme_override_font_sizes/font_size = 40
+text = "To apply the actions you placed on the game board, click this button.
+
+Watch out, the nature will also change by itself before next turn starts.
+
+Good luck!"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [connection signal="item_clicked" from="ItemList" to="." method="_on_item_list_item_clicked"]
 [connection signal="pressed" from="WillBeDone" to="." method="_on_will_be_done_pressed"]
