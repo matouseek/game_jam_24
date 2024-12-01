@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cro6l6tjjo5d"]
+[gd_scene load_steps=5 format=3 uid="uid://cro6l6tjjo5d"]
 
 [ext_resource type="Script" path="res://scripts/audio_settings.gd" id="1_64tt8"]
-[ext_resource type="Theme" uid="uid://b6bfma5uxxjtf" path="res://assets/Hud_styles/default_label.tres" id="2_mxurm"]
 [ext_resource type="AudioStream" uid="uid://b8jw5s8f3h80g" path="res://assets/Sounds/Amogus.wav" id="2_nkpeu"]
 [ext_resource type="AudioStream" uid="uid://dacj4woglaavf" path="res://assets/Sounds/menu.mp3" id="3_7t5fu"]
-[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Hud_styles/default_button.tres" id="4_0axf6"]
+[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="4_0axf6"]
 
 [node name="AudioSettings" type="CanvasLayer"]
 process_mode = 3
@@ -17,11 +16,12 @@ anchor_left = 0.0833333
 anchor_top = 0.185185
 anchor_right = 0.25
 anchor_bottom = 0.203704
-offset_left = 694.0
+offset_left = 693.0
 offset_top = 479.0
-offset_right = 694.0
+offset_right = 693.0
 offset_bottom = 479.0
 grow_vertical = 2
+theme = ExtResource("4_0axf6")
 min_value = -7.0
 max_value = 7.0
 step = 0.1
@@ -39,6 +39,7 @@ offset_right = 693.0
 offset_bottom = 529.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_0axf6")
 min_value = -7.0
 max_value = 7.0
 step = 0.1
@@ -46,15 +47,15 @@ metadata/_edit_use_anchors_ = true
 
 [node name="MusicL" type="Label" parent="."]
 anchors_preset = -1
-anchor_left = 0.0223958
+anchor_left = 0.0145833
 anchor_top = 0.087037
-anchor_right = 0.0666667
-anchor_bottom = 0.150926
-offset_left = 624.0
-offset_top = 533.0
-offset_right = 789.0
-offset_bottom = 533.0
-theme = ExtResource("2_mxurm")
+anchor_right = 0.0145833
+anchor_bottom = 0.115741
+offset_left = 639.0
+offset_top = 529.0
+offset_right = 804.0
+offset_bottom = 529.0
+theme = ExtResource("4_0axf6")
 theme_override_font_sizes/font_size = 30
 text = "MUSIC"
 metadata/_edit_use_anchors_ = true
@@ -63,13 +64,13 @@ metadata/_edit_use_anchors_ = true
 anchors_preset = -1
 anchor_left = 0.00260417
 anchor_top = 0.155556
-anchor_right = 0.05625
-anchor_bottom = 0.219444
+anchor_right = 0.025
+anchor_bottom = 0.18426
 offset_left = 661.0
 offset_top = 504.0
 offset_right = 708.0
 offset_bottom = 504.0
-theme = ExtResource("2_mxurm")
+theme = ExtResource("4_0axf6")
 theme_override_font_sizes/font_size = 30
 text = "SFX"
 metadata/_edit_use_anchors_ = true

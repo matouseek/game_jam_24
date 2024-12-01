@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://bnl7mksd21ct3" path="res://assets/Fonts/press_start/prstartk.ttf" id="2_hv5e1"]
 [ext_resource type="Texture2D" uid="uid://cy750ojup4k4t" path="res://assets/icon.svg" id="2_mag1m"]
 [ext_resource type="Texture2D" uid="uid://jbidh6p24g5a" path="res://assets/placeholders/goal_water_placeholder.png" id="3_k47o0"]
-[ext_resource type="StyleBox" uid="uid://dcx2h8hwsyilc" path="res://assets/Hud_styles/progress_bar_background.tres" id="3_wc02s"]
+[ext_resource type="StyleBox" uid="uid://dcx2h8hwsyilc" path="res://assets/Themes/progress_bar_background.tres" id="3_wc02s"]
 [ext_resource type="Texture2D" uid="uid://brbln01sk5lc4" path="res://assets/placeholders/meadow_desert_placeholder.png" id="4_posue"]
 [ext_resource type="Texture2D" uid="uid://tah1o0oxqomc" path="res://assets/placeholders/goal_desert_placeholder.png" id="5_0yjri"]
 [ext_resource type="StyleBox" uid="uid://c5vsl1uje50w1" path="res://assets/empty_stylebox.tres" id="6_1iuva"]
@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bh18oota23lif" path="res://assets/placeholders/resized/action_rain_placeholder.png" id="8_ov0ut"]
 [ext_resource type="Texture2D" uid="uid://bwda5gdkoyy52" path="res://assets/placeholders/resized/action_fire_placeholder.png" id="9_v6t22"]
 [ext_resource type="Texture2D" uid="uid://copy48h82sbij" path="res://assets/placeholders/action_majority_placeholder_2.png" id="11_et0tm"]
-[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Hud_styles/default_button.tres" id="14_1ltn4"]
+[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="14_1ltn4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klhoy"]
 bg_color = Color(0.39987, 0.617629, 0.8455, 1)
@@ -33,14 +33,16 @@ modulate = Color(0.103744, 0.103744, 0.103744, 1)
 position = Vector2(1761, 16)
 
 [node name="Label" type="Label" parent="Actions"]
-offset_left = -154.0
-offset_top = 7.0
-offset_right = 126.0
-offset_bottom = 62.0
-theme_override_fonts/font = ExtResource("2_hv5e1")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.0
+offset_right = 140.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme = ExtResource("14_1ltn4")
 theme_override_font_sizes/font_size = 40
 text = "ACTIONS"
-metadata/_edit_use_anchors_ = true
 
 [node name="Goals" type="Node2D" parent="."]
 position = Vector2(21, 10)
@@ -48,7 +50,7 @@ position = Vector2(21, 10)
 [node name="Label" type="Label" parent="Goals"]
 offset_right = 107.0
 offset_bottom = 55.0
-theme_override_fonts/font = ExtResource("2_hv5e1")
+theme = ExtResource("14_1ltn4")
 theme_override_font_sizes/font_size = 40
 text = "GOALS"
 metadata/_edit_use_anchors_ = true
@@ -60,6 +62,7 @@ position = Vector2(30, 96)
 offset_left = 40.0
 offset_right = 240.0
 offset_bottom = 30.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_hv5e1")
 theme_override_styles/background = ExtResource("3_wc02s")
 theme_override_styles/fill = SubResource("StyleBoxFlat_klhoy")
@@ -148,14 +151,10 @@ polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
 
 [node name="ItemList" type="ItemList" parent="."]
 anchors_preset = -1
-anchor_left = 0.921354
-anchor_top = 0.0888889
-anchor_right = 1.01719
-anchor_bottom = 0.351852
-offset_left = -137.0
-offset_top = 8.99999
-offset_right = -99.9998
-offset_bottom = -92.0
+anchor_left = 0.85
+anchor_top = 0.0972222
+anchor_right = 0.965107
+anchor_bottom = 0.266667
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/guide_color = Color(0, 0, 0, 0)
@@ -163,7 +162,6 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_margin = 5
 theme_override_constants/v_separation = 20
 theme_override_fonts/font = ExtResource("2_hv5e1")
-theme_override_font_sizes/font_size = 20
 theme_override_styles/focus = ExtResource("6_1iuva")
 theme_override_styles/panel = ExtResource("6_1iuva")
 theme_override_styles/hovered = ExtResource("6_besod")
@@ -176,17 +174,14 @@ item_1/text = "DRAUGHT"
 item_1/icon = ExtResource("9_v6t22")
 item_2/text = "MAJORITY"
 item_2/icon = ExtResource("11_et0tm")
+metadata/_edit_use_anchors_ = true
 
 [node name="WillBeDone" type="Button" parent="."]
 anchors_preset = -1
-anchor_left = 0.526563
-anchor_top = 0.898148
-anchor_right = 0.744271
-anchor_bottom = 0.964815
-offset_left = -351.0
-offset_top = 32.0001
-offset_right = -70.0
-offset_bottom = 32.0
+anchor_left = 0.34375
+anchor_top = 0.927778
+anchor_right = 0.707813
+anchor_bottom = 0.994445
 theme = ExtResource("14_1ltn4")
 theme_override_font_sizes/font_size = 40
 text = "MY WILL BE DONE!
@@ -195,14 +190,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="RoundLabel" type="Label" parent="."]
 anchors_preset = -1
-anchor_top = 0.212963
-anchor_right = 0.0885417
-anchor_bottom = 0.25
-offset_left = 22.0
-offset_top = 792.0
-offset_right = 172.0
-offset_bottom = 792.0
-theme_override_fonts/font = ExtResource("2_hv5e1")
+anchor_left = 0.0114583
+anchor_top = 0.946296
+anchor_right = 0.178125
+anchor_bottom = 0.983333
+theme = ExtResource("14_1ltn4")
 theme_override_font_sizes/font_size = 40
 text = "ROUND: 0"
 metadata/_edit_use_anchors_ = true
@@ -220,7 +212,7 @@ offset_right = 225.0
 offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_hv5e1")
+theme = ExtResource("14_1ltn4")
 theme_override_font_sizes/font_size = 20
 text = "REMAINING: 0
 "

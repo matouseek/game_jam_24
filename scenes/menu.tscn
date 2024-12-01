@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c4wq0engbvksj"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_4l1wm"]
-[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Hud_styles/default_button.tres" id="2_jb440"]
+[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="2_jb440"]
 [ext_resource type="FontFile" uid="uid://2o2ofjygxerx" path="res://assets/Fonts/press_start/PrStart.ttf" id="2_tgtrr"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qrphs"]
@@ -57,16 +57,20 @@ text = "CONTROLS"
 
 [node name="Label" type="Label" parent="."]
 visible = false
-offset_left = -497.0
-offset_top = -512.0
-offset_right = 547.0
-offset_bottom = -155.0
+offset_left = -894.0
+offset_top = -378.0
+offset_right = 906.0
+offset_bottom = -3.0
+theme = ExtResource("2_jb440")
 theme_override_font_sizes/font_size = 50
-text = "WASD/ARROWS = CAMERA MOVEMENT
-MIDLLEMOUSE/J,K = ZOOMING IN AND OUT
-BACKSPACE/U = UNDO
-LEFTMOUSEBUTTON = ACTIONS
-AMOGUSGUS"
+text = "WASD or ARROWS ........ camera
+
+SCROLL WHEEL or J/K ... zoom in/out
+
+BACKSPACE or U ........ undo action
+
+LEFT CLICK ............ place action
+"
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Play" to="." method="_on_button_pressed"]
