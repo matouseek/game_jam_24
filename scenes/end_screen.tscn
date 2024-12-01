@@ -4,6 +4,7 @@
 
 [node name="EndScreen" type="CanvasLayer"]
 process_mode = 3
+visible = false
 script = ExtResource("1_hys6a")
 
 [node name="Label" type="Label" parent="."]
