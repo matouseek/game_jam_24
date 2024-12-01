@@ -25,15 +25,17 @@ func _ready() -> void:
 	tween.set_parallel(true)
 	tween.tween_property(camera, "position", Vector2(500,3000),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(camera, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
-	HUD.visible = true
 	$Environment.visible = true
+	add_fuck_ups()
+
+func start_tutorial() -> void:
+	HUD.visible = true
 	if (PS.tutorial):
 		AS.tutorial()
 		T.process_mode = Node.PROCESS_MODE_ALWAYS
 		#$CameraUnlock.stop()
 		get_tree().paused = true
 		HUD.zeroth_step()
-	add_fuck_ups()
 
 func _input(event: InputEvent) -> void:
 	if (!limit_camera):
@@ -232,6 +234,7 @@ func _on_camera_unlock_timeout() -> void:
 	camera.limit_left = -7000
 	camera.limit_right = 8500
 	limit_camera = false
+	start_tutorial()
 	
 
 
