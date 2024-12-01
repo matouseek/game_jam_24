@@ -29,7 +29,6 @@ func _ready() -> void:
 	tween.tween_property(camera, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
 	HUD.visible = true
 	$Environment.visible = true
-	AS.play_music("res://assets/Sounds/Background.ogg")
 	if (PS.tutorial):
 		AS.tutorial()
 		T.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -61,6 +60,9 @@ func _process(delta: float) -> void:
 			update.y = camera.limit_top
 		elif (update.y >= camera.limit_bottom):
 			update.y = camera.limit_bottom
+
+		
+		if (Input.is_action_pressed("end")): end()
 		camera.position = update
 		
 	
@@ -232,3 +234,8 @@ func _on_camera_unlock_timeout() -> void:
 	camera.limit_left = -7000
 	camera.limit_right = 8500
 	limit_camera = false
+	
+
+
+func end():
+	END.won(8)

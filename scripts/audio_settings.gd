@@ -1,18 +1,23 @@
 extends CanvasLayer
 
-var sfx = 0
-var music = 0
 var show = false
-const MIN_DB = -7
+const MIN_DB = -20
 const MAX_DB = 7
 
 const DEFAULT_BACK_COLOR = "7089b1";
 
+var sfx = -5
+var music = -5
 @onready var cp = $Background/CP
 @onready var mp = $MusicPlayer
 @onready var sp = $SFXPlayer
 
 func _ready() -> void:
+	
+	$SFX.max_value = MAX_DB
+	$Music.max_value = MAX_DB
+	$SFX.min_value = MIN_DB
+	$Music.min_value = MIN_DB
 	$SFX.value = sfx
 	$Music.value = music
 	cp.color_modes_visible = false
@@ -38,7 +43,7 @@ func _on_sfx_value_changed(value: float) -> void:
 	sp.volume_db = sfx
 
 func _on_music_value_changed(value: float) -> void:
-	if (value == MIN_DB): mp.stop()
+	if (value == MIN_DB): value = -80
 	elif(music == MIN_DB): mp.play()
 	music = value
 	mp.volume_db = music
@@ -82,3 +87,6 @@ func tutorial():
 
 func _on_cp_color_changed(color: Color) -> void:
 	RenderingServer.set_default_clear_color(color)
+	
+func hide_mm():
+	$MainMenu.visible = false
