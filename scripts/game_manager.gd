@@ -170,8 +170,8 @@ func process_used_effects() -> void:
 	for used_effect in env.used_effects:
 		env.current_effect = used_effect.type
 		terrain_copy = env.get_terrain_copy()
-		env.update_tiers()
 		process_effect(used_effect)
+		env.update_tiers()
 		env.tween_tilemap(terrain_copy, env.terrain)
 		# Doesnt work when timer is too low or removed
 		# Tileset is written too early if removed or lowered
