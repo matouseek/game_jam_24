@@ -118,6 +118,7 @@ func handle_game_end():
 		end()
 	if (turns == 0):
 		win = false
+		await get_tree().create_timer(BEFORE_WIN_SCREEN_DELAY).timeout
 		end()
 
 func is_goal_reached(goal_distr : Array[float], cur_dist : Array[float], margin_error : float) -> bool:
