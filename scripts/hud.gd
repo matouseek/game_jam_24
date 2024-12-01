@@ -87,7 +87,7 @@ func update_round_label(val : int, maxval : int, should_warn : bool) -> void:
 	$RoundLabel.text = "Round: " + str(val) + "/" + str(maxval)
 	
 func update_remaining_actions() -> void:
-	$RemainingActionsLabel.text = "Remaining: " + str(PS.remaining_actions)
+	$RemainingActionsLabel.text = "Remaining: " + str(PS.remaining_actions) + "/" + str(PS.MAX_ACTIONS_PER_TURN)
 
 func set_error_margins_scale(scale : float) -> void:
 	
