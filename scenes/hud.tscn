@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://diih4v77gbu10" path="res://assets/Icons/action_icons/action_draught_icon.png" id="13_r4s4m"]
 [ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="14_1ltn4"]
 [ext_resource type="Texture2D" uid="uid://b1m2t4nwg6j8k" path="res://assets/Icons/action_icons/action_majority_icon.png" id="14_xh7i4"]
-[ext_resource type="Texture2D" uid="uid://cipdh4ylptjwr" path="res://assets/Tutorial/action_expl_tutorial.png" id="15_xwbhj"]
+[ext_resource type="Texture2D" uid="uid://cb1yvj6uxvpc6" path="res://assets/Tutorial/action_expl_tutorial.png" id="15_xwbhj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klhoy"]
 bg_color = Color(0.39987, 0.617629, 0.8455, 1)
