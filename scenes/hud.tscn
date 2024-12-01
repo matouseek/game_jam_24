@@ -7,7 +7,7 @@
 [ext_resource type="StyleBox" uid="uid://dcx2h8hwsyilc" path="res://assets/Themes/progress_bar_background.tres" id="3_wc02s"]
 [ext_resource type="Texture2D" uid="uid://brbln01sk5lc4" path="res://assets/placeholders/meadow_desert_placeholder.png" id="4_posue"]
 [ext_resource type="Texture2D" uid="uid://tah1o0oxqomc" path="res://assets/placeholders/goal_desert_placeholder.png" id="5_0yjri"]
-[ext_resource type="StyleBox" uid="uid://c5vsl1uje50w1" path="res://assets/empty_stylebox.tres" id="6_1iuva"]
+[ext_resource type="StyleBox" path="res://assets/empty_stylebox.tres" id="6_1iuva"]
 [ext_resource type="StyleBox" uid="uid://5g0t4mivu43k" path="res://assets/IL_style/hovered.tres" id="6_besod"]
 [ext_resource type="StyleBox" uid="uid://coyx1uab0hiss" path="res://assets/IL_style/selected.tres" id="7_lqxro"]
 [ext_resource type="Texture2D" uid="uid://bh18oota23lif" path="res://assets/placeholders/resized/action_rain_placeholder.png" id="8_ov0ut"]
@@ -87,6 +87,12 @@ region_rect = Rect2(58, 16.9959, 141, 218.576)
 position = Vector2(-125, -14)
 polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
 
+[node name="ErrorMargin" type="Polygon2D" parent="Goals/Water/Sprite2D"]
+position = Vector2(231.5, 29)
+scale = Vector2(10, 1.5)
+color = Color(0, 0.568627, 0, 0.27451)
+polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
+
 [node name="Meadow" type="Node2D" parent="Goals"]
 position = Vector2(30, 151)
 
@@ -118,6 +124,12 @@ region_rect = Rect2(44.5761, 28.9869, 159.605, 200.132)
 position = Vector2(-125, -14)
 polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
 
+[node name="ErrorMargin" type="Polygon2D" parent="Goals/Meadow/Sprite2D"]
+position = Vector2(231.5, 29)
+scale = Vector2(10, 1.5)
+color = Color(0, 0.568627, 0, 0.27451)
+polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
+
 [node name="Desert" type="Node2D" parent="Goals"]
 position = Vector2(30, 206)
 
@@ -148,6 +160,12 @@ region_rect = Rect2(23.9042, 26.6709, 209.595, 208.901)
 [node name="Sprite2D" type="Polygon2D" parent="Goals/Desert"]
 position = Vector2(-125, -14)
 polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
+
+[node name="ErrorMargin" type="Polygon2D" parent="Goals/Desert/Sprite2D"]
+position = Vector2(231.5, 29)
+scale = Vector2(10, 1.5)
+color = Color(0, 0.568627, 0, 0.27451)
+polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
 
 [node name="ItemList" type="ItemList" parent="."]
 anchors_preset = -1

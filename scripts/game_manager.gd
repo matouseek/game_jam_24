@@ -3,8 +3,6 @@ extends Node
 const GODS_ACTION_PROB_DISTR : Array[float] = [0.4,0.4,0.2] # RAIN, DRAUGHT, MAJORITY
 const GODS_ACTION_COUNT : int = 2
 
-const GOAL_ERROR_MARGIN : float = 0.1
-
 @onready var env: Node2D = $Environment
 
 const MAX_ROUNDS : int = 10
@@ -81,7 +79,7 @@ func _on_will_done() -> void:
 	
 	env.calc_distribution()
 	
-	print("Won game: ", is_goal_reached(G.goal_percentages,G.current_percentages,GOAL_ERROR_MARGIN))
+	print("Won game: ", is_goal_reached(G.goal_percentages,G.current_percentages,G.GOAL_ERROR_MARGIN))
 	update_round_count()
 	
 	env.clear_effects_visuals()
@@ -99,7 +97,7 @@ func _on_will_done() -> void:
 
 func is_goal_reached(goal_distr : Array[float], cur_dist : Array[float], margin_error : float) -> bool:
 	for i in range(len(goal_distr)):
-		if abs(goal_distr[i]-cur_dist[i])/(goal_distr[i]) >= margin_error:
+		if cur_dist[i] < goal_distr[i] - margin_error or cur_dist[i] > goal_distr[i] + margin_error:
 			return false
 	return true
 
