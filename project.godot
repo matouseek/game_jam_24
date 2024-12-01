@@ -87,4 +87,4 @@ settings={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.839216, 0.945098, 0.921569, 1)
+environment/defaults/default_clear_color=Color(0.132824, 0.305171, 0.316315, 1)
