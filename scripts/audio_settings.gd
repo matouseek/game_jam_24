@@ -3,7 +3,11 @@ extends CanvasLayer
 var sfx = 0
 var music = 0
 var show = false
+const MIN_DB = -7
+const MAX_DB = 7
 @onready var cp = $Background/CP
+@onready var mp = $MusicPlayer
+@onready var sp = $SFXPlayer
 
 func _ready() -> void:
 	$SFX.value = sfx
@@ -26,17 +30,21 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_sfx_value_changed(value: float) -> void:
+	if (value == MIN_DB): sp.stop()
 	sfx = value
-	$SFXPlayer.volume_db = sfx
+	sp.volume_db = sfx
 
 func _on_music_value_changed(value: float) -> void:
+	if (value == MIN_DB): mp.stop()
+	elif(music == MIN_DB): mp.play()
 	music = value
-	$MusicPlayer.volume_db = music
+	mp.volume_db = music
 	
 func play_music(name):
-	$MusicPlayer.stream = load(name) as AudioStream
-	$MusicPlayer.stream.loop = true
-	$MusicPlayer.play()
+	if music>-7:
+		mp.stream = load(name) as AudioStream
+		mp.stream.loop = true
+		mp.play()
 
 
 func _on_back_pressed() -> void:
