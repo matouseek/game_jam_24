@@ -120,6 +120,8 @@ func process_fuck_ups() -> void:
 		await get_tree().create_timer(0.2).timeout
 	var terrain_copy: Array
 	for fuck_up_effect in env.fuck_up_effects:
+		if (fuck_up_effect.type == PS.PlayerEffects.DRAUGHT):
+			AS.play_sfx("res://assets/Sounds/fire.wav")
 		terrain_copy = env.get_terrain_copy()
 		process_effect(fuck_up_effect)
 		env.update_tiers()

@@ -54,6 +54,10 @@ func play_music(name):
 		mp.stream.loop = true
 		mp.play()
 
+func play_sfx(name):
+	if sfx>-7:
+		sp.stream = load(name) as AudioStream
+		sp.play()
 
 func _on_back_pressed() -> void:
 	if (get_tree().current_scene.name == 'Menu'):

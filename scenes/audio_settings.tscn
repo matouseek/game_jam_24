@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/audio_settings.gd" id="1_64tt8"]
 [ext_resource type="AudioStream" uid="uid://b8jw5s8f3h80g" path="res://assets/Sounds/Amogus.wav" id="2_nkpeu"]
-[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Hud_styles/default_button.tres" id="4_0axf6"]
+[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="4_0axf6"]
 [ext_resource type="AudioStream" uid="uid://dd6r8a6wnjcii" path="res://assets/Sounds/Background.ogg" id="4_x0joq"]
 
 [node name="AudioSettings" type="CanvasLayer"]
