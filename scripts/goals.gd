@@ -73,6 +73,7 @@ func set_goals_distribution(current_dist : Array[float]) -> void:
 
 func update_progress(vals):
 	for i in range(len(vals)):
+		var tween = create_tween()
 		current_percentages[i] = vals[i]
 	HUD.update_progress_hud(current_percentages)
 
