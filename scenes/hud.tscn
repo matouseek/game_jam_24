@@ -1,19 +1,16 @@
-[gd_scene load_steps=18 format=3 uid="uid://bcypndlr0v5lj"]
+[gd_scene load_steps=15 format=3 uid="uid://bcypndlr0v5lj"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_n2wg5"]
 [ext_resource type="FontFile" uid="uid://bnl7mksd21ct3" path="res://assets/Fonts/press_start/prstartk.ttf" id="2_hv5e1"]
 [ext_resource type="Texture2D" uid="uid://cy750ojup4k4t" path="res://assets/icon.svg" id="2_mag1m"]
-[ext_resource type="Texture2D" uid="uid://jbidh6p24g5a" path="res://assets/placeholders/goal_water_placeholder.png" id="3_k47o0"]
 [ext_resource type="StyleBox" uid="uid://dcx2h8hwsyilc" path="res://assets/Themes/progress_bar_background.tres" id="3_wc02s"]
-[ext_resource type="Texture2D" uid="uid://brbln01sk5lc4" path="res://assets/placeholders/meadow_desert_placeholder.png" id="4_posue"]
-[ext_resource type="Texture2D" uid="uid://tah1o0oxqomc" path="res://assets/placeholders/goal_desert_placeholder.png" id="5_0yjri"]
 [ext_resource type="StyleBox" uid="uid://c5vsl1uje50w1" path="res://assets/empty_stylebox.tres" id="6_1iuva"]
 [ext_resource type="StyleBox" uid="uid://5g0t4mivu43k" path="res://assets/IL_style/hovered.tres" id="6_besod"]
 [ext_resource type="StyleBox" uid="uid://coyx1uab0hiss" path="res://assets/IL_style/selected.tres" id="7_lqxro"]
-[ext_resource type="Texture2D" uid="uid://bh18oota23lif" path="res://assets/placeholders/resized/action_rain_placeholder.png" id="8_ov0ut"]
-[ext_resource type="Texture2D" uid="uid://bwda5gdkoyy52" path="res://assets/placeholders/resized/action_fire_placeholder.png" id="9_v6t22"]
-[ext_resource type="Texture2D" uid="uid://copy48h82sbij" path="res://assets/placeholders/action_majority_placeholder_2.png" id="11_et0tm"]
+[ext_resource type="Texture2D" uid="uid://0wjmpaqgeoq3" path="res://assets/Icons/rain_icon.png" id="12_3kyxa"]
+[ext_resource type="Texture2D" uid="uid://dl558s2sm7xx0" path="res://assets/Icons/fire_icon.png" id="13_k1l57"]
 [ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="14_1ltn4"]
+[ext_resource type="Texture2D" uid="uid://dttkn2keniuo" path="res://assets/Icons/majority_icon.png" id="14_jcpmo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klhoy"]
 bg_color = Color(0.39987, 0.617629, 0.8455, 1)
@@ -36,27 +33,30 @@ position = Vector2(1761, 16)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -140.0
-offset_right = 140.0
-offset_bottom = 55.0
+offset_left = -231.0
+offset_top = 22.0
+offset_right = 119.0
+offset_bottom = 77.0
 grow_horizontal = 2
 theme = ExtResource("14_1ltn4")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 50
 text = "ACTIONS"
 
 [node name="Goals" type="Node2D" parent="."]
 position = Vector2(21, 10)
 
 [node name="Label" type="Label" parent="Goals"]
-offset_right = 107.0
-offset_bottom = 55.0
+offset_left = 21.0
+offset_top = 28.0
+offset_right = 271.0
+offset_bottom = 79.0
 theme = ExtResource("14_1ltn4")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 50
 text = "GOALS"
 metadata/_edit_use_anchors_ = true
 
 [node name="Water" type="Node2D" parent="Goals"]
-position = Vector2(30, 96)
+position = Vector2(214, 134)
 
 [node name="ProgressBar" type="ProgressBar" parent="Goals/Water"]
 offset_left = 40.0
@@ -70,6 +70,17 @@ value = 33.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
+[node name="Label" type="Label" parent="Goals/Water"]
+offset_left = -166.0
+offset_top = 6.0
+offset_right = 84.0
+offset_bottom = 57.0
+theme = ExtResource("14_1ltn4")
+theme_override_font_sizes/font_size = 30
+text = "WATER
+"
+metadata/_edit_use_anchors_ = true
+
 [node name="x" type="Sprite2D" parent="Goals/Water"]
 visible = false
 modulate = Color(1, 0, 0, 1)
@@ -77,25 +88,18 @@ position = Vector2(167, 15)
 scale = Vector2(0.084375, 0.253906)
 texture = ExtResource("2_mag1m")
 
-[node name="Icon" type="Sprite2D" parent="Goals/Water"]
-position = Vector2(22, 15)
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("3_k47o0")
-region_enabled = true
-region_rect = Rect2(58, 16.9959, 141, 218.576)
-
 [node name="Sprite2D" type="Polygon2D" parent="Goals/Water"]
 position = Vector2(-125, -14)
 polygon = PackedVector2Array(239, 4, 224, 4, 231, 14, 232, 14)
 
 [node name="ErrorMargin" type="Polygon2D" parent="Goals/Water/Sprite2D"]
-position = Vector2(231.5, 29)
+position = Vector2(231, 29)
 scale = Vector2(10, 1.5)
 color = Color(0, 0.568627, 0, 0.27451)
 polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
 
 [node name="Meadow" type="Node2D" parent="Goals"]
-position = Vector2(30, 151)
+position = Vector2(213, 221)
 
 [node name="ProgressBar" type="ProgressBar" parent="Goals/Meadow"]
 offset_left = 40.0
@@ -108,19 +112,22 @@ value = 33.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
+[node name="Label" type="Label" parent="Goals/Meadow"]
+offset_left = -165.0
+offset_top = 1.0
+offset_right = 85.0
+offset_bottom = 52.0
+theme = ExtResource("14_1ltn4")
+theme_override_font_sizes/font_size = 30
+text = "FOREST"
+metadata/_edit_use_anchors_ = true
+
 [node name="x" type="Sprite2D" parent="Goals/Meadow"]
 visible = false
 modulate = Color(1, 0, 0, 1)
 position = Vector2(167, 15)
 scale = Vector2(0.084375, 0.253906)
 texture = ExtResource("2_mag1m")
-
-[node name="Icon" type="Sprite2D" parent="Goals/Meadow"]
-position = Vector2(22, 15)
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("4_posue")
-region_enabled = true
-region_rect = Rect2(44.5761, 28.9869, 159.605, 200.132)
 
 [node name="Sprite2D" type="Polygon2D" parent="Goals/Meadow"]
 position = Vector2(-125, -14)
@@ -133,7 +140,7 @@ color = Color(0, 0.568627, 0, 0.27451)
 polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
 
 [node name="Desert" type="Node2D" parent="Goals"]
-position = Vector2(30, 206)
+position = Vector2(214, 302)
 
 [node name="ProgressBar" type="ProgressBar" parent="Goals/Desert"]
 offset_left = 40.0
@@ -146,19 +153,23 @@ value = 33.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
+[node name="Label" type="Label" parent="Goals/Desert"]
+offset_left = -166.0
+offset_top = 2.0
+offset_right = 84.0
+offset_bottom = 53.0
+theme = ExtResource("14_1ltn4")
+theme_override_font_sizes/font_size = 30
+text = "DESERT
+"
+metadata/_edit_use_anchors_ = true
+
 [node name="x" type="Sprite2D" parent="Goals/Desert"]
 visible = false
 modulate = Color(1, 0, 0, 1)
 position = Vector2(167, 15)
 scale = Vector2(0.084375, 0.253906)
 texture = ExtResource("2_mag1m")
-
-[node name="Icon" type="Sprite2D" parent="Goals/Desert"]
-position = Vector2(22, 15)
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("5_0yjri")
-region_enabled = true
-region_rect = Rect2(23.9042, 26.6709, 209.595, 208.901)
 
 [node name="Sprite2D" type="Polygon2D" parent="Goals/Desert"]
 position = Vector2(-125, -14)
@@ -172,17 +183,22 @@ polygon = PackedVector2Array(10, 10, 10, -10, -10, -10, -10, 10)
 
 [node name="ItemList" type="ItemList" parent="."]
 anchors_preset = -1
-anchor_left = 0.85
+anchor_left = 0.808333
 anchor_top = 0.0972222
-anchor_right = 0.965107
-anchor_bottom = 0.266667
+anchor_right = 0.984896
+anchor_bottom = 0.333333
+offset_left = -16.0
+offset_top = 8.0
+offset_right = -16.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/guide_color = Color(0, 0, 0, 0)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/icon_margin = 5
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/icon_margin = 20
 theme_override_constants/v_separation = 20
 theme_override_fonts/font = ExtResource("2_hv5e1")
+theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = ExtResource("6_1iuva")
 theme_override_styles/panel = ExtResource("6_1iuva")
 theme_override_styles/hovered = ExtResource("6_besod")
@@ -190,11 +206,11 @@ theme_override_styles/selected = ExtResource("7_lqxro")
 theme_override_styles/selected_focus = ExtResource("7_lqxro")
 item_count = 3
 item_0/text = "RAIN"
-item_0/icon = ExtResource("8_ov0ut")
+item_0/icon = ExtResource("12_3kyxa")
 item_1/text = "DRAUGHT"
-item_1/icon = ExtResource("9_v6t22")
+item_1/icon = ExtResource("13_k1l57")
 item_2/text = "MAJORITY"
-item_2/icon = ExtResource("11_et0tm")
+item_2/icon = ExtResource("14_jcpmo")
 metadata/_edit_use_anchors_ = true
 
 [node name="WillBeDone" type="Button" parent="."]
@@ -203,6 +219,8 @@ anchor_left = 0.34375
 anchor_top = 0.927778
 anchor_right = 0.707813
 anchor_bottom = 0.994445
+offset_left = -16.0
+offset_right = -16.0
 theme = ExtResource("14_1ltn4")
 theme_override_font_sizes/font_size = 40
 text = "MY WILL BE DONE!
@@ -227,14 +245,14 @@ anchor_left = 0.725
 anchor_top = 0.301852
 anchor_right = 0.851562
 anchor_bottom = 0.321296
-offset_left = 225.0
-offset_top = -15.0
-offset_right = 225.0
-offset_bottom = -15.0
+offset_left = 150.0
+offset_top = 62.9998
+offset_right = 267.001
+offset_bottom = 73.0003
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("14_1ltn4")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 30
 text = "REMAINING: 0
 "
 metadata/_edit_use_anchors_ = true

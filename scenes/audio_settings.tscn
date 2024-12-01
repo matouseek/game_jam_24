@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/audio_settings.gd" id="1_64tt8"]
 [ext_resource type="AudioStream" uid="uid://b8jw5s8f3h80g" path="res://assets/Sounds/Amogus.wav" id="2_nkpeu"]
-[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Hud_styles/default_button.tres" id="4_0axf6"]
+[ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="4_0axf6"]
 [ext_resource type="AudioStream" uid="uid://dd6r8a6wnjcii" path="res://assets/Sounds/Background.ogg" id="4_x0joq"]
 
 [node name="AudioSettings" type="CanvasLayer"]
@@ -21,6 +21,7 @@ offset_top = 479.0
 offset_right = 693.0
 offset_bottom = 479.0
 grow_vertical = 2
+theme = ExtResource("4_0axf6")
 step = 0.1
 metadata/_edit_use_anchors_ = true
 
@@ -36,6 +37,7 @@ offset_right = 693.0
 offset_bottom = 529.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_0axf6")
 step = 0.1
 metadata/_edit_use_anchors_ = true
 
@@ -100,7 +102,6 @@ text = "MAIN MENU"
 metadata/_edit_use_anchors_ = true
 
 [node name="DefaultBackground" type="Button" parent="."]
-visible = false
 anchors_preset = -1
 anchor_left = 0.00833333
 anchor_top = 0.243519
@@ -116,7 +117,6 @@ text = "DEFAULT BACKGROUND"
 metadata/_edit_use_anchors_ = true
 
 [node name="Background" type="Button" parent="."]
-visible = false
 offset_left = 652.0
 offset_top = 451.0
 offset_right = 1374.0
