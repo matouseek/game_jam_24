@@ -75,7 +75,8 @@ func set_goal_hud(type: G.TileTypes, value:float):
 
 func update_progress_hud(vals):
 	for i in range(len(vals)):
-		progress_nodes[i].value = vals[i]*100
+		var tween = create_tween()
+		tween.tween_property(progress_nodes[i], "value", vals[i]*100, 0.5).set_ease(Tween.EASE_OUT)
 
 func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	PS.update_state(index)
