@@ -4,7 +4,7 @@ var show = false
 const MIN_DB = -20
 const MAX_DB = 7
 
-const DEFAULT_BACK_COLOR = "7089b1";
+const DEFAULT_BACK_COLOR = "92a8cb";
 
 var sfx = -5
 var music = -5
