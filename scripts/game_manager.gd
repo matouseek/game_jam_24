@@ -1,5 +1,9 @@
 extends Node
 
+const GODS_ACTION_PROB_DISTR : Array[float] = [0.4,0.4,0.2] # RAIN, DRAUGHT, MAJORITY
+const GODS_ACTION_COUNT : int = 2
+
+const GOAL_ERROR_MARGIN : float = 0.1
 
 @onready var env: Node2D = $Environment
 
@@ -11,8 +15,6 @@ var limit_camera = true
 const ZOOM_FACTOR_MAX = 1.75
 const ZOOM_FACTOR_MIN = 0.2
 var zoom_factor = 0.25
-var sfx = 0
-var music = 0
 @onready var camera = $Camera2D
 const TRANS_TIME = 4
 
@@ -27,7 +29,14 @@ func _ready() -> void:
 	tween.tween_property(camera, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
 	HUD.visible = true
 	$Environment.visible = true
-	AS.play_music("res://assets/Sounds/game_placeholder.mp3")
+	AS.play_music("res://assets/Sounds/Background.ogg")
+	if (PS.tutorial):
+		AS.tutorial()
+		T.process_mode = Node.PROCESS_MODE_ALWAYS
+		#$CameraUnlock.stop()
+		get_tree().paused = true
+		HUD.zeroth_step()
+	add_fuck_ups()
 
 func _input(event: InputEvent) -> void:
 	if (!limit_camera):
@@ -69,22 +78,14 @@ func _on_will_done() -> void:
 	HUD.set_will_be_done_visibility(false)
 
 	print("Process player selection")
-	process_used_effects()
-	
-	if not env.used_effects.is_empty():
-		env.tween_tilemap(terrain_copy, env.terrain)
-		await get_tree().create_timer(2.0).timeout
-	
-	terrain_copy = env.get_terrain_copy()
+	await process_used_effects()
 	
 	print("Process fuck ups")
-	process_fuck_ups()
+	await process_fuck_ups()
 	
-	if not env.fuck_up_effects.is_empty():
-		env.tween_tilemap(terrain_copy, env.terrain)
-		await get_tree().create_timer(2.0).timeout
-
 	env.calc_distribution()
+	
+	print("Won game: ", is_goal_reached(G.goal_percentages,G.current_percentages,GOAL_ERROR_MARGIN))
 	update_round_count()
 	
 	env.clear_effects_visuals()
@@ -100,27 +101,60 @@ func _on_will_done() -> void:
 	PS.reset_player_actions_amount()
 	PS.is_player_turn = true
 
+func is_goal_reached(goal_distr : Array[float], cur_dist : Array[float], margin_error : float) -> bool:
+	for i in range(len(goal_distr)):
+		if abs(goal_distr[i]-cur_dist[i])/(goal_distr[i]) >= margin_error:
+			return false
+	return true
+
 func update_round_count() -> void:
 	round_num += 1
 	HUD.update_round_label(round_num)
 
 func add_fuck_ups() -> void:
 	var new_fuck_ups : Array[PlacedEffect] = []
-	var fuck_up_amount = 3
-	for i in range(fuck_up_amount):
+	for i in range(GODS_ACTION_COUNT):
 		var pos : Vector2i = env.get_random_map_coord()
-		new_fuck_ups.append(PlacedEffect.new(pos,PS.get_rand_effect_type()))
+		new_fuck_ups.append(PlacedEffect.new(pos,PS.get_rand_effect_type(GODS_ACTION_PROB_DISTR)))
 	env.fuck_up_effects = new_fuck_ups
 	env.render_all_effects()
 
 func process_fuck_ups() -> void:
+	if env.fuck_up_effects.is_empty():
+		await get_tree().create_timer(0.2).timeout
+	var terrain_copy: Array
 	for fuck_up_effect in env.fuck_up_effects:
+		terrain_copy = env.get_terrain_copy()
 		process_effect(fuck_up_effect)
+		env.update_tiers()
+		env.tween_tilemap(terrain_copy, env.terrain)
+		# Doesnt work when timer is too low or removed
+		# Tileset is written too early if removed or lowered
+		await wait_if_terrain_diff(terrain_copy, env.terrain)
 
 func process_used_effects() -> void:
+	if env.used_effects.is_empty():
+		await get_tree().create_timer(0.2).timeout
+	var terrain_copy: Array
 	for used_effect in env.used_effects:
+		terrain_copy = env.get_terrain_copy()
 		process_effect(used_effect)
-
+		env.update_tiers()
+		env.tween_tilemap(terrain_copy, env.terrain)
+		# Doesnt work when timer is too low or removed
+		# Tileset is written too early if removed or lowered
+		await wait_if_terrain_diff(terrain_copy, env.terrain)
+	
+func wait_if_terrain_diff(old_terrain, new_terrain) -> bool:
+	for i in range(env.ENV_SIZE):
+		for j in range(env.ENV_SIZE):
+			var old_tile : WorldTile = old_terrain[i][j]
+			var new_tile : WorldTile = new_terrain[i][j]
+			if old_tile.type != new_tile.type or old_tile.tier != new_tile.tier: 
+				await get_tree().create_timer(1.5).timeout
+				print("await in function finished")
+				return true
+	return false
 
 func process_effect(effect: PlacedEffect) -> void:
 	match effect.type:
@@ -150,7 +184,22 @@ func process_draught(draught_effect: PlacedEffect) -> void:
 			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type = G.TileTypes.DESERT
 		G.TileTypes.WATER:
 			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type = G.TileTypes.MEADOW
-	
+
+func get_unique_max_index_or_neg(amounts : Array[int]) -> int:
+	print("Amounts: ",amounts)
+	var first_max_index : int = 0
+	var last_max_index : int = 0
+	for i in range(len(amounts)):
+		if amounts[i] > amounts[first_max_index]:
+			first_max_index = i
+	for i in range(len(amounts)):
+		if amounts[i] >= amounts[last_max_index]:
+			last_max_index = i
+	if first_max_index == last_max_index:
+		return first_max_index
+	else:
+		return -1
+
 func process_majority(majority_effect: PlacedEffect) -> void:
 	var amounts: Array[int] = []
 	amounts.resize(G.TileTypes.size())
@@ -171,9 +220,10 @@ func process_majority(majority_effect: PlacedEffect) -> void:
 				G.TileTypes.WATER:
 					amounts[G.TileTypes.WATER] += 1
 	
-	var max_amount: int = amounts.max()
-	var max_index: int = amounts.find(max_amount)
-	var resulting_tile: G.TileTypes = max_index
+	var max_index: int = get_unique_max_index_or_neg(amounts)
+	var resulting_tile : G.TileTypes = env.terrain[majority_effect.source_coord.x][majority_effect.source_coord.y].type
+	if max_index >= 0: # we found unique max
+		resulting_tile = max_index
 	
 	for i in range(3):
 		for j in range(3):
