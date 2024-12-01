@@ -25,7 +25,6 @@ bg_color = Color(0.450601, 0.653098, 0.552076, 1)
 bg_color = Color(0.656134, 0.591154, 0.485949, 1)
 
 [node name="HUD" type="CanvasLayer"]
-visible = false
 script = ExtResource("1_n2wg5")
 
 [node name="Actions" type="Node2D" parent="."]
@@ -67,6 +66,7 @@ theme_override_fonts/font = ExtResource("2_hv5e1")
 theme_override_styles/background = ExtResource("3_wc02s")
 theme_override_styles/fill = SubResource("StyleBoxFlat_klhoy")
 value = 33.0
+show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="x" type="Sprite2D" parent="Goals/Water"]
@@ -104,6 +104,7 @@ theme_override_fonts/font = ExtResource("2_hv5e1")
 theme_override_styles/background = ExtResource("3_wc02s")
 theme_override_styles/fill = SubResource("StyleBoxFlat_sri35")
 value = 33.0
+show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="x" type="Sprite2D" parent="Goals/Meadow"]
@@ -141,6 +142,7 @@ theme_override_fonts/font = ExtResource("2_hv5e1")
 theme_override_styles/background = ExtResource("3_wc02s")
 theme_override_styles/fill = SubResource("StyleBoxFlat_nu2lh")
 value = 33.0
+show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="x" type="Sprite2D" parent="Goals/Desert"]
