@@ -23,7 +23,7 @@ func _ready() -> void:
 	for i in range(ENV_SIZE):
 		var row: Array[WorldTile] = []
 		for j in range(ENV_SIZE):
-			var default_tile : WorldTile = WorldTile.new(G.get_rand_tile_type(),G.TileTier.MEDIUM)
+			var default_tile : WorldTile = WorldTile.new(G.get_rand_tile_type(),G.TileTier.MEDIUM,G.TileTier.MEDIUM)
 			row.append(default_tile)
 		terrain.append(row)
 	initialize_randomly()
@@ -113,17 +113,13 @@ func clear_effects_visuals() -> void:
 func initialize_randomly() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			terrain[i][j] = WorldTile.new(G.get_rand_tile_type(),G.TileTier.MEDIUM)
-#			if (j== ENV_SIZE-1 and i == ENV_SIZE-1): terrain[i][j] = -1
-#			elif (j == ENV_SIZE-1 or i == ENV_SIZE-1): terrain[i][j] = 2
-#			else : terrain[i][j] = randi_range(0,1)
+			terrain[i][j] = WorldTile.new(G.get_rand_tile_type(),G.TileTier.MEDIUM,G.TileTier.MEDIUM)
 	update_tiers()
 	
 func render_map() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
-			var render_tier : G.TileTier = calculate_render_tier(get_friends_count(Vector2i(i,j)),terrain[i][j])
-			$TileMapLayer.set_cell(Vector2i(i,j),get_tile_source_id(terrain[i][j],render_tier),Vector2i(0,0))
+			$TileMapLayer.set_cell(Vector2i(i,j),get_tile_source_id(terrain[i][j]),Vector2i(0,0))
 
 func reset_effects() -> void:
 	used_effects = []
@@ -176,7 +172,7 @@ func tween_tilemap(old_terrain: Array, new_terrain: Array) -> void:
 		for j in range(ENV_SIZE):
 			var old_tile : WorldTile = old_terrain[i][j]
 			var new_tile : WorldTile = new_terrain[i][j]
-			if old_tile.type == new_tile.type and old_tile.tier == new_tile.tier: 
+			if old_tile.type == new_tile.type and old_tile.render_tier == new_tile.render_tier: 
 				continue
 			tween_out_tile(Vector2i(i, j))
 			
@@ -186,15 +182,14 @@ func get_terrain_copy() -> Array:
 	for i in range(ENV_SIZE):
 		var row: Array[WorldTile] = []
 		for j in range(ENV_SIZE):
-			row.append(WorldTile.new(terrain[i][j].type, terrain[i][j].tier))
+			row.append(WorldTile.new(terrain[i][j].type, terrain[i][j].tier, terrain[i][j].render_tier))
 		ar.append(row)
 	return ar	
 
 func tween_in_tile(coord: Vector2i) -> void:
 	var tilemaplayer: TileMapLayer = $TileMapLayer
 	
-	var render_tier : G.TileTier = calculate_render_tier(get_friends_count(coord),terrain[coord.x][coord.y])
-	var source: TileSetAtlasSource = tilemaplayer.tile_set.get_source(get_tile_source_id(terrain[coord.x][coord.y],render_tier)) as TileSetAtlasSource
+	var source: TileSetAtlasSource = tilemaplayer.tile_set.get_source(get_tile_source_id(terrain[coord.x][coord.y])) as TileSetAtlasSource
 	
 	var img: Image = source.texture.get_image()
 	
@@ -216,8 +211,7 @@ func tween_in_tile(coord: Vector2i) -> void:
 	tween.parallel().tween_property($SpriteToTween, "scale", Vector2(1,1), 0.5).set_trans(Tween.TRANS_SPRING)
 	tween.parallel().tween_property($SpriteToTween, "modulate:a", 1, 0.5).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback($SpriteToTween.queue_free)
-	render_tier = calculate_render_tier(get_friends_count(coord),terrain[coord.x][coord.y])
-	tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(get_tile_source_id(terrain[coord.x][coord.y],render_tier)).bind(coord))
+	tween.tween_callback($TileMapLayer.set_cell.bind(Vector2i(0,0)).bind(get_tile_source_id(terrain[coord.x][coord.y])).bind(coord))
 	sprite.name = "TweeningSprite"
 
 func test_print_board():
@@ -231,6 +225,7 @@ func update_tiers() -> void:
 	for i in range(ENV_SIZE):
 		for j in range(ENV_SIZE):
 			update_tile_tier(Vector2i(i,j))
+			update_render_tier(Vector2i(i,j))
 
 func get_friends_count(coord : Vector2i) -> int:
 	var neigh_coords : Array[Vector2i] = $TileMapLayer.get_surrounding_cells(coord)
@@ -248,6 +243,8 @@ func get_friends_count(coord : Vector2i) -> int:
 func update_tile_tier(coord : Vector2i) -> void:
 	terrain[coord.x][coord.y].tier = calculate_tier(get_friends_count(coord),terrain[coord.x][coord.y])
 
+func update_render_tier(coord : Vector2i) -> void:
+	terrain[coord.x][coord.y].render_tier = calculate_render_tier(get_friends_count(coord),terrain[coord.x][coord.y])
 
 func calculate_render_tier(friends_count : int, tile : WorldTile) -> G.TileTier:
 	if tile.type == G.TileTypes.WATER:
@@ -280,6 +277,6 @@ func calculate_tier(friends_count : int, tile : WorldTile) -> G.TileTier:
 	else:
 		return G.TileTier.HIGH	
 
-func get_tile_source_id(tile : WorldTile, render_tier : G.TileTier) -> int:
-	return tile.type * type_modulo + render_tier * tier_modulo
+func get_tile_source_id(tile : WorldTile) -> int:
+	return tile.type * type_modulo + tile.render_tier * tier_modulo
 	
