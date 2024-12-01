@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bcypndlr0v5lj"]
+[gd_scene load_steps=19 format=3 uid="uid://bcypndlr0v5lj"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_n2wg5"]
 [ext_resource type="FontFile" uid="uid://bnl7mksd21ct3" path="res://assets/Fonts/press_start/prstartk.ttf" id="2_hv5e1"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bwda5gdkoyy52" path="res://assets/placeholders/resized/action_fire_placeholder.png" id="9_v6t22"]
 [ext_resource type="Texture2D" uid="uid://copy48h82sbij" path="res://assets/placeholders/action_majority_placeholder_2.png" id="11_et0tm"]
 [ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="14_1ltn4"]
+[ext_resource type="Texture2D" uid="uid://qpcmdy3prsi5" path="res://assets/Untitled_Artwork.png" id="15_nqxbi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klhoy"]
 bg_color = Color(0.39987, 0.617629, 0.8455, 1)
@@ -301,17 +302,11 @@ visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
 polygon = PackedVector2Array(0, 0, 1584, 0, 1584, 288, 1920, 288, 1920, 1080, 0, 1080)
 
-[node name="L21" type="Label" parent="."]
+[node name="L21" type="Sprite2D" parent="."]
 visible = false
-offset_left = 594.0
-offset_top = 136.0
-offset_right = 1362.0
-offset_bottom = 853.0
-theme_override_font_sizes/font_size = 40
-text = "SEE DIAGRAM"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
+position = Vector2(952, 552)
+scale = Vector2(0.503126, 0.503126)
+texture = ExtResource("15_nqxbi")
 
 [node name="P22" type="Polygon2D" parent="."]
 visible = false
@@ -325,9 +320,7 @@ offset_top = 136.0
 offset_right = 1362.0
 offset_bottom = 853.0
 theme_override_font_sizes/font_size = 40
-text = "You can only use a limited amount of actions per turn.
-
-To undo an action, press 'u'."
+text = "You can only use a limited amount of actions per turn."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
