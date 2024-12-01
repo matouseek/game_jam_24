@@ -115,7 +115,7 @@ func handle_game_end():
 		win = true
 		await get_tree().create_timer(BEFORE_WIN_SCREEN_DELAY).timeout
 		end()
-	if (round_num == MAX_ROUNDS):
+	elif (round_num == MAX_ROUNDS):
 		win = false
 		await get_tree().create_timer(BEFORE_WIN_SCREEN_DELAY).timeout
 		end()
