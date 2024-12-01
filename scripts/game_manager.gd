@@ -122,6 +122,8 @@ func process_fuck_ups() -> void:
 	for fuck_up_effect in env.fuck_up_effects:
 		if (fuck_up_effect.type == PS.PlayerEffects.DRAUGHT):
 			AS.play_sfx("res://assets/Sounds/fire.wav")
+		elif (fuck_up_effect.type == PS.PlayerEffects.RAIN):
+			AS.play_sfx("res://assets/Sounds/water.wav")
 		terrain_copy = env.get_terrain_copy()
 		process_effect(fuck_up_effect)
 		env.update_tiers()
@@ -135,6 +137,10 @@ func process_used_effects() -> void:
 		await get_tree().create_timer(0.2).timeout
 	var terrain_copy: Array
 	for used_effect in env.used_effects:
+		if (used_effect.type == PS.PlayerEffects.DRAUGHT):
+			AS.play_sfx("res://assets/Sounds/fire.wav")
+		elif (used_effect.type == PS.PlayerEffects.RAIN):
+			AS.play_sfx("res://assets/Sounds/water.wav")
 		terrain_copy = env.get_terrain_copy()
 		process_effect(used_effect)
 		env.update_tiers()
