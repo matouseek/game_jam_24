@@ -1,7 +1,7 @@
 extends CanvasLayer
 var MAX_SHARE = 0.5
 signal do_will
-var mouse_unlock = false
+var mouse_unlock = true
 @onready var goals_nodes = {
 	G.TileTypes.WATER : $Goals/Water/Sprite2D,
 	G.TileTypes.MEADOW :  $Goals/Meadow/Sprite2D,
