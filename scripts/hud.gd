@@ -14,13 +14,28 @@ signal do_will
 	G.TileTypes.DESERT :  $Goals/Desert/ProgressBar
 }
 
+func first_step():
+	$P1.visible = true
+
+func second_step():
+	$P1.visible = false
+	$P2.visible = true
+
+func third_step():
+	$P2.visible = false
+	$P3.visible = true
+
+func last_step():
+	$P3.visible = false
+	
+
 func _ready() -> void:
 	$ItemList.select(0)
 	HUD.update_remaining_actions()
 
 func set_goal_hud(type: G.TileTypes, value:float):
 	var sprite = goals_nodes[type]
-	sprite.position.x = 44 + int(190*(value/MAX_SHARE))
+	sprite.position.x = int(200*value)-191
 
 func update_progress_hud(vals):
 	for i in range(len(vals)):

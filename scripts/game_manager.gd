@@ -15,8 +15,6 @@ var limit_camera = true
 const ZOOM_FACTOR_MAX = 1.75
 const ZOOM_FACTOR_MIN = 0.2
 var zoom_factor = 0.25
-var sfx = 0
-var music = 0
 @onready var camera = $Camera2D
 const TRANS_TIME = 4
 
@@ -31,7 +29,13 @@ func _ready() -> void:
 	tween.tween_property(camera, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
 	HUD.visible = true
 	$Environment.visible = true
-	AS.play_music("res://assets/Sounds/game_placeholder.mp3")
+	AS.play_music("res://assets/Sounds/Background.ogg")
+	if (PS.tutorial):
+		AS.tutorial()
+		T.process_mode = Node.PROCESS_MODE_ALWAYS
+		#$CameraUnlock.stop()
+		get_tree().paused = true
+		
 
 func _input(event: InputEvent) -> void:
 	if (!limit_camera):

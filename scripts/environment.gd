@@ -17,6 +17,8 @@ var offsets = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
 
 var terrain: Array = []
 
+
+
 func _ready() -> void:
 	for i in range(ENV_SIZE):
 		var row: Array[WorldTile] = []
