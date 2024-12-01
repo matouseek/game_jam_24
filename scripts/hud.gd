@@ -69,9 +69,9 @@ func _ready() -> void:
 	$ItemList.select(0)
 	HUD.update_remaining_actions()
 
-func set_goal_hud(type: G.TileTypes, value:float):
+func set_goal_hud(type: G.TileTypes, ratio : float):
 	var sprite = goals_nodes[type]
-	sprite.position.x = int(200*value)-191
+	sprite.position.x = int(200 * ratio) - 175 # hardwired offset of 175
 
 func update_progress_hud(vals):
 	for i in range(len(vals)):
