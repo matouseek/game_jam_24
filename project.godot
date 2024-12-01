@@ -23,6 +23,7 @@ G="*res://scripts/goals.gd"
 AS="*res://scenes/audio_settings.tscn"
 T="*res://scenes/tutorial.tscn"
 END="*res://scenes/end_screen.tscn"
+Clouds="*res://scenes/clouds.tscn"
 
 [display]
 

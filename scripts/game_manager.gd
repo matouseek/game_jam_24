@@ -19,6 +19,7 @@ var camera_start_pos = null
 var turns = 10
 var win = false
 func _ready() -> void:
+	HUD.update_round_label(0)
 	camera_start_pos = camera.position
 	$CameraUnlock.start()
 	HUD.do_will.connect(_on_will_done)

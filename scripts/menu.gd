@@ -2,6 +2,7 @@ extends Node2D
 @onready var label = $Label
 @onready var button = $Controls
 func _on_button_pressed() -> void:
+	Clouds.visible = false
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
 
 func _on_settings_pressed() -> void:

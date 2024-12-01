@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c71f7b2dng2yc"]
+
+[ext_resource type="Texture2D" uid="uid://bs7kjyad6l7j2" path="res://assets/parralax_bgs/clouds_background.png" id="1_hbm1o"]
+
+[node name="Clouds" type="CanvasLayer"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+y_sort_enabled = true
+position = Vector2(953, 527)
+scale = Vector2(0.62, 0.62)
+texture = ExtResource("1_hbm1o")
