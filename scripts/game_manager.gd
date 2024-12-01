@@ -54,19 +54,13 @@ func _process(delta: float) -> void:
 		dir = dir.normalized()
 		var update = camera.position + (CAM_SPEED/zoom_factor)*delta*dir
 		if (update.x <= camera.limit_left):
-			print("left")
 			update.x = camera.limit_left
 		elif (update.x >= camera.limit_right):
-			print("right")
 			update.x = camera.limit_right
 		if (update.y <= camera.limit_top):
-			print("top")
 			update.y = camera.limit_top
 		elif (update.y >= camera.limit_bottom):
-			print("down")
 			update.y = camera.limit_bottom
-		if (dir != Vector2.ZERO):
-			print(camera.position)
 		camera.position = update
 		
 	
@@ -152,7 +146,6 @@ func wait_if_terrain_diff(old_terrain, new_terrain) -> bool:
 			var new_tile : WorldTile = new_terrain[i][j]
 			if old_tile.type != new_tile.type or old_tile.tier != new_tile.tier: 
 				await get_tree().create_timer(1.5).timeout
-				print("await in function finished")
 				return true
 	return false
 
@@ -186,7 +179,6 @@ func process_draught(draught_effect: PlacedEffect) -> void:
 			env.terrain[draught_effect.source_coord.x][draught_effect.source_coord.y].type = G.TileTypes.MEADOW
 
 func get_unique_max_index_or_neg(amounts : Array[int]) -> int:
-	print("Amounts: ",amounts)
 	var first_max_index : int = 0
 	var last_max_index : int = 0
 	for i in range(len(amounts)):
