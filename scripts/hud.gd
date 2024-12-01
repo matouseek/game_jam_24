@@ -123,3 +123,6 @@ func _on_will_be_done_mouse_entered() -> void:
 
 func _on_will_be_done_mouse_exited() -> void:
 	mouse_unlock = true
+	
+func my_will(disabled):
+	$WillBeDone.disabled = disabled

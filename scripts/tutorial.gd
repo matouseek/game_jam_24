@@ -18,4 +18,5 @@ func _input(event: InputEvent) -> void:
 			PS.tutorial = false
 			process_mode = Node.PROCESS_MODE_DISABLED
 			AS.process_mode = Node.PROCESS_MODE_ALWAYS
+			HUD.my_will(false)
 		step+=1

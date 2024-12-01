@@ -43,6 +43,7 @@ func _ready() -> void:
 func start_tutorial() -> void:
 	HUD.visible = true
 	if (PS.tutorial):
+		HUD.my_will(true)
 		AS.tutorial()
 		T.process_mode = Node.PROCESS_MODE_ALWAYS
 		#$CameraUnlock.stop()
