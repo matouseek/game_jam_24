@@ -14,6 +14,12 @@ signal do_will
 	G.TileTypes.DESERT :  $Goals/Desert/ProgressBar
 }
 
+@onready var error_margin_nodes = {
+	G.TileTypes.WATER : $Goals/Water/Sprite2D/ErrorMargin,
+	G.TileTypes.MEADOW :  $Goals/Meadow/Sprite2D/ErrorMargin,
+	G.TileTypes.DESERT :  $Goals/Desert/Sprite2D/ErrorMargin
+}
+
 func zeroth_step():
 	$P0.visible = true
 	$L0.visible = true
@@ -68,6 +74,14 @@ func update_round_label(val : int) -> void:
 	
 func update_remaining_actions() -> void:
 	$RemainingActionsLabel.text = "Remaining: " + str(PS.remaining_actions)
+
+func set_error_margins_scale(scale : float) -> void:
+	for i in range(len(error_margin_nodes)):
+		var vertices = error_margin_nodes[i].polygon
+		var old_height = vertices[0].y 
+		var new_width = vertices[0].x * scale
+		var new_vert = [Vector2(new_width,old_height),Vector2(new_width,-old_height),Vector2(-new_width,-old_height),Vector2(-new_width,old_height)]
+		error_margin_nodes[i].polygon = new_vert
 
 func set_will_be_done_visibility(visibility: bool) -> void:
 	$WillBeDone.visible = visibility
