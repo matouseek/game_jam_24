@@ -35,7 +35,7 @@ func _ready() -> void:
 
 func set_goal_hud(type: G.TileTypes, value:float):
 	var sprite = goals_nodes[type]
-	sprite.position.x = 44 + int(190*(value/MAX_SHARE))
+	sprite.position.x = int(200*value)-191
 
 func update_progress_hud(vals):
 	for i in range(len(vals)):
