@@ -25,6 +25,7 @@ bg_color = Color(0.450601, 0.653098, 0.552076, 1)
 bg_color = Color(0.656134, 0.591154, 0.485949, 1)
 
 [node name="HUD" type="CanvasLayer"]
+visible = false
 script = ExtResource("1_n2wg5")
 
 [node name="Actions" type="Node2D" parent="."]
