@@ -42,6 +42,7 @@ func _input(event):
 				render_all_effects()
 			handle_highlights(pos)
 		else: # if player points out of map region
+			last_selected = [Vector2i(-1000,-1000)]
 			clear_all_highlights()
 	elif Input.is_action_just_pressed("undo"):
 		reset_last_used_effect()
