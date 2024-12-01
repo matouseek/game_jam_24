@@ -6,7 +6,7 @@ const GOAL_DISTR_REL_UP_BOUND = 20
 
 const GOAL_DISTR_SELECTION_SIZE = 10 # bigger -> harder game
 
-const GOAL_ERROR_MARGIN : float = 0.05 # absolute in percents distance
+const GOAL_ERROR_MARGIN : float = 0.1 # absolute in percents distance
 
 var current_percentages : Array[float] = [0.0,0.0,0.0]
 var goal_percentages : Array[float] = [0.0,0.0,0.0]
