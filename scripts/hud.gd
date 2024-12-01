@@ -83,8 +83,8 @@ func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_i
 func _on_will_be_done_pressed() -> void:
 	do_will.emit()
 
-func update_round_label(val : int) -> void:
-	$RoundLabel.text = "Round: " + str(val)
+func update_round_label(val : int, maxval : int, should_warn : bool) -> void:
+	$RoundLabel.text = "Round: " + str(val) + "/" + str(maxval)
 	
 func update_remaining_actions() -> void:
 	$RemainingActionsLabel.text = "Remaining: " + str(PS.remaining_actions)

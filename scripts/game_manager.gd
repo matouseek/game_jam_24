@@ -5,11 +5,15 @@ const GODS_ACTION_COUNT : int = 2
 
 const BEFORE_WIN_SCREEN_DELAY : float = 1.5
 
+const MAX_ROUNDS : int = 5
+const START_ROUND : int = 0
+const RED_ROUNDS_LIMIT : int = 7
+var round_num : int = 0
+var win = false
+
 @onready var env: Node2D = $Environment
 
 # CAMERA GLOBAL VARS
-const MAX_ROUNDS : int = 10
-var round_num : int = 0
 const ZOOM_COEF = 1.25
 const CAM_SPEED = 2200
 var limit_camera = true
@@ -21,12 +25,8 @@ const TRANS_TIME = 4
 var camera_start_pos = null
 # END OF CAMERA GLOBAL VARS
 
-var turns = 10
-var win = false
-
-
 func _ready() -> void:
-	HUD.update_round_label(0)
+	HUD.update_round_label(START_ROUND,MAX_ROUNDS,false)
 	camera_start_pos = camera.position
 	$CameraUnlock.start()
 	HUD.do_will.connect(_on_will_done)
@@ -79,7 +79,6 @@ func _process(delta: float) -> void:
 		
 	
 func _on_will_done() -> void:
-	turns-=1
 	PS.is_player_turn = false
 	HUD.set_will_be_done_visibility(false)
 
@@ -116,7 +115,7 @@ func handle_game_end():
 		win = true
 		await get_tree().create_timer(BEFORE_WIN_SCREEN_DELAY).timeout
 		end()
-	if (turns == 0):
+	if (round_num == MAX_ROUNDS):
 		win = false
 		await get_tree().create_timer(BEFORE_WIN_SCREEN_DELAY).timeout
 		end()
@@ -129,7 +128,7 @@ func is_goal_reached(goal_distr : Array[float], cur_dist : Array[float], margin_
 
 func update_round_count() -> void:
 	round_num += 1
-	HUD.update_round_label(round_num)
+	HUD.update_round_label(round_num,MAX_ROUNDS,round_num >= RED_ROUNDS_LIMIT)
 
 func add_fuck_ups() -> void:
 	var new_fuck_ups : Array[PlacedEffect] = []
