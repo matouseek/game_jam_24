@@ -1,7 +1,7 @@
 extends CanvasLayer
 var MAX_SHARE = 0.5
 signal do_will
-
+var mouse_unlock = false
 @onready var goals_nodes = {
 	G.TileTypes.WATER : $Goals/Water/Sprite2D,
 	G.TileTypes.MEADOW :  $Goals/Meadow/Sprite2D,
@@ -56,3 +56,11 @@ func update_remaining_actions() -> void:
 
 func set_will_be_done_visibility(visibility: bool) -> void:
 	$WillBeDone.visible = visibility
+
+
+func _on_item_list_mouse_entered() -> void:
+	mouse_unlock = false
+
+
+func _on_item_list_mouse_exited() -> void:
+	mouse_unlock = true
