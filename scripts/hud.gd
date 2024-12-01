@@ -38,9 +38,23 @@ func second_step():
 	$P2.visible = true
 	$L2.visible = true
 	
-func third_step():
+func second_first_step():
 	$P2.visible = false
 	$L2.visible = false
+	
+	$P21.visible = true
+	$L21.visible = true
+
+func second_second_step():
+	$P21.visible = false
+	$L21.visible = false
+	
+	$P22.visible = true
+	$L22.visible = true
+
+func third_step():
+	$P22.visible = false
+	$L22.visible = false
 	
 	$P3.visible = true
 	$L3.visible = true
