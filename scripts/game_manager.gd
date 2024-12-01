@@ -30,6 +30,7 @@ func _ready() -> void:
 	$Environment.visible = true
 	add_fuck_ups()
 	PS.reset_player_actions_amount()
+	#HUD.set_error_margins_scale(G.GOAL_ERROR_MARGIN*2)
 
 func start_tutorial() -> void:
 	HUD.visible = true
