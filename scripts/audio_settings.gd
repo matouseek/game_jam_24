@@ -5,6 +5,9 @@ var music = 0
 var show = false
 const MIN_DB = -7
 const MAX_DB = 7
+
+const DEFAULT_BACK_COLOR = "7089b1";
+
 @onready var cp = $Background/CP
 @onready var mp = $MusicPlayer
 @onready var sp = $SFXPlayer
@@ -65,8 +68,8 @@ func _on_main_menu_pressed() -> void:
 	$MainMenu.visible = false
 
 func _on_default_background_pressed() -> void:
-	cp.color = Color("d6f1eb")
-	RenderingServer.set_default_clear_color(Color("d6f1eb"))
+	cp.color = Color(DEFAULT_BACK_COLOR)
+	RenderingServer.set_default_clear_color(Color(DEFAULT_BACK_COLOR))
 
 
 func _on_background_pressed() -> void:
