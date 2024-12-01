@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=19 format=3 uid="uid://b0333eyi3skxo"]
 
-[ext_resource type="Texture2D" uid="uid://b6ht6ieym3d3l" path="res://assets/Tiles/tileset_water_tier1.png" id="1_gwtwh"]
+[ext_resource type="Texture2D" uid="uid://ch5f3kw668jgs" path="res://assets/Tiles/tileset_water_tier1.png" id="1_gwtwh"]
 [ext_resource type="Texture2D" uid="uid://bbcni0uvl4mie" path="res://assets/Tiles/tileset_forest_tier1.png" id="2_glgqf"]
 [ext_resource type="Texture2D" uid="uid://nthmhx8ql2jo" path="res://assets/Tiles/tileset_forest_tier2.png" id="3_j5dp5"]
 [ext_resource type="Texture2D" uid="uid://cd383yw2oen4u" path="res://assets/Tiles/tileset_forest_tier3.png" id="4_5lkjs"]

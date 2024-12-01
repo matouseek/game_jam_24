@@ -250,8 +250,15 @@ func calculate_tier(friends_count : int, tile : WorldTile) -> G.TileTier:
 			return G.TileTier.MEDIUM
 		else:
 			return G.TileTier.HIGH
+	elif tile.type == G.TileTypes.DESERT:
+		if friends_count < 3:
+			return G.TileTier.LOW
+		elif friends_count < 4:
+			return G.TileTier.MEDIUM
+		else:
+			return G.TileTier.HIGH
 	else:
-		if friends_count < 2:
+		if friends_count < 3:
 			return G.TileTier.LOW
 		elif friends_count < 4:
 			return G.TileTier.MEDIUM
