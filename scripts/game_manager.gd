@@ -31,7 +31,7 @@ func _ready() -> void:
 	if (PS.tutorial):
 		AS.process_mode = Node.PROCESS_MODE_DISABLED
 		T.process_mode = Node.PROCESS_MODE_ALWAYS
-		$CameraUnlock.stop()
+		#$CameraUnlock.stop()
 		get_tree().paused = true
 		
 
