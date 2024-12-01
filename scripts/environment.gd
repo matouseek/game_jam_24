@@ -16,6 +16,9 @@ var offsets = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
 			   Vector2i(-1,  1), Vector2i(0,  1), Vector2i(1,  1)]
 
 var terrain: Array = []
+var current_effect = 0
+#var sounds = {"01":"res://assets/Sounds/fire.wav",
+#"12":"res://assets/Sounds/fire.wav",""}
 
 func _ready() -> void:
 	for i in range(ENV_SIZE):
@@ -168,6 +171,13 @@ func tween_tilemap(old_terrain: Array, new_terrain: Array) -> void:
 			var new_tile : WorldTile = new_terrain[i][j]
 			if old_tile.type == new_tile.type and old_tile.render_tier == new_tile.render_tier: 
 				continue
+			elif (old_tile.type != new_tile.type):
+				if (current_effect == PS.PlayerEffects.RAIN):
+					AS.play_sfx("res://assets/Sounds/water.wav")
+				elif (current_effect == PS.PlayerEffects.DRAUGHT):
+					AS.play_sfx("res://assets/Sounds/fire.wav")
+				elif (current_effect == PS.PlayerEffects.MAJORITY):
+					AS.play_sfx("res://assets/Sounds/majority.wav")
 			tween_out_tile(Vector2i(i, j))
 
 func get_terrain_copy() -> Array:

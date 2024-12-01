@@ -48,8 +48,14 @@ func _on_music_value_changed(value: float) -> void:
 	music = value
 	mp.volume_db = music
 	
+func play_sfx(name):
+		if sfx>MIN_DB:
+			sp.stream = load(name) as AudioStream
+			sp.play()
+
+
 func play_music(name):
-	if music>-7:
+	if music>MIN_DB:
 		mp.stream = load(name) as AudioStream
 		mp.stream.loop = true
 		mp.play()

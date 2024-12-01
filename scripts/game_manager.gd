@@ -155,6 +155,7 @@ func process_fuck_ups() -> void:
 	for fuck_up_effect in env.fuck_up_effects:
 		terrain_copy = env.get_terrain_copy()
 		process_effect(fuck_up_effect)
+		env.current_effect = fuck_up_effect.type
 		env.update_tiers()
 		env.tween_tilemap(terrain_copy, env.terrain)
 		# Doesnt work when timer is too low or removed
@@ -166,9 +167,10 @@ func process_used_effects() -> void:
 		await get_tree().create_timer(0.2).timeout
 	var terrain_copy: Array
 	for used_effect in env.used_effects:
+		env.current_effect = used_effect.type
 		terrain_copy = env.get_terrain_copy()
-		process_effect(used_effect)
 		env.update_tiers()
+		process_effect(used_effect)
 		env.tween_tilemap(terrain_copy, env.terrain)
 		# Doesnt work when timer is too low or removed
 		# Tileset is written too early if removed or lowered
