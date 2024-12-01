@@ -29,7 +29,6 @@ func _ready() -> void:
 	tween.tween_property(camera, "zoom", Vector2(0.2,0.2),TRANS_TIME).set_trans(Tween.TRANS_CUBIC)
 	HUD.visible = true
 	$Environment.visible = true
-<<<<<<< HEAD
 	AS.play_music("res://assets/Sounds/Background.ogg")
 	if (PS.tutorial):
 		AS.tutorial()
@@ -37,11 +36,7 @@ func _ready() -> void:
 		#$CameraUnlock.stop()
 		get_tree().paused = true
 		HUD.zeroth_step()
-		
-=======
-	AS.play_music("res://assets/Sounds/game_placeholder.mp3")
 	add_fuck_ups()
->>>>>>> progressive-effects
 
 func _input(event: InputEvent) -> void:
 	if (!limit_camera):
