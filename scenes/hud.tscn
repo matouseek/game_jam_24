@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bcypndlr0v5lj"]
+[gd_scene load_steps=19 format=3 uid="uid://bcypndlr0v5lj"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_n2wg5"]
 [ext_resource type="FontFile" uid="uid://bnl7mksd21ct3" path="res://assets/Fonts/press_start/prstartk.ttf" id="2_hv5e1"]
@@ -7,13 +7,14 @@
 [ext_resource type="StyleBox" uid="uid://dcx2h8hwsyilc" path="res://assets/Themes/progress_bar_background.tres" id="3_wc02s"]
 [ext_resource type="Texture2D" uid="uid://brbln01sk5lc4" path="res://assets/placeholders/meadow_desert_placeholder.png" id="4_posue"]
 [ext_resource type="Texture2D" uid="uid://tah1o0oxqomc" path="res://assets/placeholders/goal_desert_placeholder.png" id="5_0yjri"]
-[ext_resource type="StyleBox" uid="uid://c5vsl1uje50w1" path="res://assets/empty_stylebox.tres" id="6_1iuva"]
+[ext_resource type="StyleBox" path="res://assets/empty_stylebox.tres" id="6_1iuva"]
 [ext_resource type="StyleBox" uid="uid://5g0t4mivu43k" path="res://assets/IL_style/hovered.tres" id="6_besod"]
 [ext_resource type="StyleBox" uid="uid://coyx1uab0hiss" path="res://assets/IL_style/selected.tres" id="7_lqxro"]
 [ext_resource type="Texture2D" uid="uid://bh18oota23lif" path="res://assets/placeholders/resized/action_rain_placeholder.png" id="8_ov0ut"]
 [ext_resource type="Texture2D" uid="uid://bwda5gdkoyy52" path="res://assets/placeholders/resized/action_fire_placeholder.png" id="9_v6t22"]
 [ext_resource type="Texture2D" uid="uid://copy48h82sbij" path="res://assets/placeholders/action_majority_placeholder_2.png" id="11_et0tm"]
 [ext_resource type="Theme" uid="uid://ov3s8myhwv7w" path="res://assets/Themes/default.tres" id="14_1ltn4"]
+[ext_resource type="Texture2D" uid="uid://qpcmdy3prsi5" path="res://assets/Untitled_Artwork.png" id="15_nqxbi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klhoy"]
 bg_color = Color(0.39987, 0.617629, 0.8455, 1)
@@ -247,14 +248,15 @@ polygon = PackedVector2Array(0, 290, 2, 1, 300, 0, 1920, 0, 1920, 1080, 0, 1080)
 [node name="L0" type="Label" parent="."]
 visible = false
 offset_left = 600.0
-offset_top = 237.0
+offset_top = 142.0
 offset_right = 1368.0
-offset_bottom = 954.0
+offset_bottom = 859.0
 theme_override_font_sizes/font_size = 40
 text = "Welcome!
 
 You are a mighty being with power to shape your little game world."
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="P1" type="Polygon2D" parent="."]
@@ -265,34 +267,62 @@ polygon = PackedVector2Array(0, 272, 320, 272, 320, 0, 1920, 0, 1920, 1080, 0, 1
 [node name="L1" type="Label" parent="."]
 visible = false
 offset_left = 594.0
-offset_top = 231.0
+offset_top = 136.0
 offset_right = 1362.0
-offset_bottom = 948.0
+offset_bottom = 853.0
 theme_override_font_sizes/font_size = 40
-text = "These progress bars display what are the ratios of biomes that appear in your world.
+text = "These progress bars display the scoring for each biome.
 
-You win the game when you get close enough to the red goal markers."
+The more tiles of a biome type you have, the bigger the score for the type. Grouped tiles of same type increase the score by greater amount.
+
+You win the game when you get close enough to the goal markers."
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="P2" type="Polygon2D" parent="."]
 visible = false
 modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
-polygon = PackedVector2Array(0, 0, 1584, 0, 1584, 360, 1920, 360, 1920, 1080, 0, 1080)
+polygon = PackedVector2Array(0, 0, 1584, 0, 1584, 288, 1920, 288, 1920, 1080, 0, 1080)
 
 [node name="L2" type="Label" parent="."]
 visible = false
 offset_left = 594.0
-offset_top = 231.0
+offset_top = 136.0
 offset_right = 1362.0
-offset_bottom = 948.0
+offset_bottom = 853.0
 theme_override_font_sizes/font_size = 40
-text = "Here is the list of actions you can use to transform the biomes according to your liking.
-
-You can only play a limited amount of actions per turn.
-
-See the diagrams to get an idea what each action does."
+text = "Here is the list of actions you can use to transform the biomes."
 horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="P21" type="Polygon2D" parent="."]
+visible = false
+modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
+polygon = PackedVector2Array(0, 0, 1584, 0, 1584, 288, 1920, 288, 1920, 1080, 0, 1080)
+
+[node name="L21" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(952, 552)
+scale = Vector2(0.503126, 0.503126)
+texture = ExtResource("15_nqxbi")
+
+[node name="P22" type="Polygon2D" parent="."]
+visible = false
+modulate = Color(0.145098, 0.145098, 0.145098, 0.627451)
+polygon = PackedVector2Array(0, 0, 1584, 0, 1920, 0, 1920, 280, 1584, 280, 1584, 360, 1920, 360, 1920, 1080, 0, 1080)
+
+[node name="L22" type="Label" parent="."]
+visible = false
+offset_left = 594.0
+offset_top = 136.0
+offset_right = 1362.0
+offset_bottom = 853.0
+theme_override_font_sizes/font_size = 40
+text = "You can only use a limited amount of actions per turn."
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="x" type="Polygon2D" parent="."]
@@ -308,16 +338,17 @@ polygon = PackedVector2Array(0, 0, 1936, 0, 1936, 1080, 1392, 1080, 1392, 968, 6
 [node name="L3" type="Label" parent="."]
 visible = false
 offset_left = 594.0
-offset_top = 231.0
+offset_top = 136.0
 offset_right = 1362.0
-offset_bottom = 948.0
+offset_bottom = 853.0
 theme_override_font_sizes/font_size = 40
 text = "To apply the actions you placed on the game board, click this button.
 
-Watch out, the nature will also change by itself before next turn starts.
+Nature changes by itself. You can use this to your advantage or try to counter it.
 
 Good luck!"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [connection signal="item_clicked" from="ItemList" to="." method="_on_item_list_item_clicked"]
