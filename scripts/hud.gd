@@ -64,20 +64,19 @@ func third_step():
 func last_step():
 	$P3.visible = false
 	$L3.visible = false
-	
 
 func _ready() -> void:
 	$ItemList.select(0)
 	HUD.update_remaining_actions()
 
-func set_goal_hud(type: G.TileTypes, value:float):
+func set_goal_hud(type: G.TileTypes, ratio : float):
 	var sprite = goals_nodes[type]
-	sprite.position.x = int(200*value)-191
+	sprite.position.x = int(200 * ratio) - 175 # hardwired offset of 175
 
 func update_progress_hud(vals):
 	for i in range(len(vals)):
-		progress_nodes[i].value = vals[i]*100
-		
+		var tween = create_tween()
+		tween.tween_property(progress_nodes[i], "value", vals[i]*100, 0.5).set_ease(Tween.EASE_OUT)
 
 func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	PS.update_state(index)
@@ -85,11 +84,11 @@ func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_i
 func _on_will_be_done_pressed() -> void:
 	do_will.emit()
 
-func update_round_label(val : int) -> void:
-	$RoundLabel.text = "Round: " + str(val)
+func update_round_label(val : int, maxval : int, should_warn : bool) -> void:
+	$RoundLabel.text = "Round: " + str(val) + "/" + str(maxval)
 	
 func update_remaining_actions() -> void:
-	$RemainingActionsLabel.text = "Remaining: " + str(PS.remaining_actions)
+	$RemainingActionsLabel.text = "Remaining: " + str(PS.remaining_actions) + "/" + str(PS.MAX_ACTIONS_PER_TURN)
 
 func set_error_margins_scale(scale : float) -> void:
 	
@@ -125,3 +124,6 @@ func _on_will_be_done_mouse_entered() -> void:
 
 func _on_will_be_done_mouse_exited() -> void:
 	mouse_unlock = true
+	
+func my_will(disabled):
+	$WillBeDone.disabled = disabled

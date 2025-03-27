@@ -22,4 +22,3 @@ func print():
 	
 func get_str():
 	return "(" + str(type) + "," + str(tier) + "," + str(render_tier) + ")"
-	

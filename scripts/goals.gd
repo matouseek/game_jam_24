@@ -1,12 +1,12 @@
 extends Node2D
 
 # bigger difference -> harder game
-const GOAL_DISTR_REL_LOW_BOUND = 10 
-const GOAL_DISTR_REL_UP_BOUND = 20
+const GOAL_DISTR_REL_LOW_BOUND = 8
+const GOAL_DISTR_REL_UP_BOUND = 25
 
-const GOAL_DISTR_SELECTION_SIZE = 10 # bigger -> harder game
+const GOAL_DISTR_SELECTION_SIZE = 20 # bigger -> harder game
 
-const GOAL_ERROR_MARGIN : float = 0.1 # absolute in percents distance
+const GOAL_ERROR_MARGIN : float = 0.05 # absolute in percents distance
 
 var current_percentages : Array[float] = [0.0,0.0,0.0]
 var goal_percentages : Array[float] = [0.0,0.0,0.0]
@@ -70,10 +70,10 @@ func set_goals_distribution(current_dist : Array[float]) -> void:
 	for type in TileTypes.values():
 		HUD.set_goal_hud(type,goal_percentages[type])
 	HUD.set_error_margins_scale(GOAL_ERROR_MARGIN*2)
-	
 
 func update_progress(vals):
 	for i in range(len(vals)):
+		var tween = create_tween()
 		current_percentages[i] = vals[i]
 	HUD.update_progress_hud(current_percentages)
 

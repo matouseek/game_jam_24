@@ -18,4 +18,6 @@ func _input(event: InputEvent) -> void:
 			PS.tutorial = false
 			process_mode = Node.PROCESS_MODE_DISABLED
 			AS.process_mode = Node.PROCESS_MODE_ALWAYS
+			await get_tree().create_timer(0.2).timeout
+			HUD.my_will(false)
 		step+=1

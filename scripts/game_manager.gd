@@ -3,10 +3,17 @@ extends Node
 const GODS_ACTION_PROB_DISTR : Array[float] = [0.4,0.4,0.2] # RAIN, DRAUGHT, MAJORITY
 const GODS_ACTION_COUNT : int = 2
 
-@onready var env: Node2D = $Environment
+const BEFORE_WIN_SCREEN_DELAY : float = 2.0
 
 const MAX_ROUNDS : int = 10
+const START_ROUND : int = 0
+const RED_ROUNDS_LIMIT : int = 7
 var round_num : int = 0
+var win = false
+
+@onready var env: Node2D = $Environment
+
+# CAMERA GLOBAL VARS
 const ZOOM_COEF = 1.25
 const CAM_SPEED = 2200
 var limit_camera = true
@@ -16,9 +23,10 @@ var zoom_factor = 0.25
 @onready var camera = $Camera2D
 const TRANS_TIME = 4
 var camera_start_pos = null
-var turns = 10
-var win = false
+# END OF CAMERA GLOBAL VARS
+
 func _ready() -> void:
+	HUD.update_round_label(START_ROUND,MAX_ROUNDS,false)
 	camera_start_pos = camera.position
 	$CameraUnlock.start()
 	HUD.do_will.connect(_on_will_done)
@@ -35,6 +43,7 @@ func _ready() -> void:
 func start_tutorial() -> void:
 	HUD.visible = true
 	if (PS.tutorial):
+		HUD.my_will(true)
 		AS.tutorial()
 		T.process_mode = Node.PROCESS_MODE_ALWAYS
 		#$CameraUnlock.stop()
@@ -71,7 +80,6 @@ func _process(delta: float) -> void:
 		
 	
 func _on_will_done() -> void:
-	turns-=1
 	PS.is_player_turn = false
 	HUD.set_will_be_done_visibility(false)
 
@@ -92,11 +100,10 @@ func _on_will_done() -> void:
 	
 	print("Clear board")
 	env.reset_effects()
-	if (is_goal_reached(G.goal_percentages,G.current_percentages,G.GOAL_ERROR_MARGIN)):
-		win = true
-		end()
-	if (turns == 0):
-		end()
+	
+	if await handle_game_end(): # the goal was reached
+		return
+
 	print("Add fuck ups for next round")
 	add_fuck_ups()
 	# now wait for player to make selection and then press will be done
@@ -104,6 +111,25 @@ func _on_will_done() -> void:
 	HUD.set_will_be_done_visibility(true)
 	PS.reset_player_actions_amount()
 	PS.is_player_turn = true
+
+func handle_game_end() -> bool:
+	if (is_goal_reached(G.goal_percentages,G.current_percentages,G.GOAL_ERROR_MARGIN)):
+		win = true
+		print("make will be done invis")
+		HUD.set_will_be_done_visibility(false)
+		await get_tree().create_timer(BEFORE_WIN_SCREEN_DELAY).timeout
+		HUD.set_will_be_done_visibility(true)
+		end()
+		return true
+	elif (round_num == MAX_ROUNDS):
+		win = false
+		print("make will be done invis")
+		HUD.set_will_be_done_visibility(false)
+		await get_tree().create_timer(BEFORE_WIN_SCREEN_DELAY).timeout
+		HUD.set_will_be_done_visibility(true)
+		end()
+		return true
+	return false
 
 func is_goal_reached(goal_distr : Array[float], cur_dist : Array[float], margin_error : float) -> bool:
 	for i in range(len(goal_distr)):
@@ -113,7 +139,7 @@ func is_goal_reached(goal_distr : Array[float], cur_dist : Array[float], margin_
 
 func update_round_count() -> void:
 	round_num += 1
-	HUD.update_round_label(round_num)
+	HUD.update_round_label(round_num,MAX_ROUNDS,round_num >= RED_ROUNDS_LIMIT)
 
 func add_fuck_ups() -> void:
 	var new_fuck_ups : Array[PlacedEffect] = []
@@ -130,6 +156,7 @@ func process_fuck_ups() -> void:
 	for fuck_up_effect in env.fuck_up_effects:
 		terrain_copy = env.get_terrain_copy()
 		process_effect(fuck_up_effect)
+		env.current_effect = fuck_up_effect.type
 		env.update_tiers()
 		env.tween_tilemap(terrain_copy, env.terrain)
 		# Doesnt work when timer is too low or removed
@@ -141,6 +168,7 @@ func process_used_effects() -> void:
 		await get_tree().create_timer(0.2).timeout
 	var terrain_copy: Array
 	for used_effect in env.used_effects:
+		env.current_effect = used_effect.type
 		terrain_copy = env.get_terrain_copy()
 		process_effect(used_effect)
 		env.update_tiers()
@@ -235,7 +263,6 @@ func process_majority(majority_effect: PlacedEffect) -> void:
 				continue
 			env.terrain[current_tile.x][current_tile.y].type = resulting_tile
 
-
 func _on_camera_unlock_timeout() -> void:
 	camera.limit_bottom = 8000
 	camera.limit_top = -3000
@@ -243,7 +270,6 @@ func _on_camera_unlock_timeout() -> void:
 	camera.limit_right = 8500
 	limit_camera = false
 	start_tutorial()
-	
 
 func end():
 	HUD.visible = false
@@ -255,7 +281,8 @@ func end():
 	$Timer.start()
 	tween.tween_property($Environment,"modulate",Color(1,1,1,0),TRANS_TIME-1)
 
-
 func _on_timer_timeout() -> void:
+	PS.is_player_turn = true
 	if (win): END.won()
 	else: END.lost()
+	

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://ov3s8myhwv7w"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://ov3s8myhwv7w"]
 
 [ext_resource type="FontFile" uid="uid://bnl7mksd21ct3" path="res://assets/Fonts/press_start/prstartk.ttf" id="1_2ykcg"]
 [ext_resource type="Texture2D" uid="uid://gndpdjoyst4l" path="res://assets/Themes/default_button.png" id="2_bur4e"]
@@ -7,17 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://ymgr7oiyviux" path="res://assets/Themes/slider_textures/grabber_highlight.png" id="5_wlyhx"]
 [ext_resource type="Texture2D" uid="uid://cayyj3q4110df" path="res://assets/Themes/slider_textures/tick_black.png" id="6_oqv62"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8e2pn"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_87we0"]
+texture = ExtResource("2_bur4e")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+expand_margin_top = 8.0
+region_rect = Rect2(153, 28, 33, 33)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wpq06"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -30,15 +27,6 @@ texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 expand_margin_top = 8.0
 region_rect = Rect2(153, 64, 33, 33)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_87we0"]
-texture = ExtResource("2_bur4e")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 16.0
-expand_margin_top = 8.0
-region_rect = Rect2(153, 28, 33, 33)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oavuj"]
 content_margin_left = 4.0
@@ -85,7 +73,7 @@ Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 50
 Button/fonts/font = ExtResource("1_2ykcg")
-Button/styles/disabled = SubResource("StyleBoxFlat_8e2pn")
+Button/styles/disabled = SubResource("StyleBoxTexture_87we0")
 Button/styles/focus = SubResource("StyleBoxFlat_wpq06")
 Button/styles/hover = SubResource("StyleBoxTexture_afh24")
 Button/styles/normal = SubResource("StyleBoxTexture_87we0")

@@ -16,8 +16,9 @@ var offsets = [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
 			   Vector2i(-1,  1), Vector2i(0,  1), Vector2i(1,  1)]
 
 var terrain: Array = []
-
-
+var current_effect = 0
+#var sounds = {"01":"res://assets/Sounds/fire.wav",
+#"12":"res://assets/Sounds/fire.wav",""}
 
 func _ready() -> void:
 	for i in range(ENV_SIZE):
@@ -35,6 +36,7 @@ func _input(event):
 	if event is InputEventMouse:
 		var pos = $TileMapLayer.local_to_map(get_local_mouse_position())
 		if (is_valid_map_pos(pos)):
+			print(HUD.mouse_unlock)
 			if event.is_action_pressed("mouse_click") and PS.remaining_actions != 0 and HUD.mouse_unlock:
 				PS.remaining_actions -= 1
 				PS.update_player_action_amount(PS.remaining_actions)
@@ -46,8 +48,6 @@ func _input(event):
 			clear_all_highlights()
 	elif Input.is_action_just_pressed("undo"):
 		reset_last_used_effect()
-
-
 
 func calc_distribution() -> Array[float]:
 	update_tiers()
@@ -172,9 +172,15 @@ func tween_tilemap(old_terrain: Array, new_terrain: Array) -> void:
 			var new_tile : WorldTile = new_terrain[i][j]
 			if old_tile.type == new_tile.type and old_tile.render_tier == new_tile.render_tier: 
 				continue
+			elif (old_tile.type != new_tile.type):
+				if (current_effect == PS.PlayerEffects.RAIN):
+					AS.play_sfx("res://assets/Sounds/water.wav")
+				elif (current_effect == PS.PlayerEffects.DRAUGHT):
+					AS.play_sfx("res://assets/Sounds/fire.wav")
+				elif (current_effect == PS.PlayerEffects.MAJORITY):
+					AS.play_sfx("res://assets/Sounds/majority.wav")
 			tween_out_tile(Vector2i(i, j))
-			
-	
+
 func get_terrain_copy() -> Array:
 	var ar: Array = []
 	for i in range(ENV_SIZE):

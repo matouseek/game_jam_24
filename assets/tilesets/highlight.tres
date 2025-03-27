@@ -1,29 +1,28 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dk6oc062mypbo"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://dk6oc062mypbo"]
 
-[ext_resource type="Texture2D" uid="uid://dj2wgur2f32hm" path="res://assets/placeholders/tileset_selector_placeholder_1.png" id="1_74pam"]
+[ext_resource type="Texture2D" uid="uid://btfwnsrbbpxrd" path="res://assets/Tiles/rain.png" id="1_s8ii4"]
+[ext_resource type="Texture2D" uid="uid://dm4dslads2hlr" path="res://assets/Tiles/drought.png" id="2_prw63"]
+[ext_resource type="Texture2D" uid="uid://mv5o8ijhytmx" path="res://assets/Tiles/majority.png" id="3_y5a0w"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_62ykk"]
-texture = ExtResource("1_74pam")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l5fqs"]
+texture = ExtResource("1_s8ii4")
 texture_region_size = Vector2i(1024, 591)
 0:0/0 = 0
-0:0/0/modulate = Color(0.0431373, 0.0588235, 1, 0.596078)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dsj0v"]
-texture = ExtResource("1_74pam")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mn43d"]
+texture = ExtResource("2_prw63")
 texture_region_size = Vector2i(1024, 591)
 0:0/0 = 0
-0:0/0/modulate = Color(0.65098, 0, 0.0117647, 0.596078)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gfbuj"]
-texture = ExtResource("1_74pam")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v4tfx"]
+texture = ExtResource("3_y5a0w")
 texture_region_size = Vector2i(1024, 591)
 0:0/0 = 0
-0:0/0/modulate = Color(0.304046, 0.200183, 0.0123319, 0.596078)
 
 [resource]
 tile_shape = 1
 tile_layout = 5
 tile_size = Vector2i(1024, 591)
-sources/0 = SubResource("TileSetAtlasSource_62ykk")
-sources/1 = SubResource("TileSetAtlasSource_dsj0v")
-sources/2 = SubResource("TileSetAtlasSource_gfbuj")
+sources/0 = SubResource("TileSetAtlasSource_l5fqs")
+sources/1 = SubResource("TileSetAtlasSource_mn43d")
+sources/2 = SubResource("TileSetAtlasSource_v4tfx")
